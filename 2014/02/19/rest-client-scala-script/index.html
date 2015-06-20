@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>REST client scala script | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="REST client scala script"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-02-19T11:32:42.000Z"><a href="/2014/02/19/rest-client-scala-script/">Feb 19 2014</a></time>
+      
+      
+  
+    <h1 class="title">REST client scala script</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><em>This post is written in English</em>, because I read <a href="http://michaelochurch.wordpress.com/2012/07/27/six-languages-to-master/" target="_blank" rel="external">one article</a> recently that says English is one of the key (programming) languages you need to master. I cannot agree more, :). English is very important for progammers, especially if you want to be a top programmer in specific area. There are much more great resources in English than in other languages, so why not start to write some posts or articles in English and make yourself comfortable with reading, writing and thinking? I appologize for any readers of this blog who do not master English well, but I have to do it for me and for you, because anyhow we need improve ourselves up to the next level and it’s almost impossible without English. Get used to it and you’ll be happy with it soon.</p>
+<a id="more"></a>
+<p>At the end of Chapter 2 of <em>Scala in action</em>, there is one example used to revisit Scala features introduced in this chapter. It is called HTTP REST client that can communicate with server side via RESTful requests and responses. In the last post, I have given the method to setup a simple servlet to handle HTTP requests and here I copy the complete example servlet from the book and list it as below,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10; * Class: RestServlet.java&#10; */&#10;package com.freelemon;&#10;&#10;import java.io.*;&#10;import javax.servlet.*;&#10;import javax.servlet.http.*;&#10;import java.util.*;&#10;&#10;public class RestServlet extends HttpServlet &#123;&#10;&#9;public void doGet(HttpServletRequest request, HttpServletResponse response)&#10;&#9;  throws ServletException, IOException &#123;&#10;&#9;  &#9;PrintWriter out = response.getWriter();&#10;&#9;  &#9;out.println(&#34;Get method called.&#34;);&#10;&#9;  &#9;out.println(&#34;parameters: &#34; + parameters(request));&#10;&#9;  &#9;out.println(&#34;headers: &#34; + headers(request));&#10;&#9;  &#125;&#10;&#10;&#9;public void doPost(HttpServletRequest request, HttpServletResponse response)&#10;&#9;  throws ServletException, IOException &#123;&#10;&#9;  &#9;PrintWriter out = response.getWriter();&#10;&#9;  &#9;out.println(&#34;Post method called.&#34;);&#10;&#9;  &#9;out.println(&#34;parameters: &#34; + parameters(request));&#10;&#9;  &#9;out.println(&#34;headers: &#34; + headers(request));&#10;&#9;  &#125;&#10;&#10;&#9;public void doDelete(HttpServletRequest request, HttpServletResponse response)&#10;&#9;  throws ServletException, IOException &#123;&#10;&#9;  &#9;PrintWriter out = response.getWriter();&#10;&#9;  &#9;out.println(&#34;Delete method called&#34;);&#10;&#9;  &#125;&#10;&#10;&#9;private String parameters(HttpServletRequest request) &#123;&#10;&#9;&#9;StringBuilder builder = new StringBuilder();&#10;&#9;&#9;for (Enumeration e = request.getParameterNames() ; e.hasMoreElements();)&#10;&#9;&#9;&#123;&#10;&#9;&#9;String name = (String)e.nextElement();&#10;&#9;&#9;builder.append(&#34;|&#34; + name + &#34;-&#62;&#34; + request.getParameter(name));&#10;&#9;&#9;&#125;&#10;&#9;&#9;return builder.toString();&#10;&#9;&#125;&#10;&#9;private String headers(HttpServletRequest request) &#123;&#10;&#9;&#9;StringBuilder builder = new StringBuilder();&#10;&#9;&#9;for (Enumeration e = request.getHeaderNames() ; e.hasMoreElements();) &#123;&#10;&#9;&#9;String name = (String)e.nextElement();&#10;&#9;&#9;builder.append(&#34;|&#34; + name + &#34;-&#62;&#34; + request.getHeader(name));&#10;&#9;&#9;&#125;&#10;&#9;&#9;return builder.toString();&#10;&#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>We have this servlet running at server side with the help of Gradle and its Jetty plugin. So before we move to client side, we need first make sure it works fine by openning a browser to test it with a url like <code>http://localhost:8080/chapter2/</code>, the web app name may vary depending on your build directory. Then, a similar response will be shown as follows,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get method called.&#10;parameters: &#10;headers: |Host-&#62;localhost:8080|Connection-&#62;keep-alive|Accept-&#62;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8|User-Agent-&#62;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36|Accept-Encoding-&#62;gzip,deflate,sdch|Accept-Language-&#62;en-US,en;q=0.8</span><br></pre></td></tr></table></figure>
+<p>At the client side, we need to write a Scala script to implement a lightweight RESTful application. Since the complete code has been presented in the book, we just copy it here:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// RestClient.scala&#10;import org.apache.http._&#10;import org.apache.http.client.entity._&#10;import org.apache.http.client.methods._&#10;import org.apache.http.impl.client._&#10;import org.apache.http.client.utils._&#10;import org.apache.http.message._&#10;import org.apache.http.params._&#10;&#10;def parseArgs(args: Array[String]): Map[String, List[String]] = &#123;&#10;&#9;def nameValuePair(paramName: String) = &#123;&#10;&#9;&#9;def values(commaSeparatedValues: String) = commaSeparatedValues.split(&#34;,&#34;).toList&#10;&#10;&#9;    //val index = args.findIndexOf(_ == paramName)&#10;&#9;    // the original findIndexOf is wrong, instead, we use indexWhere&#10;&#9;    //https://github.com/nraychaudhuri/scalainaction/pull/1&#10;&#9;    val index = args.indexWhere(_ == paramName)&#10;&#9;    (paramName, if(index == -1) Nil else values(args(index+1)))&#10;&#9;&#125;&#10;&#10;&#9;Map(nameValuePair(&#34;-d&#34;), nameValuePair(&#34;-h&#34;))&#10;&#10;&#125;&#10;&#10;def splitByEqual(nameValue: String): Array[String] = nameValue.split(&#39;=&#39;)&#10;&#10;def headers = for(nameValue &#60;- params(&#34;-h&#34;)) yield &#123;&#10;&#9;def tokens = splitByEqual(nameValue)&#10;&#9;new BasicHeader(tokens(0), tokens(1))&#10;&#125;&#10;&#10;def formEntity = &#123;&#10;&#9;def toJavaList(scalaList: List[BasicNameValuePair]) = &#123;&#10;&#9;&#9;java.util.Arrays.asList(scalaList.toArray:_*)&#10;&#9;&#125;&#10;&#10;&#9;def formParams = for(nameValue &#60;- params(&#34;-d&#34;)) yield &#123;&#10;&#9;&#9;def tokens = splitByEqual(nameValue)&#10;&#9;&#9;new BasicNameValuePair(tokens(0), tokens(1))&#10;&#9;&#125;&#10;&#10;&#9;def formEntity = new UrlEncodedFormEntity(toJavaList(formParams), &#34;UTF-8&#34;)&#10;&#9;formEntity&#10;&#125;&#10;&#10;def handlePostRequest = &#123;&#10;&#9;val httppost = new HttpPost(url)&#10;&#9;headers.foreach&#123;httppost.addHeader(_)&#125;&#10;&#9;httppost.setEntity(formEntity)&#10;&#9;val responseBody = new DefaultHttpClient().execute(httppost,new BasicResponseHandler())&#10;&#9;println(responseBody)&#10;&#125;&#10;&#10;def handleGetRequest = &#123;&#10;&#9;val query = params(&#34;-d&#34;).mkString(&#34;&#38;&#34;)&#10;&#9;val httpget = new HttpGet(s&#34;$&#123;url&#125;?$&#123;query&#125;&#34;)&#10;&#9;headers.foreach &#123; httpget.addHeader(_)&#125;&#10;&#10;&#9;val responseBody = new DefaultHttpClient().execute(httpget, new BasicResponseHandler())&#10;&#9;println(responseBody)&#10;&#125;&#10;&#10;def handleDeleteRequest = &#123;&#10;&#9;val httpDelete = new HttpDelete(url)&#10;&#9;val httpResponse = new DefaultHttpClient().execute(httpDelete)&#10;&#9;println(httpResponse.getStatusLine())&#10;&#125;&#10;&#10;def handleOptionsRequest = &#123;&#10;&#9;val httpOptions = new HttpOptions(url)&#10;&#9;headers.foreach &#123; httpOptions.addHeader(_)&#125;&#10;&#9;val httpResponse = new DefaultHttpClient().execute(httpOptions)&#10;&#9;println(httpOptions.getAllowedMethods(httpResponse))&#10;&#125;&#10;&#10;require(args.size &#62;= 2, &#34;at minimum you should specify action(post, get, delete, options) and url&#34;)&#10;&#10;val command = args.head&#10;val params = parseArgs(args)&#10;val url = args.last&#10;&#10;command match &#123;&#10;&#9;case &#34;post&#34; =&#62; handlePostRequest&#10;&#9;case &#34;get&#34; =&#62; handleGetRequest&#10;&#9;case &#34;delete&#34; =&#62; handleDeleteRequest&#10;&#9;case &#34;options&#34; =&#62; handleOptionsRequest&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>The first thing I encountered when I was trying to execute this script is classpath, yes, I remember it is also the first thing when I ran my first Java program, it annoyed me at that time. Programmers mainly care about programs instead of environments, but sometimes environment may take us more time than real programming, but we have to face it directly. Scala program(scala) cannot recognize classpath by environment variable <code>$CLASSPATH</code> by default, so I tried to use the argument <code>-usejavacp</code> to let it happen, but no luck. Then I ran scala with another argument <code>-classpath</code> to indicate specific classpath, in our case, it is httpclient’s location. The weird thing is the wildcard “*“ or “*.jar” doen’t work either, so I have to list all the jar files one by one, as shown below,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala -classpath &#34;/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/commons-codec-1.6.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/commons-logging-1.1.3.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/httpcore-4.3.1.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/httpclient-4.3.2.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/httpmime-4.3.2.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/fluent-hc-4.3.2.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/httpclient-cache-4.3.2.jar&#34; RestClient.scala</span><br></pre></td></tr></table></figure>
+<p>Maybe it’s my own environment issue, anyway, I don’t feel scala works well with classpath.</p>
+<p>The second thing is the method <code>findIndexOf</code> is deprecated from Scala 2.9.1, another method called <code>indexWhere</code> should be used instead, more details can be found at <a href="https://github.com/nraychaudhuri/scalainaction/pull/1" target="_blank" rel="external">https://github.com/nraychaudhuri/scalainaction/pull/1</a>.</p>
+<p>The last thing is the httpclient library. This library is good but it is easily changed from version to version. So don’t panic if you get any deprecation message. Just check the documentation to see the current way of usage.</p>
+<p>For the code itself, we need to notice the difference between <code>def</code> and <code>val</code>, we can refer to the answer in <a href="http://stackoverflow.com/questions/3646756/scala-def-versus-val" target="_blank" rel="external">this thread</a> of Stackoverflow, which explains it clearly: <em>val is evaluated on initialization while def is evaluated only when, and every time, the function is called.</em></p>
+<p>OK, so far so good. Run it and we will get the response. It rocks. :D</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala -classpath &#34;/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/commons-codec-1.6.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/commons-logging-1.1.3.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/httpcore-4.3.1.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/httpclient-4.3.2.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/httpmime-4.3.2.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/fluent-hc-4.3.2.jar:/Users/admin/Downloads/httpcomponents-client-4.3.2/lib/httpclient-cache-4.3.2.jar&#34; RestClient.scala get http://localhost:8080/chapter2</span><br></pre></td></tr></table></figure>
+<h3 id="References">References</h3><ol>
+<li>Code samples for <em>Scala in action</em> are available at its <a href="http://www.manning.com/raychaudhuri/" target="_blank" rel="external">official website</a></li>
+<li>An article about Scala script: <a href="http://www.codecommit.com/blog/scala/scala-as-a-scripting-language" target="_blank" rel="external">Scala as a scripting language</a></li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Scala/">Scala</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

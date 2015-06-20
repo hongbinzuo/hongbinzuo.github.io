@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>IoC and DI intro | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="IoC and DI intro"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-11-22T14:43:57.000Z"><a href="/2013/11/22/ioc-and-di-intro/">Nov 22 2013</a></time>
+      
+      
+  
+    <h1 class="title">IoC and DI intro</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="控制反转与依赖注入导读">控制反转与依赖注入导读</h2><p>早年参加工作的时候，大家普遍说，不一定要掌握那么多语言细节，也不一定要学那么多语言，需要的时候查查书、上上网就行了，重要的是“编程思想”。好高级啊！“编程思想”这个当年流行的词儿似乎代表着“高端大气上档次”，似乎意味着掌握编程思想的人都是码农界的高富帅。呃，编程思想，嘛玩意儿？难道就是一系列系统的想法精粹，就像《毛泽东思想》吗？好像不是。后来捧读了巨著《C++编程思想》和《Java编程思想》，也没窥透所谓的思想。后来才觉着，在编程界，英文里可能就不存在思想的准确对应词吧？Idea？Thought？Thinking？Ideology？都不像。</p>
+<p>最近在看<a href="http://book.douban.com/subject/24841235/" target="_blank" rel="external">《Java程序员修炼之道》</a>（我最近是迷上各种“道”了），其中提到了DIP，又激起我重新厘清编程思想的机会。现在想来，编程，或者说程序设计的思想，应该可以归在设计方法学之下，即有了某种方法，按照这种方法去思考问题、构建软件和设计程序，就是这种方法的思想，比如面向过程的设计思想，或面向对象的设计思想。现在，我们也可以说面向组件的设计思想，或者是面向云的设计思想，甚至是用户体验至上的设计思想。我们不自觉地从“编程”思想演进到“设计”思想了，思想总算正本清源，设计需要思想，而编程只是设计的结果。设计在哪儿？设计无处不在。软件设计从需求获取阶段就已经开始，直到程序员编写每一行代码都贯穿始终，只是体现在设计的不同层面而已。所以，程序员的80%的工作都是在设计（Think&amp;Design），而只有20%的时间是在编程（Programming）。<br><a id="more"></a></p>
+<p>说多了题外话，今天的主题是IoC和DIP。在《Java程序员修炼之道》提到了IoC，并引用了Martin Fowler大师2004年的文章<a href="http://martinfowler.com/articles/injection.html" target="_blank" rel="external">控制反转容器和依赖注入模式</a>，于是我花了一点时间细读了这篇文章，文章本身较长但值得一读，核心思想是澄清控制反转和依赖注入的关系，给出依赖注入的起源、定义以及具体类型描述，并且比较了依赖注入和服务定位子（Service Locator）的异同以及应用中的选择考虑。文章本身对于理解依赖注入是很有帮助的，不过我可能更喜欢最简洁的方式来描述概念本身，所以我先后翻阅了阎宏的<a href="http://book.douban.com/subject/1214074/" target="_blank" rel="external">《Java与模式》</a>以及Robert C. Martin的经典之作<a href="http://book.douban.com/subject/1140457/" target="_blank" rel="external">《敏捷软件开发》（2003）</a>，我个人比较喜欢Robert Martin给出的定义（书中称作依赖反转）：</p>
+<blockquote>
+<p>a. High-level modules should not depend on low-level modules. Both should depend on abstractions.<br>b. Abstractions should not depend on details. Details should depend on abstractions.</p>
+</blockquote>
+<p>三位前辈Fowler, 阎宏和Martin大叔都把控制反转和依赖注入从不同侧面解释地非常详细。Fowler的解读清晰明确，把IoC和DIP的概念澄清，并针对容器（如PicoContainer或Spring）的应用给出了范例。阎宏从面向对象的角度“针对抽象、针对接口编程”，给出了Java的范例。而Martin大叔行文畅快，短短几页也把DI的思想表述清楚，所以都可以作为理解上的参考。如果只读一篇的话，我推荐Martin大叔。</p>
+<p>当然，不能忘了互联网，查阅基本概念，快速了解基础知识，维基百科是我们的好朋友，下面给出链接，</p>
+<ul>
+<li><a href="http://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC" target="_blank" rel="external">中文维基关于控制反转的定义</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Inversion_of_control" target="_blank" rel="external">English Wikipedia about Inversion of Control</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Dependency_injection" target="_blank" rel="external">English Wikipedia about Dependency injection</a></li>
+</ul>
+<p>Stackoverflow上也有关于概念的澄清和讨论：</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/3058/what-is-inversion-of-control" target="_blank" rel="external">What is inversion of control</a></li>
+<li><a href="http://stackoverflow.com/questions/130794/what-is-dependency-injection?rq=1" target="_blank" rel="external">What is dependency injection</a></li>
+</ul>
+<p>从IoC和DI的学习和讨论中，我们可以看到诸多想法的交汇，无论是大师级的人物，还是普通的程序员，都在使用相似的语言沟通，那就是通过特定的原则或模式来实现某种设计的思想，具体到IoC/DI，就是如何使用面向对象的设计方法，来提高软件复用性、减少耦合（依赖）以及使用高级语言的特性实现软件开发的灵活性。这可能就是思想的真正意义！</p>
+<p>IoC和DI只是面向对象设计的五个原则之一，如果想全面了解五个原则，可以参考《敏捷软件开发》。</p>
+<p>至此，对于IoC和DI算是有了一个初步的了解，知行合一很重要，下面有几种方式可以让理解更加深刻：</p>
+<ul>
+<li>阅读或参考Spring关于IoC/DI的源码解析</li>
+<li>找到自己从事项目中现有源码，看是否有相似实现</li>
+<li>写1～2个例子</li>
+<li>和其他人探讨</li>
+</ul>
+<h3 id="进一步阅读">进一步阅读</h3><ul>
+<li><a href="http://martinfowler.com/bliki/InversionOfControl.html" target="_blank" rel="external">Fowler的另一篇关于InversionOfControl</a></li>
+<li><a href="http://blog.csdn.net/it_man/article/details/4402245" target="_blank" rel="external">Spring IoC原理（中文）</a></li>
+<li><a href="http://www.objectmentor.com/resources/articles/dip.pdf" target="_blank" rel="external">Robert Martin关于DIP的文章</a>，和《敏捷软件开发》中内容相似</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/DI/">DI</a>, <a href="/tags/Design-Patterns/">Design Patterns</a>, <a href="/tags/IoC/">IoC</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

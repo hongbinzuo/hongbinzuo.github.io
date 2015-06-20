@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hibernate Core API | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Hibernate Core API"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-06T13:11:49.000Z"><a href="/2014/11/06/Hibernate-Core-API/">Nov 6 2014</a></time>
+      
+      
+  
+    <h1 class="title">Hibernate Core API</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>整理一下Hibernate核心API的笔记，感谢马老师。因为博客的发布形式，中间内容有些节略和修改。</p>
+<h2 id="关于API文档">关于API文档</h2><p>因为Hibernate是属于JBoss的，按照JBoss的商业模式，文档和技术支持是收费的，所以官方不提供离线文档下载，只提供在线文档查看。当然，总有热心的网友看不过去，所以网上有非官方整理的API文档可供参考。</p>
+<a id="more"></a>
+<h2 id="Configuration">Configuration</h2><ul>
+<li>AnnotationConfiguration 基于注解的配置</li>
+<li>配置信息管理</li>
+<li>用来产生SessionFactory</li>
+<li>可以在configure方法中指定Hibernate配置文件</li>
+<li>只关注一个方法即可：buildSessionFactory</li>
+</ul>
+<h2 id="SessionFactory">SessionFactory</h2><ul>
+<li>用来产生和管理Session</li>
+<li>通常情况下，每个应用只需要一个SessionFactory （单例），除非要访问多个数据库</li>
+<li>关注两个方法即可<ul>
+<li>openSession每次都是新的，需要close</li>
+<li>getCurrentSession从上下文找，如果有，用已有的，否则，创建新的<ul>
+<li>用途，界定事务边界</li>
+<li>事务提交后自动close</li>
+<li>上下文配置可参见XML文件中<code>current_session_context_classs</code>属性</li>
+<li><code>current_session_context_classs</code>属性取值JTA和thread常用，managed和custom.class较少使用<ul>
+<li>thread：使用Connection连接的数据库管理事务</li>
+<li>JTA（Java Transaction API）：Java分布式事务管理（多数据库访问），JTA由中间件提供（JBoss、Weblogic等，Tomcat不支持）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Session">Session</h2><ul>
+<li>管理一个数据库的任务单元（简单说就是增删改查），中文名为“会话”</li>
+<li>方法（CRUD）<ul>
+<li>Save <code>session.save(对象)</code></li>
+<li>Delete <code>session.delete(对象)</code></li>
+<li>Load <code>Student s1=(Student)session.load(Student.class, 1);</code></li>
+<li>Get <code>Student s1=(Student)session.get(Student.class, 1);</code></li>
+<li>Get与Load的区别（原理，面试重点）<ul>
+<li>不存在对应记录时表现不一样</li>
+<li>Load返回的是代理对象,等到真正用到对象内容时才发出SQL语句</li>
+<li>Get直接从数据库加载不会延迟</li>
+</ul>
+</li>
+<li>Update <code>session.update(对象)</code><ul>
+<li>用来更新detached对象，更新完成后转为persistent</li>
+<li>更新transient对象会报错</li>
+<li>更新自己设定ID的transient对象可以（数据库有对应记录）</li>
+<li>persistent状态的对象只要设定（如:t.setName…）不同字段就会更新</li>
+<li>更新部分更改的字段<ul>
+<li>XML配置文件中设定property标签的update属性，annotation设定 @Column 的 updatable属性，不过这种方式很少用，因为不灵活</li>
+<li>使用XML中的dynamic-update，JPA1.0 Annotation 没有对应的属性，可能为Hibernate扩展</li>
+<li>同一个session可以，跨session不行，不过可以用merge()(不重要）</li>
+</ul>
+</li>
+<li>建议使用HQL(EJBQL)</li>
+</ul>
+</li>
+<li>saveOrUpdate方法</li>
+<li>clear方法<ul>
+<li>无论是load还是get,都会首先査找缓存（一级缓存)，如果没有，才会去数据库査找，调用clear()方法可以强制清除session缓存</li>
+</ul>
+</li>
+<li>flush方法<ul>
+<li>当session的事务提交后,会强制将内存(session缓存)与数据库同步。默认情况下是session的事务提交(commit)时才同步!</li>
+<li>session的FlushMode设置,可以设定在什么时候同步缓存与数据库(很少用)，例如: <code>session.setFlushMode(FlushMode.AUTO)</code></li>
+</ul>
+</li>
+<li>find方法已过时</li>
+</ul>
+</li>
+</ul>
+<h2 id="SchemaExport_(自动建表)">SchemaExport (自动建表)</h2><ul>
+<li>了解使用方法即可：<code>new SchemaExport(new AnnotationConfiguration().configure()).create(false, true);</code></li>
+</ul>
+<h2 id="查询接口">查询接口</h2><ul>
+<li>参考Hibernate査询(HQL/EJBQL)的内容</li>
+</ul>
+<h2 id="注意">注意</h2><ul>
+<li>Hibernate中涉及很多非常细节的区别,但在实际应用中用得极少<ul>
+<li>比如save和persist的区别</li>
+<li>merge、evict 等方法</li>
+<li>比如 refresh、lock 等</li>
+</ul>
+</li>
+<li>建议的学习方法，动手实验</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Hibernate/">Hibernate</a>, <a href="/tags/Java/">Java</a>, <a href="/tags/JavaEE/">JavaEE</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

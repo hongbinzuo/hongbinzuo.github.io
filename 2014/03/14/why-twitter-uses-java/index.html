@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Why Twitter Uses Java | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Why Twitter Uses Java"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-03-14T15:49:28.000Z"><a href="/2014/03/14/why-twitter-uses-java/">Mar 14 2014</a></time>
+      
+      
+  
+    <h1 class="title">Why Twitter Uses Java</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>Rails在Web应用快速开发方面几乎很少有框架能与之媲美，但是Rails的性能和系统架构的友好性和Java平台相比可能还是存在一定的劣势。大多数的Web应用，Rails是足能抵挡的，比如现在Github在用Rails，而Twitter以前也主要用Rails。但是Twitter毕竟是一个数一数二的高并发大流量的网站，所以它总会对性能有更高的要求。下面的译文段落来自InfoQ中的<a href="http://www.infoq.com/articles/twitter-java-use" target="_blank" rel="external">一篇访谈</a>，主要是讲Twitter是为什么迁移部分代码和服务到Java平台的。</p>
+<a id="more"></a>
+<h3 id="译文">译文</h3><p>我们原来是一个Rails商店，我相信我们是世界上最大的Rails站点，但是当我们成长为一个组织，并且提供服务的时候，性能和封装问题就日益凸显了。我并不是说Rails在哪方面做的不好，只是我们的系统增长地太快太大了，而Rails不能适应。在我们这种情况下Rails有两点不太理想。</p>
+<p>首先，Ruby的运行时比较慢，特别是和Java虚拟机（JVM）比起来的话，虽然我们已经在垃圾收集器上努力地使其达到较高的性能了。</p>
+<p>其次，Rails所实现的LAMP模型有好几层，每一层都和上下层相互通信，却没有垂直封装，这样的模型不能在我们这样的组织里提供较好的服务。</p>
+<p>因为我们一直都比较关注性能和封装，我们也通过缓存（cache）或者优化虚拟机解决了必要的性能问题。</p>
+<p>现在Twitter的大部分请求都走Rails，但是当我们构建新的服务时，如果是从头开始，为了达到更好的封装性我们把服务放到JVM里，因为性能方面的考虑要远远比这些语言的生产力或者敏捷性方面的弱势更重要。所以，当我们重新构建Tweet存储时，我们就把它构建到Gizzard里作为同种类型的服务，然后暴露一个领域接口，那是一个Scala系统，划分并管理MySQL节点。所以，这样就可以从核心的Rails软件包里有效地消除ActiveRecord的使用。</p>
+<p>队列的情况也是一样的；当我们想重新构建并封装队列的时候，为了性能的考虑我们在JVM上实现。所以，当那些轻量级的、面向服务的项目开始的时候，我们越来越多地考虑从核心的Rails应用中脱离开来。</p>
+<p>另一方面，当把渲染代码迁移到基于浏览器的Javascript中时，我们从Rails的构建网页的模板模型里就得不到什么好处了。所以，我们从两端剥离关注，并且当我们重写代码的时候，在更快的软件栈上就更合理一些，因为性能对我们来说太重要了。我们是世界上最大的网站之一，但是和其他大的动态站点相比我们只是在很少的硬件资源上运行。</p>
+<h3 id="原文">原文</h3><blockquote>
+<p>We were originally a Rails shop, and I believe we are the largest Rails site in the world, but as we’ve grown as an organization, and as a service, performance and encapsulation have become very critical. I wouldn’t say that Rails has served as poorly in any way, it’s just that we outgrew it very quickly. So there are two things about Rails that make it no longer ideal for our situation.<br>First, the Ruby runtime is slow, particularly in comparison to the JVM. We’ve worked hard on the garbage collector to get reasonable performance.</p>
+<p>And also the LAMP model that Rails embodies, where you have a set of tiers each of which only talks to the one above and below, and no vertical encapsulation, doesn’t serve a large organization like us very well.</p>
+<p>As we’ve been focusing on performance and encapsulation, we’ve fixed performance problems as necessary, with caches, or working on the VMs.</p>
+<p>The majority of requests on Twitter go through Rails right now, but as we build new services, if we choose to build them from scratch, in order to achieve better encapsulation we move them into the JVM, because the performance concerns outweigh any sort of productivity or agility downside those languages might have. So when we re-built Tweet storage we built it in Gizzard as a homogenous service, it exposes a domain interface, and that’s a Scala system that partitions and manages uncoordinated MySQL nodes. So that effectively eliminated ActiveRecord use for tweets from the core Rails stack.</p>
+<p>The same with the queue; when we wanted to rebuild it and re-encapsulate it for performance reasons we wrote it on JVM. So as those kind of lightweight, service-oriented projects proceed, more and more concerns are being taken out of the core Rails application.</p>
+<p>On the opposite side, as we’ve moved the render code into browser-based JavaScript, we no longer get much benefit from Rails’ templating model for building web pages. So we’re pulling concerns out from both sides, and when rewrite them it makes sense to rewrite them in a faster stack, because performance is so critical for us. We’re one of the largest websites in the world, but run on a very small hardware footprint compared to other big dynamic sites.</p>
+</blockquote>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Java/">Java</a>, <a href="/tags/Scala/">Scala</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Learn NodeJS (1) | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Learn NodeJS (1)"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-11-28T15:11:32.000Z"><a href="/2013/11/28/learn-nodejs-(1)/">Nov 28 2013</a></time>
+      
+      
+  
+    <h1 class="title">Learn NodeJS (1)</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="学习Node-js_（一）">学习Node.js （一）</h1><p>最近业余学习一下Node.js，记录一下学习路径。</p>
+<h2 id="初学乍练">初学乍练</h2><h3 id="第一步_Node初学指南（中文版）">第一步 <a href="http://www.nodebeginner.org/index-zh-cn.html" target="_blank" rel="external">Node初学指南（中文版）</a></h3><p> 跟随指南做练习，其中引用到的文章，从学习效率的角度考虑，说明如下：</p>
+<ul>
+<li><a href="http://debuggable.com/posts/understanding-node-js:4bd98440-45e4-4a9a-8ef7-0f7ecbdd56cb" target="_blank" rel="external">Understanding node.js</a> 必读</li>
+<li><a href="http://martinfowler.com/articles/injection.html" target="_blank" rel="external">Martin Fowler关于依赖注入的大作</a> 推荐阅读</li>
+<li><a href="http://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html" target="_blank" rel="external">Steve Yegge的大作名词王国中的死刑</a> 可略过不读，不过特想买一本Steve的A Programmer’s Rantings，想一睹吐槽大师的风采</li>
+<li><a href="http://msdn.microsoft.com/en-us/magazine/cc163419.aspx" target="_blank" rel="external">Javascript中的对象与传统面向对象语言中对象的区别</a> 已略过不读，理解概念即可</li>
+<li><a href="http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/" target="_blank" rel="external">理解Node.js的事件轮询</a> 必读，作者自己有一本免费的Node小书，具体见下文<a id="more"></a>
+</li>
+</ul>
+<p><strong>注意</strong></p>
+<p>NPM下载如果需要通过代理的话，可以使用如下命令设置通过代理访问：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set https-proxy http://proxy.company.com:8080&#10;npm install formidable</span><br></pre></td></tr></table></figure>
+<p>更多设置方式可参考 <a href="http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/" target="_blank" rel="external">http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/</a>。</p>
+<p>安装formidable包的时候，选择在源代码存放位置安装，可以避免出现无法找到formidable的错误，这可能是NPM的路径设置的问题，可参见<a href="http://cnt1992.blog.163.com/blog/static/21151703220134410920410/" target="_blank" rel="external">此文</a>。</p>
+<p>通过第一步，对NodeJS的基本概念、机制有了初步了解，能写一个Web服务器程序处理基本请求。</p>
+<h3 id="第二步_寻找更多免费靠谱资源">第二步 寻找更多免费靠谱资源</h3><p>互联网资源遍地，但是靠谱又免费的不多啊！下面使用排除法，避免你掉进相同的小水沟。:)</p>
+<h4 id="推荐列表">推荐列表</h4><ul>
+<li><a href="http://nodetuts.com/" target="_blank" rel="external">nodetuts.com</a> 多个Node的视频讲座，12/13年的，<strong>推荐</strong>。</li>
+<li><a href="http://howtonode.org/" target="_blank" rel="external">HowtoNode</a> 不系统，不是针对入门级选手，应该是针对中高级Node开发者的，可作日后参考。</li>
+<li><a href="http://book.mixu.net/node/" target="_blank" rel="external">Mixu’s Node小书</a> 比较用心的作者，保持更新，<strong>推荐</strong> </li>
+</ul>
+<h4 id="不推荐列表">不推荐列表</h4><ul>
+<li><a href="https://www.udemy.com/learn-nodejs-by-example/" target="_blank" rel="external">Udemy的视频课程</a> 只有少部分课程免费，不能系统学习，不推荐。</li>
+<li><a href="http://visionmedia.github.io/masteringnode/" target="_blank" rel="external">Mastering Node</a> 貌似以前比较知名的Node开源电子书，但是2年没有更新，章节不全，不推荐。</li>
+<li><a href="http://nodeguide.com/beginner.html" target="_blank" rel="external">Felix’s beginner’s guide</a> 可以浏览一下，但不是教程，可作为编程参考。</li>
+</ul>
+<h4 id="参考">参考</h4><ul>
+<li>Stackoverflow<a href="http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js" target="_blank" rel="external">关于学习Node的资源问答</a> 不服不行，Stackoverflow真是码农的好朋友，赞。这是一份资源列表，还需要进一步根据学习的需要过滤。我会在学习NodeJS后续的文章中陆续引用其中的资源并给出评价。</li>
+<li>developerWorks提供的<a href="http://weibo.com/1894238970/zlt5hu0ft" target="_blank" rel="external">NodeJS的学习资料汇总</a></li>
+<li>译言文章<a href="http://article.yeeyan.org/view/384870/350307" target="_blank" rel="external">NodeJS学习的最好资源</a></li>
+</ul>
+<p>第二步，通过靠谱的资源继续推进，进入高级入门阶段。:D</p>
+<h3 id="写在后面">写在后面</h3><p>随着学习的展开，NodeJS以及JavaScript的资源和内容会逐步增加和更新，敬请期待下面的博文。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/nodejs/">nodejs</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

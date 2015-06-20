@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SOAP vs. REST | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="SOAP vs. REST"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-16T06:46:58.000Z"><a href="/2014/11/16/SOAP-vs-REST/">Nov 16 2014</a></time>
+      
+      
+  
+    <h1 class="title">SOAP vs. REST</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><em>译文，译自《软件构架实践（第3版 影印版）》。UPDATED: 2014-11-17</em></p>
+<p>如果想让基于Web的应用进行互操作，目前有两种现成的技术可以选择：（1）WS*和SOAP（曾经代表“简单对象访问协议”，但这个缩写现在已经不再适用了）以及（2）REST（代表“表述性状态转移”，有时也写做ReST）。我们怎么看待这两种技术？每种技术都擅长什么？在使用的过程中有什么需要注意的地方？比较这两种技术似乎有点风马牛不相及，但我还是尝试着勾勒一下概貌。</p>
+<a id="more"></a>
+<p>SOAP是基于XML信息的一种协议规范，分布式应用可以通过它交换信息从而进行互操作。通常，SOAP有一组相对应的SOAP中间件互操作标准，以及兼容实现，（合在一起）叫做WS*。SOAP和WS*共同定义了许多标准，如下所示：</p>
+<ul>
+<li>服务组成的基础架构。开发者在SOAP中可以使用业务流程执行语言（BPEL）表示业务流程，这些都可以通过WS*服务来实现。</li>
+<li>事务。为了确保正确地管理事务，定义了几种Web服务的标准：WS-AT，WS-BA，WS-CAF和WS-Transaction。</li>
+<li>服务发现。通用服务发现和集成协议（UDDI）可以让企业发布服务列表并互相发现。</li>
+<li>可靠性。SOAP本身并不保证消息的可靠送达。需要可靠性保证的应用必须使用符合SOAP可靠性标准即WS-Reliability的服务。</li>
+</ul>
+<p>SOAP非常通用，在远程过程调用（RPC）模型中应用很广，当然在其他模型中也可以使用。SOAP和主流编程语言相比，本身是一个简单类型系统。SOAP使用HTTP和RPC做消息传输，但其实从理论上来说，它可以在任何通信协议上实现。SOAP并不要求服务的方法命名、寻址模型或者过程规范。因此，选择SOAP并没有给应用之间的互操作带来太多的实际帮助——它只是一种信息交换标准。交互的双方要对如何解析负荷（payload）达成共识，只有这样才能获得语义互操作性。</p>
+<p>另一方面，REST是基于客户端-服务器的架构风格，它是由一组CRUD（创建、读取、更新、删除）的操作（在REST的世界里，分别是POST，GET，PUT和DELETE）构成，并且只使用一种寻址方式（基于URI，或统一资源标识符）。REST在架构上加入了一些限制：SOAP提供了完整性；REST则提供了简单性。</p>
+<p>REST是有关状态和状态转移的，它把Web（以及面向服务的系统能够组合在一起的服务）看作是一个巨大的信息网络，这些信息通过URI寻址的方式进行访问。所以，REST里没有类型的概念，当然也没有类型检查——完全取决于应用来确保交互语义的正确性。</p>
+<p>因为REST接口如此简单并且具有一般性，任何HTTP客户端不需要额外的配置，都可以使用REST操作（POST, GET, PUT, DELETE）和任何HTTP服务器通信。这样你就获得了语法上的互操作能力，但是，这些程序实际上做什么以及交换什么信息都需要在组织层面上达成共识。也就是说，服务之间的语义互操作性只有REST接口是保证不了的。</p>
+<p>REST基于HTTP，本身设计成自描述形式，在最好的情况下是无状态协议。下面考虑REST的一个例子，一个电话本服务，给定一个唯一标识符，可以查阅某个人：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.XYZdirectory.com/phonebook/UserInfo/99999</span><br></pre></td></tr></table></figure>
+<p>同样的一个查询，如果用SOAP来实现，可能会是这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;?xml version=&#34;1.0&#34;?&#62;&#10;&#60;soap:Envelope xmlns:soap=http://www.w3.org/2001/12/soap-envelope&#10; soap:encodingStyle=&#34;http://www.w3.org/2001/12/soap-encoding&#34;&#62;&#10;  &#60;soap:Body pb=&#34;http:///www.XYZdirectory.com/phonebook&#34;&#62;&#10;    &#60;pb:GetUserInfo&#62;&#10;      &#60;pb:UserIdentifier&#62;99999&#60;/pb:UserIdentifier&#62;&#10;    &#60;/pb:GetUserInfo&#62;&#10;  &#60;/soap:Body&#62;&#10;&#60;soap:Envelope&#62;</span><br></pre></td></tr></table></figure>
+<p>选择SOAP还是REST的一个方面是你是否能接受SOAP+WSDL（Web服务描述语言）的复杂性和限制，从而得到更多的标准化互操作，或者使用REST从而避免额外的成本，标准更少但是也能获益。还有什么其他点需要考虑呢？</p>
+<p>REST中的消息交换比SOAP中的消息交换携带更少的特征。所以在REST和SOAP之间的权衡之一便是各自的消息大小。对于需要交换大量消息的系统，另一个权衡点是性能（倾向于REST）还是结构化信息（倾向于SOAP）。</p>
+<p>实现WS*或REST的决定取决于诸如需要的服务质量——WS*的实现对于安全、可用性等有更好的支持——以及功能类型等很多方面。RESTful的实现，由于其简单性，更加适合只读操作，典型是混搭（mashups）型的应用，而这些情境对于服务质量有最小的需求和担心。</p>
+<p>好了，如果现在构建一个基于服务的系统，你会怎么选择？真实情况是，在整个过程中你不必只做一个选择；每种技术都相对易用，至少对于简单的应用来说。每种技术都有优势和弱势。就像在架构中的任何其他技术一样，最终都是权衡；你的决定很大程度上取决于在你的环境中那些权衡点如何影响你的系统。</p>
+<p>——Rick Kazman</p>
+<h3 id="学习REST的参考资料">学习REST的参考资料</h3><ul>
+<li><a href="http://www.infoq.com/cn/articles/rest-introduction" target="_blank" rel="external">InfoQ上REST的介绍</a></li>
+<li><a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank" rel="external">Roy Fielding博士关于REST的原始论文</a></li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Architecture/">Architecture</a>, <a href="/tags/REST/">REST</a>, <a href="/tags/SOA/">SOA</a>, <a href="/tags/SOAP/">SOAP</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

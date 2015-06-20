@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Reading Note on WG Java Developer Chapter 6 | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Reading Note on WG Java Developer Chapter 6"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-07T07:03:55.000Z"><a href="/2014/01/07/reading-note-on-wg-java-devloper-chapter-6/">Jan 7 2014</a></time>
+      
+      
+  
+    <h1 class="title">Reading Note on WG Java Developer Chapter 6</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="《Java程序员修炼之道》笔记之理解性能调优">《Java程序员修炼之道》笔记之理解性能调优</h1><p>引言：本章总体上简要地介绍了性能调优的一般方法以及Java平台的内存管理机制。对基本的概念和思想有个了解即可，真正生产环境的性能调优的话这本书也不够。下面即笔记正文，以概念和提纲为主，枯燥冗长，慎入。</p>
+<p>秘诀？没有秘诀。</p>
+<blockquote>
+<p>你必须量体裁衣。没有评测，就没有合适的调优。</p>
+</blockquote>
+<p>评测或者说度量，是一切改进和优化的基础，猜测和凭空分析都不是。<br><a id="more"></a></p>
+<h2 id="1-_性能术语">1. 性能术语</h2><ul>
+<li><strong>等待时间</strong>（Latency）: 在给定工作量下处理一个任务单元所消耗的时长。（性能肘？）</li>
+<li><strong>吞吐量</strong>（Throughput）：系统在限定资源、限定时长内完成的单位工作量。用的最多的是在某一参考平台（比如指明了硬件配置、操作系统和软件环境的特定品牌服务器）上的每秒事务处理数。</li>
+<li><strong>利用率</strong>（Utilization）：表示可用资源中用来处理工作单元（而不是清理任务或处于空闲状态）的资源百分比。</li>
+<li><strong>效率</strong>（Efficiency）：系统的效率等于吞吐量除以所用资源。</li>
+<li><strong>容量</strong>（Capacity）：任一时刻能通过系统的工作单元（比如事务）数量。也就是在特定的等待时间或吞吐量下，能够得到同步处理的工作单元数量。</li>
+<li><strong>扩展性</strong>（Scalability）：当系统得到更多资源时，它的吞吐量或等待时间就会发生变化。这种发生在吞吐量或等待时间上的变化就是系统的扩展性。</li>
+<li><strong>退化</strong>（Degradation）：如果在不增加资源的情况下增加工作单元或网络系统的客户端，一般等待时间或吞吐量都会发生变化。这是系统在负载增加时出现的退化。</li>
+</ul>
+<h2 id="2-_务实的性能分析法">2. 务实的性能分析法</h2><h3 id="你正在测量的代码有哪些可观测的环节">你正在测量的代码有哪些可观测的环节</h3><h3 id="如何测量那些可观测的环节">如何测量那些可观测的环节</h3><ul>
+<li>知道怎么测量：直接测量，在源码中插入测量代码；</li>
+<li>通过类加载自动测量（有价值）：特殊的类加载器在方法开始和结束的地方记录进入和退出时间的字节码。类似产品有Optier corefirst，还没有相似的开源软件</li>
+</ul>
+<h3 id="这些可观测环节的目标是什么">这些可观测环节的目标是什么</h3><h3 id="你怎么判断性能调优是否做好了">你怎么判断性能调优是否做好了</h3><ul>
+<li>优化那些重要，而不是最容易的代码</li>
+<li>首先优化那些最重要（通常是调用最频繁）的方法</li>
+<li>在遇到那些唾手可得的优化时，把它办了，但要清楚代码的调用频率</li>
+</ul>
+<h3 id="性能调优可接受的最大支出是多少">性能调优可接受的最大支出是多少</h3><ul>
+<li>分析和优化所占用的时间（开发人员的开支很大）</li>
+<li>所作的调整可能会引入额外的技术复杂度</li>
+<li>为了让主处理线程运行得更快，可能会引入额外的线程来执行辅助任务，但这些线程可能会在负载较高时对系统整体产生不可预料的影响</li>
+</ul>
+<h3 id="在优化过程中，哪些东西是不能舍弃的">在优化过程中，哪些东西是不能舍弃的</h3><blockquote>
+<p>程序员浪费了大量的时间考虑，或担心程序中无关紧要部分的速度，并且那些尝试改进效率的行为实际上有很强的负面影响……过早优化是万恶之源。—— Donald Knuth</p>
+</blockquote>
+<p>作者对于Knuth这段名言的解读，给出了一些实际的建议。书中又说：性能调优的工作之一就是从一开始就写出质地优良、高效运行的代码。更好地认识Java平台，知道它的底层运行机制（比如理解在合并两个字符串时隐含的对象分配），并在编码时考虑到性能问题，才能写出更好的代码。</p>
+<h2 id="3-_哪里出错了？我们担心的原因">3. 哪里出错了？我们担心的原因</h2><h3 id="3-1_摩尔定律——过去和未来的性能趋势">3.1 摩尔定律——过去和未来的性能趋势</h3><blockquote>
+<p>晶片上的晶体管数量每两年翻一番是合算的。</p>
+</blockquote>
+<h3 id="3-2_理解内存延迟层级">3.2 理解内存延迟层级</h3><p>数据在哪里？</p>
+<ul>
+<li>寄存器</li>
+<li>主存</li>
+<li>固态硬盘</li>
+<li>硬盘</li>
+</ul>
+<h3 id="3-3_为什么Java性能调优存在困难">3.3 为什么Java性能调优存在困难</h3><p>造成调优困难的平台特性主要是</p>
+<ul>
+<li>线程调度</li>
+<li>垃圾收集（GC）</li>
+<li>即时（JIT）编译</li>
+</ul>
+<h2 id="4-_来自于硬件的时间问题">4. 来自于硬件的时间问题</h2><h3 id="4-1_硬件时钟">4.1 硬件时钟</h3><ul>
+<li>RTC：实时时钟</li>
+<li>8254：可编程计时芯片</li>
+<li>TSC：时间戳计时器——应用最广泛的现代计时器。跟踪CPU运行了多少个周期的CPU计数器。</li>
+<li>HPET：高精度事件计时器。</li>
+</ul>
+<h3 id="4-2_麻烦的nanoTime()">4.2 麻烦的nanoTime()</h3><ul>
+<li>currentTimeMillis()和nanoTime()的区别：毫秒级/纳秒级，前者几乎所有情况都和钟表时间相符，后者可能偏离钟表时间</li>
+</ul>
+<h3 id="4-3_时间在性能调优中的作用">4.3 时间在性能调优中的作用</h3><ul>
+<li>精确度</li>
+<li>准确度</li>
+<li>粒度</li>
+<li>分布式网络计时</li>
+</ul>
+<h3 id="4-4_案例研究：理解缓存未命中">4.4 案例研究：理解缓存未命中</h3><p> 感觉这一节没写清楚，概念：代码热身</p>
+<h2 id="5-_垃圾收集">5. 垃圾收集</h2><h3 id="5-1_基本算法">5.1 基本算法</h3><p>标准的Java进程既有栈又有堆。<strong>栈</strong>保存原始型局部变量（引用型局部变量会指向以堆方式分配的内存）。<strong>堆</strong>保存要创建的对象。基本算法是<strong>标记</strong>和<strong>清除</strong>。</p>
+<h3 id="5-2_标记和清除">5.2 标记和清除</h3><p>Java平台对基本的标记和清除进行了改进，采用<strong>分代式垃圾收集</strong>。</p>
+<ol>
+<li><p>内存区域：伊甸园；幸存者乐园；终身颐养园；PermGen：为内部结构分配的内存，比如类定义，不是严格的堆内存。</p>
+</li>
+<li><p>年轻代收集：年轻的空间指的是伊甸园和幸存者乐园</p>
+</li>
+<li><p>完全收集：当年轻收集不能把对象放进终身颐养园时，触发完全收集。老年代的内部迁移和压缩的概念。</p>
+</li>
+<li><p>安全点：垃圾收集的时机，让应用线程暂停一会儿</p>
+</li>
+</ol>
+<h3 id="5-3_jmap工具">5.3 jmap工具</h3><p>帮助弄清楚程序运行时的内存使用情况，以及所有内存都用在哪</p>
+<ul>
+<li>默认视图</li>
+<li>堆视图</li>
+<li>柱状视图</li>
+</ul>
+<h3 id="5-4_与GC相关的JVM参数">5.4 与GC相关的JVM参数</h3><p>小技巧：把-Xms和-Xmx大小设成一样。</p>
+<h3 id="5-5_读懂GC日志">5.5 读懂GC日志</h3><h3 id="5-6_VisualVM查看内存使用情况">5.6 VisualVM查看内存使用情况</h3><p>嘿，这个我还真用过！</p>
+<h3 id="5-7_逸出分析等">5.7 逸出分析等</h3><h3 id="5-8_并发标记清除">5.8 并发标记清除</h3><h3 id="5-9_新的收集器：G1的工作原理是把堆分成大小相同的区域，不分年轻年老，然后进行标记清除。问题：为什么这种方法更好？">5.9 新的收集器：G1的工作原理是把堆分成大小相同的区域，不分年轻年老，然后进行标记清除。问题：为什么这种方法更好？</h3><h2 id="6-_HotSpot的JIT编译">6. HotSpot的JIT编译</h2>
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Java/">Java</a>, <a href="/tags/reading/">reading</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

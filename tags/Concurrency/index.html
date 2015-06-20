@@ -1,0 +1,539 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Concurrency | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">Concurrency</h2>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-17T15:29:36.000Z"><a href="/2014/11/17/Two-ways-of-Sequence-Printer-implementation/">Nov 17 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/17/Two-ways-of-Sequence-Printer-implementation/">Two ways of Sequence Printer implementation</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>题目：两个线程，分别打印[1,3,5]和[2,4,6]，写一个程序，打印[1,2,3,4,5,6]。<br>下面列出两种解法，分别用同步代码块和锁，具体参见程序。</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/11/17/Two-ways-of-Sequence-Printer-implementation/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-15T06:57:23.000Z"><a href="/2014/11/15/synchronized-and-ReentrantLock/">Nov 15 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/15/synchronized-and-ReentrantLock/">synchronized and ReentrantLock</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>ReentrantLock在加锁和内存上提供的语义与内置锁相同，此外它还提供了一些其他功能，包括定时的锁等待、可中断的锁等待、公平性，以及实现非块结构的加锁。ReentrantLock在性能上似乎优于内置锁，其中在Java 6中略有胜出，而在Java 5.0中则是远远胜出。那么为什么不放弃synchronized，并在所有新的并发代码中都使用ReentrantLock？事实上有些作者已经建议这么做，将synchronized作为一种“遗留”的结构，但这会将好事情变坏。</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/11/15/synchronized-and-ReentrantLock/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-15T06:21:33.000Z"><a href="/2014/11/15/lock()-and-lockInterruptibly()/">Nov 15 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/15/lock()-and-lockInterruptibly()/">lock() and lockInterruptibly()</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>在Lock接口中有两个方法，一个是lock方法，一个是lockInterruptibly方法，它们之间具体有什么区别呢？</p>
+<blockquote>
+<p>lock()是拿不到lock就不罢休，不然线程就一直block。lockInterruptibly会优先响应线程中断，处理响应的方式是抛出InterruptedException。</p>
+</blockquote>
+<p>可以参考一下 <a href="http://huangyunbin.iteye.com/blog/2013543" target="_blank" rel="external">http://huangyunbin.iteye.com/blog/2013543</a> ，我也大概看了一下lock和lockInterruptibly的相关源码，但是感觉原博说的有点不太对，不过因为现在没有太多时间深究，可以现从应用的角度来理解即可。原博中举的例子不错，这里就不重复引用了。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-15T04:13:26.000Z"><a href="/2014/11/15/TryLock/">Nov 15 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/15/TryLock/">TryLock</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>《Java并发编程实战》这本书的缺点是有些例子给的不完整，所以想直接复制代码、运行看结果还是比较费力的，第13章显示锁的一个例子就是这样。在这种情况下，只能自己写或求助于互联网。下面用网上的一个小例子演示带有超时功能的tryLock的基本用法。关于Lock和同步代码块的区别以及更深入的研究，后续博文会有所涉及。</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/11/15/TryLock/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-09T15:38:59.000Z"><a href="/2014/11/09/CountDownLatch-and-CyclicBarrier/">Nov 9 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/09/CountDownLatch-and-CyclicBarrier/">CountDownLatch and CyclicBarrier</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>CountDownLatch和CyclicBarrier从字面上理解是“向下数的门闩”和“循环的障碍”，觉得怪怪的，但是即便翻译成更加书面语的“闭锁”或“栅栏”也并不容易理解。《Java并发编程实战》中详细讲解了两者的作用，也举了例子，但理解起来印象不深。如果只是从异同的角度去比较两者，网上倒是有不少文章，但是对于编程实践往往不如通俗的例子来得实在。</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/11/09/CountDownLatch-and-CyclicBarrier/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-08T03:56:59.000Z"><a href="/2014/11/08/ThreadLocal/">Nov 8 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/08/ThreadLocal/">ThreadLocal</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <blockquote>
+<p>当访问共享的可变数据时，通常需要使用同步。一种避免使用同步的方式就是不共享数据。如果仅在单线程内访问数据，就不需要同步。这种技术被称为线程封闭，它是实现线程安全性的最简单方式之一。……在Swing中大量使用了线程封闭技术。……线程封闭技术的另一种常见应用是JDBC的Connection对象。</p>
+<p>Java语言及其核心库提供了一些机制来帮助维持线程封闭性，例如局部变量和ThreadLocal类，但即便如此，程序员仍然需要负责确保封闭在线程中的对象不会从线程中逸出。</p>
+</blockquote>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/11/08/ThreadLocal/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-07T12:04:44.000Z"><a href="/2014/11/07/Future/">Nov 7 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/07/Future/">Future</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>之前在看《Java程序员修炼之道》（主要讲的是Java 7的新特性）的时候就看过并发这块儿，但是感觉看完过段儿时间印象也有点儿模糊。最近重温Java并发编程，拿起了《Java并发编程实战》，只能用四个字儿来形容：干货太多。书里讲的几乎没有废话，大部分例子也都不错，对于理解新的Java并发编程模型很有帮助。不过，也有些例子可能受篇幅所限，讲解的不够细致，所以我就需要从网上再找些相对丰富的例子补充上以加深理解。Future就是其中一例。</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/11/07/Future/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-12-12T08:39:36.000Z"><a href="/2013/12/12/what-exactly-invariant-is/">Dec 12 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/12/12/what-exactly-invariant-is/">What exactly invariant is</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="invariant到底是什么意思">invariant到底是什么意思</h1><p>经常在英文计算机书籍或文章中看到invariant这个词，不过如果要我立刻说出它的意思，我的反应肯定是：<strong>一愣</strong>。本着对科学认真负责的态度，还是得上网搜索一下，以正视听，哇哈哈。</p>
+<p>在著名的问答网站<a href="http://www.zhihu.com/">知乎</a>上搜索invariant(s)无果，尝试“不变量”、“不变式”均无果。哼，知乎对计算机科学不够重视啊。在国外著名的问答网站<a href="http://www.quora.com">Quora</a>也没找到精确结果，囧；只能求助程序员问答网站<a href="http://stackoverflow.com">Stackoverflow</a>了，Bingo！果然给力，答案<a href="http://stackoverflow.com/questions/112064/what-is-an-invariant">在这</a>。为了更清晰地解释这个概念，我把原文翻译成中文如下：</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/12/12/what-exactly-invariant-is/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

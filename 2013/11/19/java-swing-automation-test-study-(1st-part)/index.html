@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java Swing Automation Test Study (1st part) | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Java Swing Automation Test Study (1st part)"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-11-18T16:11:43.000Z"><a href="/2013/11/19/java-swing-automation-test-study-(1st-part)/">Nov 19 2013</a></time>
+      
+      
+  
+    <h1 class="title">Java Swing Automation Test Study (1st part)</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="Java_Swing界面自动化测试初探（上）">Java Swing界面自动化测试初探（上）</h2><p>最近有机会又学习了一下Java自动化测试框架，对于自动化测试有了进一步的了解。自动化测试的效果，业界一直都存在一些争论，不过我理解现在的基本共识是自动化测试（即利用程序实现测试工作）是有用的，至于对不同类型的软件能起到多大的作用就要依情况而定。有的软件项目自动化测试可能可以覆盖大部分场景，有的可能只能覆盖较少部分。前一段时间看Robert C. Martin大叔的《程序员的职业素养》，其中对于测试的重视程度令人印象颇深。Martin大叔花了三章的篇幅来讲述测试，分别是测试驱动开发、验收测试和测试策略。而在测试驱动开发一章中，他谈到自己和Kent Beck的一次会面，看完Kent的展示之后，他说：“这让我目瞪口呆！”。Martin大叔的结论是：“此事已有定论！TDD确实可行。”</p>
+<p>当然是否是TDD是开发模式的选择，不一定要强求，但是对于自动化测试的重要性，大家应该是广泛认同的。在Jeff Atwood最新出版的博客文集（中文版译名《高效能程序员的修炼》）中，Jeff引用了J.Timothy King的一篇文章，题为《我同情那些不写单元测试的傻瓜》，并由此而展开了对于测试重要性和方法的探讨，并警示大家，不要因为不喜欢测试驱动就不写测试了，这是非常错误的。自动化测试活动在保障产品质量、提高开发效率和持续交付能起到十分关键的作用。</p>
+<p>具体到我们实际的开发工作，Java自动化测试起源较早，敏捷声明的发起人之一、XP方法的倡导者Kent和Erich（《设计模式》作者之一）合作创建了JUnit单元测试框架，在Java世界里享有盛誉并成为事实上的标准。不过，现在还有一个更加流行的选择，TestNG。TestNG不仅在单元测试方面，而且在组件测试方面，甚至在功能和系统测试上都有很大的帮助。当然，本文主要不是讨论测试框架，我们主要讨论Java世界里的界面测试问题。有关自动化测试框架的话题，可参考相关网站。<br><a id="more"></a><br>说到界面（GUI）测试问题，一般分为两种，即桌面程序测试和网页程序测试，近几年移动互联网大热，因此移动端的界面测试也可以算作第三种测试类型。现代的Java桌面程序一般都是用Swing写成，因此下文会探索一下基于Swing的界面自动化测试方法。</p>
+<p>搜索引擎是信息获取的第一助手，求助于谷歌，我们可以按图索骥，了解最新最好的工具，通过这些工具，我们就能知道具体的测试方法，并进行比较，选择适合自己的工具和方法。</p>
+<p>因为现在TestNG比JUnit功能更强大，我们使用关键词“testNG”和“GUI”，可得到和TestNG结合的工具abbot，文章来自IBM DeveloperWorks：<a href="http://www.ibm.com/developerworks/cn/java/j-cq02277/" target="_blank" rel="external">追求代码质量: 使用 TestNG-Abbot 实现自动化 GUI 测试</a>，其中谈到了使用TestNG和Abbot结合进行Swing测试的基本方法和例子，不过这篇文章发表于2007年，可能有点老了。搜索“TestNG abbot”，找到<a href="https://code.google.com/p/testng-abbot/" target="_blank" rel="external">官方网站</a>，果然已经更名为FEST，并具有<a href="https://code.google.com/p/fest/" target="_blank" rel="external">更多新特性</a>，在这里基本上可以找到FEST的一切！当然，都是Open Source的，Bingo！</p>
+<p>如果你对Java Swing自动化测试原理或底层机制感兴趣的话，可以读读这两篇文章：<a href="http://developer.51cto.com/art/201106/267055.htm" target="_blank" rel="external">GUI自动化测试原理剖析</a> &amp; <a href="http://tuhrig.de/automated-ui-testing-with-swing-fest/" target="_blank" rel="external">Automated UI testing with Swing &amp; FEST</a>。</p>
+<p>做程序员从来都不会满足于一个工具，所以我们看看还有什么别的选择，探索下去，又看到两个耳熟能详的名字：IBM Rational Functional Tester以及HP QuickTest Profressional（QTP），这些都是收费软件，就不多展开了，下文中也不再涉及商业软件。更加全面的测试框架比较，可以参考维基百科的<a href="http://en.wikipedia.org/wiki/List_of_GUI_testing_tools" target="_blank" rel="external">列表</a>。另外，通过继续在Stackoverflow上搜索，可以找到类似的文章，如<a href="http://stackoverflow.com/questions/91179/automated-tests-for-java-swing-guisi" target="_blank" rel="external">Java Swing界面自动化测试的问题</a>等等，本文下半部分着重总结一下我的发现。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Java/">Java</a>, <a href="/tags/test/">test</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

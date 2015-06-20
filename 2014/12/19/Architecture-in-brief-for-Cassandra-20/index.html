@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Architecture in brief for Cassandra 2.0 | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Architecture in brief for Cassandra 2.0"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-18T16:09:48.000Z"><a href="/2014/12/19/Architecture-in-brief-for-Cassandra-20/">Dec 19 2014</a></time>
+      
+      
+  
+    <h1 class="title">Architecture in brief for Cassandra 2.0</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>翻译</strong>：<a href="http://weibo.com/openworld/" target="_blank" rel="external">自由的柠檬</a><br><strong>原文链接</strong>：<a href="http://www.datastax.com/documentation/cassandra/2.0/cassandra/architecture/architectureIntro_c.html" target="_blank" rel="external">http://www.datastax.com/documentation/cassandra/2.0/cassandra/architecture/architectureIntro_c.html</a><br><strong>版本</strong>：0.1(2014-12-19 00:09)</p>
+<a id="more"></a>
+<h2 id="Cassandra_2-0架构简介（译文）">Cassandra 2.0架构简介（译文）</h2><p>Cassandra设计的目的是为了处理多节点上的大数据工作负载，同时不产生单点故障。它的架构基于一个重要的认识，那就是系统和硬件的故障会发生而且确实会发生。Cassandra通过使用异构节点的对等分布式系统来解决这个问题，其中数据分布在集群的所有节点之上。在集群里，每个节点每一秒钟都会交换信息。每个节点上顺序写入的提交日志记录下写操作以保证数据持久性。然后，数据会被索引并写入到一个叫做内存表（memtable）的内存结构，内存表很像一个回写缓存。一旦这个内存结构填满，数据就会以一种SSTable形式的数据文件写到磁盘上。所有的写操作在集群里都是自动分区和复制的。Cassandra使用一种叫做压缩（compaction）的过程定期整理SSTable，丢弃不用的数据和tombstones（数据已被删除的标志）。</p>
+<p>Cassandra是面向行的数据库。Cassandra的架构允许任意授权用户通过CQL语言连接到任何数据中心的任一节点。为了使用方便，CQL使用了和SQL相似的语法。从CQL的角度看，数据库是由表组成的。通常，集群为每个应用分配了一个键空间（keyspace）。开发者可以通过cqlsh或应用程序语言驱动访问CQL。</p>
+<p>客户端的读写请求可以发送到集群中的任何一个节点。当客户端发起一个请求连接到一个节点，那么这个节点就会作为这个客户端操作的协调者。协调者作为客户端应用和持有请求数据的节点之间的代理。协调者基于集群的配置情况来决定环上的哪个节点应该接收请求。更多细节参见<a href="http://www.datastax.com/documentation/cassandra/2.0/cassandra/architecture/architectureClientRequestsAbout_c.html" target="_blank" rel="external">客户端请求</a>。</p>
+<h3 id="关键结构">关键结构</h3><ul>
+<li><p>节点<br>存储数据的地方。节点是Cassandra的基础组件。</p>
+</li>
+<li><p>数据中心<br>相关节点的集合。一个数据中心既可以是物理的，也可以是虚拟的。不同的工作负载应该使用独立的数据中心，或是物理的或是虚拟的。复制是由数据中心设置的。使用独立的数据中心可以防止Cassandra的事务被其他的工作负载影响，并且可以使请求尽量相互靠近，从而达到更低的延迟。根据复制因子的设定，数据可以被写到多个数据中心。然而，数据中心永远也不应该在物理上跨越多个地点。</p>
+</li>
+<li><p>集群<br>一个集群包含一个或多个数据中心。集群可以跨越物理上的多个地点。</p>
+</li>
+<li><p>提交日志<br>为了达到持久性，所有的数据都会先写到提交日志。在所有的数据都转存到SSTable之后，日志数据就可以归档、删除或者回收。</p>
+</li>
+<li><p>表<br>有序的列集合，通过行的形式获取数据。一个行包含多个列并有一个主键。键的第一部分是列名。</p>
+</li>
+<li><p>SSTable<br>排序的字符串表（SSTable）是一个不可变的数据文件，Cassandra把内存表定期地写到这个文件中。SSTable是只能追加的，并且顺序地存储在磁盘上，SSTable中维持着所有Cassandra表。</p>
+</li>
+</ul>
+<h3 id="配置Cassandra的关键组件">配置Cassandra的关键组件</h3><ul>
+<li><p>Gossip<br>一种对等通信协议，用来在一个Cassandra集群中发现并共享其他节点位置和状态信息。为了在重启之后能立即使用，每个节点也会在本地持久化Gossip信息。</p>
+</li>
+<li><p>分区程序<br>分区程序决定如何把数据分布到集群中的多个节点，以及把数据的第一份拷贝放到哪个节点上。分区程序基本上就是计算分区键标记（token）的一个哈希函数。每一行都通过一个分区键唯一标识，并通过标记的值分发到整个集群。Murmur3Partitioner是新Cassandra集群的默认分区策略，并且对于大多数情况来说都是正确的选择。</p>
+<p>你必须为每个节点设置一个分区程序并且分配一个num_tokens的值。你设置的标记的数量取决于系统的硬件容量。如果没有使用虚拟节点（vnodes），那么可以使用initial_token的设置。</p>
+</li>
+<li><p>复制因子<br>集群内部复制节点的总数。复制因子为1意味着一个节点上的每一行只有一个拷贝。复制因子为2的意思是每行都有两个拷贝，而每个拷贝存在不同的节点上。所有的复制品都一样重要；没有首要的或主要的复制品。你可以为每个数据中心定义复制因子。通常情况下你应该设置大于1的复制策略，但是不能大于集群中节点的数量。</p>
+</li>
+<li><p>复制品存放策略<br>Cassandra在多个节点上存储数据的拷贝（复制品），以确保可靠性和容错性。复制策略决定把复制品存放在哪些节点上。数据的第一个复制品就是第一个拷贝；无论从哪个意义上说，它都不是唯一的。对于大多数部署来说，强烈推荐使用NetworkTopologyStrategy，因为如果将来需要扩展到多个数据中心的话就容易多了。</p>
+<p>当创建一个键空间时，你必须要定义复制品存放策略和你想要的复制品数量。</p>
+</li>
+<li><p>告密者（snitch）<br>告密者定义了复制策略用来在数据中心或机架（拓扑）存放复制品的一组机器。</p>
+<p>在创建集群时，你必须要配置一个告密者。所有的告密者都使用一个动态告密者层，它们会进行监控并选择对读操作性能最好的复制品。在缺省情况下，这个告密者是激活的，并且在大多数情况下推荐使用。在cassandra.yaml中可以为每个节点配置动态告密者的阈值。</p>
+<p>缺省的SimpleSnitch并不知道数据中心或机架信息。它可以用在单数据中心部署或公有云中的单区域（single-zone）部署。推荐在生产环境下使用GossipingPropertyFileSnitch。它定义了一个节点的数据中心和机架并使用gossip向其他节点传播信息。</p>
+</li>
+<li><p>cassandra.yaml配置文件<br>设置集群初始化属性、表的缓存参数、调优和资源使用的属性、超时设置、客户端连接、备份和安全的主要配置文件。</p>
+<p>缺省情况下，可以在cassandra.yaml文件中配置一个节点管理的数据所存放的目录。</p>
+<ul>
+<li>安装包安装：/var/lib/cassandra</li>
+<li>Tarball安装：<em>install_location/data/data</em></li>
+</ul>
+<p>在一个生产环境的集群部署中，你可以把commitlog-directory改到和data_file_directories不同的磁盘驱动器上。</p>
+</li>
+<li><p>系统键空间表属性<br>你可以通过写程序来配置基于键空间或基于表的存储配置属性，或者使用一个客户端程序来做，例如CQL。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Cassandra/">Cassandra</a>, <a href="/tags/NoSQL/">NoSQL</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

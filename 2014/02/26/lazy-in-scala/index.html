@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Scala Patterns(#2) - Lazy initialization | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Scala Patterns(#2) - Lazy initialization"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-02-26T12:59:06.000Z"><a href="/2014/02/26/lazy-in-scala/">Feb 26 2014</a></time>
+      
+      
+  
+    <h1 class="title">Scala Patterns(#2) - Lazy initialization</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="延迟初始化">延迟初始化</h3><p><a href="http://zh.wikipedia.org/wiki/%E5%BB%B6%E8%BF%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%BC%8F" target="_blank" rel="external"><strong>延迟初始化</strong></a>是程序设计中减少开销、提高性能的一种做法，同时它也是创建型设计模式中的一种。在<em>Effective Java</em>里，Bloch是这么描述延迟初始化的，</p>
+<blockquote>
+<p>Lazy initialization is the act of delaying the initialization of a field until its<br>value is needed. If the value is never needed, the field is never initialized.</p>
+</blockquote>
+<a id="more"></a>
+<p>简单翻译一下就是，“延迟初始化就是把一个成员的初始化延迟到需要使用它的值的时候才进行。如果不需要使用这个成员的值，那么就一直不用初始化。” 延迟初始化又叫做延迟实例化，更加广义的概念是延迟计算（Lazy Evaluation）。我们可以同时参考MSDN中的定义，描述和适用范围也比较清楚：<a href="http://msdn.microsoft.com/ZH-CN/library/dd997286%28v=vs.110%29.aspx" target="_blank" rel="external">延迟初始化</a>。在Scala中，我们不用自己费心写这种模式的代码，因为有一个关键字<code>lazy</code>来帮助我们完成，<code>lazy</code>是作为修饰符关键字出现的，它的定义如下（参考<a href="http://www.scala-lang.org/docu/files/ScalaReference.pdf" target="_blank" rel="external">Scala语言手册</a>），</p>
+<blockquote>
+<p>The lazy modifier applies to value definitions. A lazy value is initialized the<br>first time it is accessed (which might never happen at all). Attempting to access<br>a lazy value during its initialization might lead to looping behavior. If<br>an exception is thrown during initialization, the value is considered uninitialized,<br>and a later access will retry to evaluate its right hand side.</p>
+</blockquote>
+<p>综上，要注意几个点：</p>
+<ul>
+<li>lazy只能修饰value值（val）</li>
+<li>lazy值在第一次访问时初始化</li>
+<li>在初始化过程中访问可能会导致循环行为（纳尼？）</li>
+<li>在初始化时抛出异常则认为未初始化</li>
+</ul>
+<p>先不管那么高深的问题，我们先来看个例子（来自Scala语言手册）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import compat.Platform._&#10;&#10;val t0 = currentTime&#10;lazy val t1 = currentTime&#10;val t2 = currentTime&#10;&#10;println(&#34;t0 &#60;= t2: &#34; + (t0 &#60;= t2)) //true&#10;println(&#34;t1 &#60;= t2: &#34; + (t1 &#60;= t2)) //false (lazy evaluation of t1)</span><br></pre></td></tr></table></figure>
+<p>看完这个例子就更容易理解lazy的含义了，它的使用还是比较简单的。在<a href="http://pavelfatin.com/design-patterns-in-scala/#lazy-initialization" target="_blank" rel="external">Design patterns in Scala</a>中也比较了Java的实现和Scala的实现，同时也给出了这种模式的优缺点：优点是语法简洁、可以含有null值并且是线程安全的，缺点是降低了对初始化过程的控制能力。</p>
+<h3 id="延迟集合">延迟集合</h3><p>理解了延迟初始化，也就容易理解<strong>延迟集合</strong>了，在<em>Scala in action</em>讲解这个概念的时候，又提到了另外两个术语，即<strong>严格集合</strong>（strict collections）和<strong>非严格集合</strong>（non-strict collections），下面是原书的例子，第一个是严格集合（缺省）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala&#62; def strictProcessing = List(-2, -1, 0, 1, 2) map &#123; 2 / _ &#125;&#10;strictProcessing: List[Int]&#10;&#10;scala&#62; strictProcessing(0)&#10;java.lang.ArithmeticException: / by zero&#10;        at $anonfun$strictProcessing$1.apply$mcII$sp(&#60;console&#62;:12)</span><br></pre></td></tr></table></figure></p>
+<p>第二个是非严格集合（延迟集合的技术术语）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala&#62; def nonstrictProcessing = List(-2, -1, 0, 1, 2).view map &#123; 2 / _ &#125;&#10;nonstrictProcessing: scala.collection.SeqView[Int,Seq[_]]&#10;&#10;scala&#62; nonstrictProcessing(0)&#10;res38: Int = -1&#10;&#10;scala&#62; nonstrictProcessing(2)&#10;java.lang.ArithmeticException: / by zero&#10;        at $anonfun$nonstrictProcessing$1.apply$mcII$sp(&#60;console&#62;:12)</span><br></pre></td></tr></table></figure>
+<p>从第二个例子可以看出，使用View的方式可以把严格集合转换成非严格集合，从而实现延迟的效果，这对于在集合中Cache大的对象是非常有用的，书中列举了从Twitter里下载大量Tweets的方法，说明了延迟集合的好处，这里就不再赘述。</p>
+<p>最后，通过这篇文章，我们快速了解了Scala对于延迟初始化和延迟计算（集合）的支持，后面需要花更多的时间了解和掌握如何更好地在程序中使用这项技术。Bloch说过，一定要谨慎地使用延迟初始化。嗯，一定要谨慎，不要过早优化。</p>
+<h3 id="参考资源">参考资源</h3><ol>
+<li><a href="http://docs.scala-lang.org/sips/pending/improved-lazy-val-initialization.html" target="_blank" rel="external">改进的Lazy实现</a></li>
+<li><a href="http://www.scala-lang.org/docu/files/ScalaReference.pdf" target="_blank" rel="external">Scala语言手册下载</a></li>
+<li><a href="http://www.javaworld.com/article/2077568/learn-java/java-tip-67--lazy-instantiation.html" target="_blank" rel="external">Java中的延迟初始化</a></li>
+<li><a href="http://daily-scala.blogspot.com/2009/09/lazy-val.html" target="_blank" rel="external">Lazy val in Scala</a></li>
+<li><a href="http://stackoverflow.com/questions/7484928/what-does-a-lazy-val-do" target="_blank" rel="external">What does a lazy val do</a></li>
+<li><a href="http://daily-scala.blogspot.com/2009/11/non-strict-lazy-collections.html" target="_blank" rel="external">Non-strict lazy collections</a></li>
+<li><a href="http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683/ref=sr_1_1?ie=UTF8&amp;qid=1393396679&amp;sr=8-1&amp;keywords=effective+java" target="_blank" rel="external">Effective Java 2nd edition</a></li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Design-Patterns/">Design Patterns</a>, <a href="/tags/Scala/">Scala</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

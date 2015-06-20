@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Akka Tutorial with Code: Concurrency and Fault Tolerance | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Akka Tutorial with Code: Concurrency and Fault Tolerance"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-12-16T14:19:51.000Z"><a href="/2014/12/16/Akka-Tutorial-with-Code-Conncurrency-and-Fault-Tolerance/">Dec 16 2014</a></time>
+      
+      
+  
+    <h1 class="title">Akka Tutorial with Code: Concurrency and Fault Tolerance</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="让并发和容错更容易：Akka示例教程（译文）">让并发和容错更容易：Akka示例教程（译文）</h2><p>BY DIAGO CASTORINA</p>
+<p><strong>翻译</strong>：<a href="http://weibo.com/openworld" target="_blank" rel="external">自由的柠檬</a><br><strong>原文链接</strong>：<a href="http://www.toptal.com/scala/concurrency-and-fault-tolerance-made-easy-an-intro-to-akka" target="_blank" rel="external">http://www.toptal.com/scala/concurrency-and-fault-tolerance-made-easy-an-intro-to-akka</a></p>
+<a id="more"></a>
+<h3 id="挑战">挑战</h3><p>写并发程序很难。程序员不得不处理线程、锁和竞态条件等等，这个过程很容易出错，而且会导致程序代码难以阅读、测试和维护。</p>
+<p>所以，很多人不倾向于使用多线程编程。取而代之的是，他们使用单线程进程（译者注：只含有一个线程的进程），依赖外部服务（如数据库、队列等）处理所需的并发或异步操作。虽然这种方法在有些情况下是可行的，但还有很多其他情况不能奏效。很多实时系统——例如交易或银行业务应用，或实时游戏——等待一个单线程进程完成就太奢侈了（他们需要立即应答！）。其他的一些对于计算或资源要求非常高的系统，如果在程序中不引入并行机制就会耗时很久（有些情况下可以达到几个小时或数天）。</p>
+<p>常用的一种单线程方法（例如，在<a href="http://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js" target="_blank" rel="external">Node.js</a>里广泛应用）是使用基于事件的、非阻塞模式（event-based, non-blocking paradigm，其中paragidigm也有译作成例）。虽然这种方法可以避免上下文切换、锁和阻塞，的确能提高性能，但还是不能解决并发使用多个处理器（需要启动和协调多个独立的处理器）的问题。</p>
+<p>那么，这是不是意味着为了构建一个并发程序，除了深入到线程、锁和竞态条件之外没有别的选择呢？</p>
+<p>感谢Akka框架，它为我们提供了一种选择。本教程介绍了Akka的示例，并仔细研究它如何帮助并简化分布式并发应用的实现。</p>
+<h3 id="Akka框架是什么">Akka框架是什么</h3><p><em>这篇文章介绍了Akka并仔细研究它如何帮助并简化分布式并发应用的实现。</em></p>
+<p><a href="http://akka.io/" target="_blank" rel="external">Akka</a>是JVM（Java虚拟机，下同）平台上构建高并发、分布式和容错应用的工具包和运行时。Akka用<a href="http://www.scala-lang.org/" target="_blank" rel="external">Scala语言</a>写成，同时提供了Scala和Java的开发接口。</p>
+<p>Akka处理并发的方法基于<a href="http://en.wikipedia.org/wiki/Actor_model" target="_blank" rel="external">Actor（没有惯用译法，文中使用原词）模型</a>。在基于Actor的系统里，所有的事物都是actor，就好像在面向对象设计里面所有的事物都是对象一样。但是有一个重要区别——特别是和我们的讨论相关的——那就是Actor模型是作为一个并发模型设计和架构的，而面向对象模式则不是。更具体一点，在Scala的actor系统里，actor互相交互并共享信息但并不对交互顺序作出预设。Actor之间共享信息和发起任务的机制是消息传递。</p>
+<p><em>创建和调度线程、接收和分发消息以及处理竞态条件和同步的所有复杂性，都委托给框架，框架的处理对应用来说是透明的。</em></p>
+<p>Akka在多个actor和下面的系统之间建立了一个层次（layer），这样一来，actor只需要处理消息就可以了。创建和调度线程、接收和分发消息以及处理竞态条件和同步的所有复杂性，都委托给框架，框架的处理对应用来说是透明的。</p>
+<p>Actor严格遵守<a href="http://www.reactivemanifesto.org/" target="_blank" rel="external">响应式声明</a>。响应式应用的目标是通过满足以下一个或多个条件来代替传统的多线程应用：</p>
+<ul>
+<li>事件驱动。使用Actor，代码可以异步处理请求并用独占的方式执行非阻塞操作。</li>
+<li>可伸缩性。在Akka里，不修改代码就增加节点是可能的，感谢消息传递和本地透明性（location transparency）。</li>
+<li>高弹性。任何应用都会碰到错误并在某个时间点失败。Akka的“监管”（容错）策略为实现自愈系统提供了便利。</li>
+<li>响应式。今天的高性能和快速响应应用需要对用户快速反馈，因此对于事件的响应需要非常及时。Akka的非阻塞、基于消息的策略可以帮助达成这个目标。</li>
+</ul>
+<h3 id="Akka中的Actor是什么">Akka中的Actor是什么</h3><p>Actor本质上就是接收消息并采取行动处理消息的对象。它从消息源中解耦出来，只负责正确识别接收到的消息类型，并采取相应的行动。</p>
+<p>收到一条消息之后，一个actor可能会采取以下一个或多个行动：</p>
+<ul>
+<li>执行一些本身的操作（例如进行计算、持久化数据、调用外部的Web服务等）</li>
+<li>把消息或衍生消息转发给另外一个actor</li>
+<li>实例化一个新的actor并把消息转发给它</li>
+</ul>
+<p>或者，如果这个actor认为合适的话，可能会完全忽略这条消息（也就是说，它可能选择不响应）。</p>
+<p>为了实现一个actor，需要继承akka.actor.Actor这个trait（一般译为“特征”，译法有一定争议，文中保留原词）并实现receive方法。当一个消息发送给Actor时，它的receive方法会被（Akka）调用。典型的实现包括使用模式匹配（pattern matching）来识别消息类型并作出响应，参见下面的Akka示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import akka.actor.Actor&#10;import akka.actor.Props&#10;import akka.event.Logging&#10;&#10;class MyActor extends Actor &#123;&#10;  def receive = &#123;&#10;    case value: String =&#62; doSomething(value)&#10;    case _ =&#62; println(&#34;received unknown message&#34;)&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>模式匹配是一种相对优雅的处理消息的技术，相比基于回调的实现，更倾向于产生“更整洁”以及更容易浏览的代码。例如，考虑一个简化版的HTTP请求/响应实现。</p>
+<p>首先，我们使用JavaScript中基于回调的方式实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route(url, function(request)&#123;&#10;  var query = buildQuery(request);&#10;  dbCall(query, function(dbResponse)&#123;&#10;    var wsRequest = buildWebServiceRequest(dbResponse);&#10;    wsCall(wsRequest, function(wsResponse) &#123;&#10;      sendReply(wsResponse);&#10;    &#125;);&#10;  &#125;);&#10;&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>现在，我们把它和基于模式匹配的实现做个比较：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msg match &#123;&#10;  case HttpRequest(request) =&#62; &#123;&#10;    val query = buildQuery(request)&#10;    dbCall(query)&#10;  &#125;&#10;  case DbResponse(dbResponse) =&#62; &#123;&#10;    var wsRequest = buildWebServiceRequest(dbResponse);&#10;    wsCall(dbResponse)&#10;  &#125;&#10;  case WsResponse(wsResponse) =&#62; sendReply(wsResponse)&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>虽然基于回调的JavaScript代码更紧凑，但确实更难以阅读和浏览。相比而言，基于模式匹配的代码对于需要考虑哪些情况、每种情况都是怎么处理的写法更加清晰。</p>
+<h3 id="Actor系统">Actor系统</h3><p>把一个复杂的问题不断分解成更小规模的子问题通常是一种可靠的解决问题的技术。这个方法对于计算机科学特别有效（和<a href="http://programmer.97things.oreilly.com/wiki/index.php/The_Single_Responsibility_Principle" target="_blank" rel="external">单一职责原则</a>一致），因为这样容易产生整洁的、模块化的代码，产生的冗余很少甚至没有，而且维护起来相对容易。</p>
+<p>在基于actor的设计里，使用这种技术有助于把actor的逻辑组织变成一个层级结构，也就是所谓的<a href="http://doc.akka.io/docs/akka/2.0/general/actor-systems.html" target="_blank" rel="external">Actor系统</a>。Actor系统提供了一个基础框架，通过这个系统actor之间可以进行交互。</p>
+<p><img alt="Actor系统" src="http://www.toptal.com/uploads/blog/image/321/toptal-blog-image-1395105846790.png" style="width: 600px;"></p>
+<p>在Akka里面，和actor通信的唯一方式就是通过<code>ActorRef</code>。<code>ActorRef</code>代表actor的一个引用，可以阻止其他对象直接访问或操作这个actor的内部信息和状态。消息可以通过一个<code>ActorRef</code>以下面的语法协议中的一种发送到一个actor：<br> -<code>!</code>(“告知”) —— 发送消息并立即返回<br> -<code>?</code>(“请求”) —— 发送消息并返回一个Future对象，代表一个可能的应答</p>
+<p>每个actor都有一个收件箱，用来接收发送过来的消息。收件箱有多种实现方式可以选择，缺省的实现是先进先出（FIFO）队列。</p>
+<p>在处理多条消息时，一个actor包含多个实例变量来保持状态。Akka确保actor的每个实例都运行在自己的轻量级线程里，并保证每次只处理一条消息。这样一来，开发者不必担心同步或竞态条件，而每个actor的状态都可以被可靠地保持。</p>
+<p>Akka的Actor API中提供了每个actor执行任务所需要的有用信息：</p>
+<ul>
+<li><code>sender</code>:当前处理消息的发送者的一个<code>ActorRef</code>引用</li>
+<li><code>context</code>：actor运行上下文相关的信息和方法（例如，包括实例化一个新actor的方法<code>actorOf</code>）</li>
+<li><code>supervisionStrategy</code>：定义用来从错误中恢复的策略</li>
+<li><code>self</code>：actor本身的<code>ActorRef</code>引用</li>
+</ul>
+<p><em>Akka确保actor的每个实例都运行在自己的轻量级线程里，并保证每次只处理一条消息。这样一来，开发者不必担心同步或竞态条件，而每个actor的状态都可以被可靠地保持。</em></p>
+<p>为了把这些教程组织起来，让我们来考虑一个简单的例子：统计一个文本文件中单词的数量。</p>
+<p>为了达到演示Akka示例的目的，我们把这个问题分解为两个子任务；即，（1）统计每行单词数量的“孩子”任务和（2）汇总这些单行单词数量、得到文件里单词总数的“父亲”任务。</p>
+<p>父actor会从文件中装载每一行，然后委托一个子actor来计算某一行的单词数量。当子actor完成之后，它会把结果用消息发回给父actor。父actor会收到（每一行的）单词数量的消息并维持一个整个文件单词总数的计数器，这个计数器会在完成后返回给调用者。</p>
+<p><em>（注意以下提供的Akka教程的例子只是为了教学目的，所以没有顾及所有的边界条件、性能优化等。同时，完整可编译版本的代码示例可以在这个<a href="https://gist.github.com/Diego81/9887105" target="_blank" rel="external">gist</a>中找到）</em></p>
+<p>让我们首先看一个子类<code>StringCounterActor</code>的示例实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">case class ProcessStringMsg(string: String)&#10;case class StringProcessedMsg(words: Integer)&#10;&#10;class StringCounterActor extends Actor &#123;&#10;  def receive = &#123;&#10;    case ProcessStringMsg(string) =&#62; &#123;&#10;      val wordsInLine = string.split(&#34; &#34;).length&#10;      sender ! StringProcessedMsg(wordsInLine)&#10;    &#125;&#10;    case _ =&#62; println(&#34;Error: message not recognized&#34;)&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个actor有一个非常简单的任务：接收<code>ProcessStringMsg</code>消息（包含一行文本），计算这行文本中单词的数量，并把结果通过一个<code>StringProcessedMsg</code>消息返回给发送者。请注意我们已经实现了我们的类，使用<code>！</code>（“告知”）方法发出<code>StringProcessedMsg</code>消息（发出消息并立即返回）。</p>
+<p>好了，现在我们来关注父<code>WordCounterActor</code>类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.  case class StartProcessFileMsg()&#10;2.&#10;3.  class WordCounterActor(filename: String) extends Actor &#123;&#10;4.&#10;5.    private var running = false&#10;6.    private var totalLines = 0&#10;7.    private var linesProcessed = 0&#10;8.    private var result = 0&#10;9.    private var fileSender: Option[ActorRef] = None&#10;10.&#10;11.   def receive = &#123;&#10;12.     case StartProcessFileMsg() =&#62; &#123;&#10;13.       if (running) &#123;&#10;14.         // println just used for example purposes;&#10;15.         // Akka logger should be used instead&#10;16.         println(&#34;Warning: duplicate start message received&#34;)&#10;17.       &#125; else &#123;&#10;18.         running = true&#10;19.         fileSender = Some(sender) // save reference to process invoker&#10;20.         import scala.io.Source._&#10;21.         fromFile(filename).getLines.foreach &#123; line =&#62;&#10;22.           context.actorOf(Props[StringCounterActor]) ! ProcessStringMsg(line)&#10;23.           totalLines += 1&#10;24.         &#125;&#10;25.       &#125;&#10;26.     &#125;&#10;27.     case StringProcessedMsg(words) =&#62; &#123;&#10;28.       result += words&#10;29.       linesProcessed += 1&#10;30.       if (linesProcessed == totalLines) &#123;&#10;31.         fileSender.map(_ ! result)  // provide result to process invoker&#10;32.       &#125;&#10;33.     &#125;&#10;34.     case _ =&#62; println(&#34;message not recognized!&#34;)&#10;35.   &#125;&#10;36. &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里面有很多细节，我们来逐一考察（<em>注意讨论中所引用的行号基于以上代码示例</em>）。</p>
+<p>首先，请注意要处理的文件名被传给了<code>WordCounterActor</code>的构造方法（第3行）。这意味着这个actor只会用来处理一个单独的文件。这样通过避免重置状态变量（<code>running</code>，<code>totalLines</code>，<code>linesProcessed</code>和<code>result</code>）也简化了开发者的编码工作，因为这个实例只使用一次（也就是说处理一个单独的文件），然后就丢弃了。</p>
+<p>接下来，我们看到<code>WordCounterActor</code>处理了两种类型的消息：</p>
+<ul>
+<li><code>StartProcessFileMsg</code>（第12行）<ul>
+<li>从最初启动<code>WordCounterActor</code>的外部actor接收到的消息</li>
+<li>收到这个消息之后，<code>WordCounterActor</code>首先检查它收到的是不是一个重复的请求</li>
+<li>如果这个请求是重复的，那么<code>WordCounterActor</code>生成一个警告，然后就不做别的事了（第16行）</li>
+<li>如果这不是一个重复的请求：<ul>
+<li><code>WordCounterActor</code>在<code>fileSender</code>实例变量（注意这是一个<code>Option[ActorRef]</code>而不是一个<code>Option[Actor]</code>）中保存发送者的一个引用。当处理最终的<code>StringProcessedMsg</code>（从一个<code>StringCounterActor</code>子类中接收，如下文所述）时，为了以后的访问和响应，这个<code>ActorRef</code>是必需的。</li>
+<li>然后<code>WordCounterActor</code>读取文件，当文件中每行都装载之后，就会创建一个<code>StringCounterActor</code>，需要处理的包含行文本的消息就会传递给它（第21-24行）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>StringProcessedMsg</code>（第27行）<ul>
+<li>当处理完成分配给它的行之后，从<code>StringCounterActor</code>处接收到的消息</li>
+<li>收到此消息之后，<code>WordCounterActor</code>会把文件的行计数器增加，如果所有的行都处理完毕（也就是说，当<code>totalLines</code>和<code>linesProcessed</code>相等），它会把最终结果发给原来的<code>fileSender</code>（第28-31行）。</li>
+</ul>
+</li>
+</ul>
+<p>再次需要注意的是，在Akka里，actor之间通信的唯一机制就是消息传递。消息是actor之间唯一共享的东西，而且因为多个actor可能会并发访问同样的消息，所以为了避免竞态条件和不可预期的行为，消息的不可变性非常重要。</p>
+<p>因为Case class默认是不可变的并且可以和模式匹配无缝集成，所以用case class的形式来传递消息是很常见的。（Scala中的Case class就是正常的类，唯一不同的是通过模式匹配提供了可以递归分解的机制）。</p>
+<p>让我们通过运行整个应用的示例代码来结束这个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">object Sample extends App &#123;&#10;&#10;  import akka.util.Timeout&#10;  import scala.concurrent.duration._&#10;  import akka.pattern.ask&#10;  import akka.dispatch.ExecutionContexts._&#10;&#10;  implicit val ec = global&#10;&#10;  override def main(args: Array[String]) &#123;&#10;    val system = ActorSystem(&#34;System&#34;)&#10;    val actor = system.actorOf(Props(new WordCounterActor(args(0))))&#10;    implicit val timeout = Timeout(25 seconds)&#10;    val future = actor ? StartProcessFileMsg()&#10;    future.map &#123; result =&#62;&#10;      println(&#34;Total number of words &#34; + result)&#10;      system.shutdown&#10;    &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意这里的<code>?</code>方法是怎样发送一条消息的。用这种方法，调用者可以使用返回的<a href="http://docs.scala-lang.org/overviews/core/futures.html" target="_blank" rel="external">Future</a>对象，当完成之后可以打印出最后结果并最终通过停掉Actor系统退出程序。</p>
+<h3 id="Akka的容错和监管者策略">Akka的容错和监管者策略</h3><p>在actor系统里，每个actor都是其子孙的监管者。如果actor处理消息时失败，它就会暂停自己及其子孙并发送一个消息给它的监管者，通常是以异常的形式。</p>
+<p><em>在Akka里面，监管者策略是定义你的系统容错行为的主要并且直接的机制。</em></p>
+<p>在Akka里面，一个监管者对于从子孙传递上来的异常的响应和处理方式称作监管者策略。<a href="http://doc.akka.io/api/akka/2.3.0/#akka.actor.SupervisorStrategy" target="_blank" rel="external">监管者策略</a>是定义你的系统容错行为的主要并且直接的机制。</p>
+<p>当一条消息指示有一个错误到达了一个监管者，它会采取如下行动之一：</p>
+<ul>
+<li><strong>恢复孩子（及其子孙），保持内部状态。</strong> 当孩子的状态没有被错误破坏，还可以继续正常工作的时候，可以使用这种策略。</li>
+<li><strong>重启孩子（及其子孙），清除内部状态。</strong> 这种策略应用的场景和第一种正好相反。如果孩子的状态已经被错误破坏，在它可以被用到Future之前有必须要重置其内部状态。</li>
+<li><strong>永久地停掉孩子（及其子孙）。</strong> 这种策略可以用在下面的场景中：错误条件不能被修正，但是并不影响后面执行的操作，这些操作可以在失败的孩子不存在的情况下完成。</li>
+<li><strong>停掉自己并向上传播错误。</strong> 适用场景：当监管者不知道如何处理错误，就把错误传递给自己的监管者。</li>
+</ul>
+<p>而且，一个Actor可以决定是否把行动应用在失败的子孙上抑或是应用到它的兄弟上。有两种预定义的策略：</p>
+<ul>
+<li><code>OneForOneStrategy</code>：只把指定行动应用到失败的孩子上</li>
+<li><code>AllForOneStrategy</code>：把指定行动应用到所有子孙上</li>
+</ul>
+<p>下面是一个使用<code>OneForOneStrategy</code>的简单例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import akka.actor.OneForOneStrategy&#10;import akka.actor.SupervisorStrategy._&#10;import scala.concurrent.duration._&#10;&#10;override val supervisorStrategy =&#10; OneForOneStrategy() &#123;&#10;   case _: ArithmeticException      =&#62; Resume&#10;   case _: NullPointerException     =&#62; Restart&#10;   case _: IllegalArgumentException =&#62; Stop&#10;   case _: Exception                =&#62; Escalate&#10; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果没有指定策略，那么就使用如下默认的策略：</p>
+<ul>
+<li>如果在初始化actor时出错，或者actor被结束（killed），那么actor就会停止(stopped)</li>
+<li>如果有任何类型的异常出现，actor就会重启</li>
+</ul>
+<p>Akka提供的默认策略的实现如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">final val defaultStrategy: SupervisorStrategy = &#123;&#10;  def defaultDecider: Decider = &#123;&#10;    case _: ActorInitializationException &#8658; Stop&#10;    case _: ActorKilledException         &#8658; Stop&#10;    case _: Exception                    &#8658; Restart&#10;  &#125;&#10;  OneForOneStrategy()(defaultDecider)&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Akka也考虑到对<a href="http://doc.akka.io/api/akka/2.3.0/#akka.actor.SupervisorStrategy" target="_blank" rel="external">定制化监管者策略</a>的实现，但正如Akka文档也提出了警告，这么做要小心，因为错误的实现会产生诸如actor系统被阻塞的问题（也就是说，其中的多个actor被永久挂起了）。</p>
+<h3 id="本地透明性">本地透明性</h3><p>Akka架构支持<a href="http://doc.akka.io/docs/akka/snapshot/general/remoting.html" target="_blank" rel="external">本地透明性</a>，使得actor完全不知道他们接受的消息是从哪里发出来的。消息的发送者可能驻留在同一个JVM，也有可能是存在于其他的JVM（或者运行在同一个节点，或者运行在不同的节点）。Akka处理这些情况对于actor（也即对于开发者）来说是完全透明的。唯一需要说明的是跨越节点的消息必须要被序列化。</p>
+<p><em>Akka架构支持本地透明性，使得actor完全不知道他们接受的消息是从哪里发出来的。
+</em></p>
+<p>Actor系统设计的初衷，就是不需要任何专门的代码就可以运行在分布式环境中。Akka只需要一个配置文件（application.conf），用以说明发送消息到哪些节点。下面是配置文件的一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">akka &#123;&#10;  actor &#123;&#10;    provider = &#34;akka.remote.RemoteActorRefProvider&#34;&#10;  &#125;&#10;  remote &#123;&#10;    transport = &#34;akka.remote.netty.NettyRemoteTransport&#34;&#10;    netty &#123;&#10;      hostname = &#34;127.0.0.1&#34;&#10;      port = 2552&#10;    &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最后的一些提示">最后的一些提示</h3><p>我们已经了解了Akka框架帮助完成并发和高性能的方法。然而，正如这篇教程指出的，为了充分发挥Akka的能力，在设计和实现系统时，有些要点值得考虑：</p>
+<ul>
+<li>我们应尽最大可能为每个actor都分配最小的任务（如上面讨论的，遵守单一职责原则）</li>
+<li><p>Actor应该异步处理事件（也就是处理消息），不应该阻塞，否则就会发生上下文切换，影响性能。具体来说，最好是在一个Future对象里执行阻塞操作（例如IO），这样就不会阻塞actor，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">case evt =&#62; blockingCall() // BAD&#10;case evt =&#62; Future &#123;&#10;    blockingCall()           // GOOD&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要确认你的消息都是不可变的，因为互相传递消息的actor都在它们自己的线程里并发运行。可变的消息很有可能导致不可预期的行为。</p>
+</li>
+<li>由于在节点之间发送的消息必须是可序列化的，所以必须要记住消息体越大，序列化、发送和反序列化所花费的时间就越多，这也会降低性能。</li>
+</ul>
+<h3 id="结论">结论</h3><p>Akka用Scala语言写成，简化并为开发高并发、分布式和容错式应用提供了便利，对开发者隐藏了很大程度的复杂性。把Akka用好肯定需要了解比这个教程更多的内容，但是希望这里的介绍和示例能够引起你的注意并继续了解Akka。</p>
+<p>Amazon、VMWare和CSC只是现在积极使用Akka的一部分领军企业。可以访问<a href="http://akka.io/" target="_blank" rel="external">Akka的官方网站</a>学到更多的知识，并多花点时间研究Akka是否适合你的项目。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Akka/">Akka</a>, <a href="/tags/Scala/">Scala</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

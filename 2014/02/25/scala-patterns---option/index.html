@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Scala patterns (#1) - Option | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Scala patterns (#1) - Option"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-02-25T10:24:35.000Z"><a href="/2014/02/25/scala-patterns---option/">Feb 25 2014</a></time>
+      
+      
+  
+    <h1 class="title">Scala patterns (#1) - Option</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>自从1994年<a href="http://zh.wikipedia.org/wiki/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8F%AF%E5%A4%8D%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BD%AF%E4%BB%B6%E7%9A%84%E5%9F%BA%E7%A1%80" target="_blank" rel="external">《设计模式：可复用面向对象软件的基础》</a>问世以来，设计模式就备受关注，虽然业界褒贬不一，而且有人专门写了<a href="http://en.wikipedia.org/wiki/Anti-pattern" target="_blank" rel="external">反模式</a>来陈述其弊端，但大家对它的作用大部分还是认可的，尤其是在面向对象编程领域。但是，正如Brooks所说的<a href="http://zh.wikipedia.org/wiki/%E6%B2%A1%E6%9C%89%E9%93%B6%E5%BC%B9" target="_blank" rel="external">“天下没有免费的银弹”</a>，软件的本质问题是管理复杂度，所以能用设计模式解决问题，它必然也会带来衍生问题，工具都有利弊，如何更好地使用工具才是王道。为了减少对设计模式的滥用和简化设计（既然可复用，为什么不直接让语言天生支持呢？），多年以来，人们一直期望在语言层面增加对可复用编程模式（pattern/paradigm）的支持，而这些想法确实也逐渐被多种现代编程语言所采纳。<br><a id="more"></a></p>
+<p>在学习Scala语言的过程中，我感觉程序员得到了以往学习任何语言都不曾有过的待遇：在语言层面对于模式的支持已经达到了相当丰富的程度。当然，受限于现在所学的知识，还不能把Scala中的设计模式尽数解读，但是我准备用一个系列把Scala中涉及的设计模式写出来，这样做的好处之一是能从应用层面能更好地使用这些模式（准确地说，是语言元素或语法），之二是能更深入地理解设计模式本身。当然，如果没有伟大的互联网，有些工作是很难开展的，本文内容大部分都是基于网络资源和前辈的工作完成的。</p>
+<h3 id="Option模式">Option模式</h3><p><em>Scala in action</em>中提到了几种模式，今天我们先聊聊Option模式，不过这种模式不是<a href="http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/ref=sr_1_1?ie=UTF8&amp;qid=1393315872&amp;sr=8-1&amp;keywords=design+pattern" target="_blank" rel="external">《设计模式》</a>书中定义的一种，是编外的一种模式(参考<a href="http://en.wikipedia.org/wiki/Null_Object_pattern" target="_blank" rel="external">Null对象模式</a>)，作者在书中给出了来源，可能是较早<a href="http://www.codecommit.com/blog/scala/the-option-pattern" target="_blank" rel="external">讨论Option模式的一篇博文</a>。这篇文章有点长，我简单解释一下，博主基本上分三点（Option在Scala中的应用、Option和null的比较以及Java中Option的手工实现）讨论Option，我们重点关注第一点，那就是使用一个除法函数来说明Scala内嵌Option的用法，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def div(a:Int)(b:Int):Option[Int] = if (b &#60;= 0) None&#10;  else if (a &#60; b) Some(0)&#10;  else Some(1 + div(a - b)(b).get)</span><br></pre></td></tr></table></figure>
+<p>这个函数还算比较直观，只是里面用到了Currying（<a href="http://zh.wikipedia.org/wiki/%E6%9F%AF%E9%87%8C%E5%8C%96" target="_blank" rel="external">柯里化</a>，或参见博主<a href="http://www.codecommit.com/blog/scala/function-currying-in-scala" target="_blank" rel="external">另一篇文章</a>）和递归，我们可以暂时忽略这些，只关注返回值。返回值在这里定义为Option[Int]，在函数中返回的结果可能是None、Some(0)或者Some(其他值)，很容易理解吧？</p>
+<p>作者继续讨论了使用Option两种方式的异同：第一种就是上述除法函数的例子，这并不是一种很好的方法（思考一下为什么），而第二种则是使用模式匹配，则会更优雅一些：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div(13)(0) match &#123;&#10;  case Some(x) =&#62; println(x)&#10;  case None =&#62; println(&#34;Problems&#34;)&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="为什么null是糟糕的？">为什么null是糟糕的？</h3><p>如果你写过Java程序可能会比较有感触，100行程序至少得有10行以上得和null的处理逻辑相关吧？这篇博文也对Option和null的使用方式做了个比较，但我更喜欢SlideShare上的一个屁屁踢<a href="http://www.slideshare.net/MichalBigos/option-either-try-and-what-to-do-with-corner-cases-when-they-arise" target="_blank" rel="external">Option, Either, Try</a>中的例子，摘抄如下：</p>
+<h6 id="Java中使用null的例子">Java中使用null的例子</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String foo = request.params(&#34;foo&#34;);&#10;if (foo != null) &#123;&#10;&#9;String bar = request.params(&#34;bar&#34;);&#10;&#9;if (bar != null) &#123;&#10;&#9;  doSomething(foo, bar);&#10;&#9;&#125; else &#123;&#10;&#9;  throw new ApplicationException(&#34;Bar not found&#34;);&#10;&#9;&#125;&#10;&#125; else &#123;&#10;&#9;throw new ApplilcationException(&#34;Foo not found&#34;);&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="为什么null容易出错（注释译成了中文）">为什么null容易出错（注释译成了中文）</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// 1. &#27809;&#20154;&#30693;&#36947;&#32467;&#26524;&#26159;&#19981;&#26159;null&#65292;&#32534;&#35793;&#22120;&#20063;&#19981;&#30693;&#36947;&#10;String foo = request.params(&#34;foo&#34;);&#10;// 2. &#24517;&#39035;&#35201;&#20570;&#28902;&#20154;&#30340;&#26816;&#26597;&#10;if (foo != null) &#123;&#10;&#9;String bar = request.params(&#34;bar&#34;);&#10;&#9;//if (bar != null) &#123;&#10;&#9;/* 3.&#33261;&#21517;&#26157;&#33879;&#30340;NullPointerException&#21361;&#38505;&#65292;&#24456;&#22810;&#20154;&#37117;&#21487;&#33021;&#20250;&#24536;&#20102;&#26816;&#26597;*/&#10;&#9;doSomething(foo, bar);&#10;&#9;/* 4. &#38543;&#24847;&#32454;&#21270;&#30340;&#38169;&#35823;&#28040;&#24687;&#65292;&#26377;&#26102;&#26368;&#21518;&#25243;&#20986;&#38169;&#35823;&#23601;&#22815;&#20102;*/&#10;&#9;//&#125; else &#123;&#10;&#9;//  throw new ApplicationException(&#34;Bar not found&#34;);&#10;&#9;//&#125;&#10;&#125; else &#123;&#10;    /* 5. &#35774;&#35745;&#32570;&#38519;&#65292;&#21482;&#26159;&#21407;&#26469;Exception&#30340;&#26367;&#25442; */&#10;&#9;throw new ApplilcationException(&#34;Foo not found&#34;);&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>看完这个例子，已经不需要解释了。强烈建议喜欢Scala的同学看完这个Slides，有内涵。</p>
+<h3 id="Option模式是怎么定义的">Option模式是怎么定义的</h3><p>Option在Scala中的定义只是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sealed abstract class Option[A]&#10;&#10;case class Some[+A](x: A) extends Option[A]&#10;&#10;case class None extends Option[Nothing]</span><br></pre></td></tr></table></figure>
+<p>这里Option是一个抽象类，有两个case class实现，一个是Some，代表有值，另一个是None，代表空值，也就是“具有一个或零个元素的容器”。其中+A是Scala中协变（简单理解就是对类型A以及其子类型适用）的意思，请参考相关文档。</p>
+<p>总体来说，借用Michal Bigos的Slides，Option模式的好处有以下几点：</p>
+<ul>
+<li>在类型层面规定值存在或不存在</li>
+<li>编译器强迫程序员处理Option</li>
+<li>不会意外地依赖不存在的值</li>
+<li>清晰地描述了设计意图</li>
+</ul>
+<p>所以，学习一下Option，在你的程序里用起来吧！</p>
+<h3 id="参考资源">参考资源</h3><ol>
+<li><a href="https://wiki.scala-lang.org/display/SYGN/Design+Patterns#" target="_blank" rel="external">Scala语言中的设计模式</a></li>
+<li><a href="http://www.codecommit.com/blog/scala/the-option-pattern" target="_blank" rel="external">关于“Option”模式</a></li>
+<li><a href="http://www.slideshare.net/MichalBigos/option-either-try-and-what-to-do-with-corner-cases-when-they-arise" target="_blank" rel="external">Option, Either, Try and what to do with corner cases when they arise</a></li>
+<li><a href="http://pavelfatin.com/design-patterns-in-scala/" target="_blank" rel="external">Design Patterns in Scala</a></li>
+</ol>
+<p><em>说明：文中任何引用部分版权均归原文作者所有，引用请注明本文地址和原文地址。文中任何拼写或摘抄错误均由本文作者负责纠正。</em></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Design-Patterns/">Design Patterns</a>, <a href="/tags/Scala/">Scala</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 16px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 14px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 16px;">Design Patterns</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 12px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 12px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 12px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 12px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/REST/" style="font-size: 12px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 12px;">SBT</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/Spring/" style="font-size: 14px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 12px;">appfuse</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 14px;">grails</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16px;">reading</a> <a href="/tags/test/" style="font-size: 12px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>
