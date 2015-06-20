@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>第 2 頁 | 彙整：2013 | Freelemon&#39;s open world</title>
+  <title>Hexo 3.0 on Mac | Freelemon&#39;s open world</title>
   <meta name="author" content="Hongbin Zuo">
   
   <meta name="description" content="Think before write.">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Hexo 3.0 on Mac"/>
   <meta property="og:site_name" content="Freelemon&#39;s open world"/>
 
   
@@ -59,61 +59,94 @@
 <div class="clearfix"></div>
 </header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title">2013</h2>
-
-
-  <div class="archive">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
     
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2013-11-19T06:48:59.000Z"><a href="/2013/11/19/java-swing-automation-test-study-(2nd-part)/">Nov 19 2013</a></time>
-            
-              <h1 class="title"><a href="/2013/11/19/java-swing-automation-test-study-(2nd-part)/">Java Swing Automation Test Study(2nd part)</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2013-11-18T16:11:43.000Z"><a href="/2013/11/19/java-swing-automation-test-study-(1st-part)/">Nov 19 2013</a></time>
-            
-              <h1 class="title"><a href="/2013/11/19/java-swing-automation-test-study-(1st-part)/">Java Swing Automation Test Study (1st part)</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2013-11-16T10:08:29.000Z"><a href="/2013/11/16/my-first-favorites/">Nov 16 2013</a></time>
-            
-              <h1 class="title"><a href="/2013/11/16/my-first-favorites/">My first favorites</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2013-11-08T15:13:36.000Z"><a href="/2013/11/08/the-first-blog-with-hexo/">Nov 8 2013</a></time>
-            
-              <h1 class="title"><a href="/2013/11/08/the-first-blog-with-hexo/">The first blog with Hexo</a></h1>
-            
-          </header>
-        </div>
-      </article>
+      <img src="">
     
   </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-06-20T04:44:39.000Z"><a href="/2015/06/20/Hexo-3-0-on-Mac/">Jun 20 2015</a></time>
+      
+      
+  
+    <h1 class="title">Hexo 3.0 on Mac</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>爱折腾就得花时间，Hexo是个好东西，但一到环境切换上就不让人省心了。花了多半天，总算切到MBP上了，不算顺利，有些小坑，记录一下。</p>
+<a id="more"></a>
+<p>这次的移植的环境是：OS X系统，Hexo版本如下（没显示出主版本，实际是3.0+）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10140;  blog  hexo --version&#10;hexo-cli: 0.1.7&#10;os: Darwin 14.3.0 darwin x64&#10;http_parser: 1.0&#10;node: 0.10.35&#10;v8: 3.14.5.9&#10;ares: 1.9.0-DEV&#10;uv: 0.10.30&#10;zlib: 1.2.8&#10;modules: 11&#10;openssl: 1.0.1j</span><br></pre></td></tr></table></figure>
+<p>对于全新安装Hexo 3.0+的同学，可以直接参考一位同学的<a href="http://akarin.xyz/build-your-hexo-blog-3/" target="_blank" rel="external">Hexo 3.0安装博客</a>。</p>
+<h3 id="DTraceProviderBindings">DTraceProviderBindings</h3><p>首先出现莫名其妙的<code>MODULE_NOT_FOUND</code>，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; [Error: Cannot find module &#39;./build/default/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; &#125;&#10;&#123; [Error: Cannot find module &#39;./build/Debug/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>参见<a href="https://github.com/hexojs/hexo-cli/issues/1" target="_blank" rel="external">Github上的问题1</a>。作者对此也没有权威解释，只是告诉加一个参数就可以了：</p>
+<figure class="highlight"><figcaption><span>npm install -g hexo-cli --no-optional```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;###The Wall&#10;&#10;&#22240;&#20026;&#22269;&#20869;&#30340;&#32593;&#32476;&#24773;&#20917;&#65292;&#24456;&#22810;&#26102;&#20505;Ruby&#21834;&#65292;Node&#30340;&#21253;&#31649;&#29702;&#22120;&#37117;&#20250;&#20986;&#29616;&#36830;&#25509;&#22833;&#25928;&#65292;&#36825;&#31181;&#24773;&#20917;&#19979;&#65292;&#25110;&#32773;&#20351;&#29992;&#20195;&#29702;&#65288;BTW&#65306;GoAgent&#24050;&#32463;&#19981;&#22823;&#22909;&#29992;&#20102;&#65289;&#65292;&#25110;&#32773;&#20351;&#29992;&#22269;&#20869;&#30340;&#21253;&#38236;&#20687;&#31449;&#65292;&#29992;&#20195;&#29702;&#30340;&#35805;&#65292;&#21487;&#20197;&#36825;&#20040;&#35774;&#32622;&#65306;&#10;&#10;```npm config set proxy=http://127.0.0.1:8087</span><br></pre></td></tr></table></figure>
+<p>不过用国内的镜像站应该是最省心的，改一下registry就好了：</p>
+<figure class="highlight"><figcaption><span>config set registry="http://r.cnpmjs.org"```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#22914;&#26524;&#20320;&#36824;&#36935;&#21040;&#21035;&#30340;&#24773;&#20917;&#65292;&#21442;&#32771;&#36825;&#20010;&#38142;&#25509;&#21543;&#65292;&#20889;&#30340;&#27604;&#36739;&#32454;&#65306;[npm\_cross\_wall](http://www.cnblogs.com/hustskyking/p/npm-cross-wall.html)&#10;&#10;###hexo server&#10;Hexo 3.0&#20197;&#21518;&#36824;&#26377;&#19968;&#20010;&#21464;&#21270;&#65292;&#23601;&#26159;server&#27169;&#22359;&#38656;&#35201;&#21333;&#29420;&#23433;&#35013;&#65292;&#22312;&#21338;&#23458;&#30446;&#24405;&#20869;&#25191;&#34892;&#22914;&#19979;&#21629;&#20196;&#21363;&#21487;&#65306;&#10;&#10;```npm install hexo-server --save</span><br></pre></td></tr></table></figure>
+<h3 id="hexo_generate">hexo generate</h3><p>运行<code>hexo g</code>时发现，所有的markdown没有生成，发现和之前hexo版本不一样，需要来这么一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init&#10;npm install</span><br></pre></td></tr></table></figure>
+<h3 id="github_or_git">github or git</h3><p>Hexo 3.0后，需要把deployer的类型从github改成git，另外需要加入相应的包：</p>
+<p><code>npm install hexo-deployer-git --save</code></p>
+<p>最后，坑踩完了。需要提醒的是，遇到问题，主要参考hexo的github主页上的问题列表，作者tommy的主页，或者最后找不到只能谷而歌之。</p>
+<p>Happy blogging with Hexo 3.0!</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/blog/">blog</a>, <a href="/tags/hexo/">hexo</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
