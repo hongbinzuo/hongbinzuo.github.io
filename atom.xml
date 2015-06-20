@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  
+  <title><![CDATA[Freelemon's open world]]></title>
+  <subtitle><![CDATA[Write, Code, Share, Learn]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://hongbinzuo.github.io//"/>
+  <updated>2015-06-20T05:38:14.000Z</updated>
+  <id>http://hongbinzuo.github.io//</id>
+  
+  <author>
+    <name><![CDATA[Hongbin Zuo]]></name>
+    <email><![CDATA[zuohongbin@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Construction Method Reading Notes]]></title>
+    <link href="http://hongbinzuo.github.io/2015/06/20/Construction-Method-Reading-Notes/"/>
+    <id>http://hongbinzuo.github.io/2015/06/20/Construction-Method-Reading-Notes/</id>
+    <published>2015-06-20T05:34:12.000Z</published>
+    <updated>2015-06-20T05:38:14.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="我读《构建之法》">我读《构建之法》</h1><p>以前读过邹欣老师的几篇博客，觉得还是有些受用。这次看到邹欣老师出书，就赶热闹买了一本，看看软件从业者眼中的现代软件工程是什么样子。这本书我看的比较快，也没做笔记，今天有点时间，就把我认为比较有意思的一些点总结一下，对自己算是个交代。</p>
+<a id="more"></a>
+<p>这本书对于软件开发者的作用：不用读枯燥的课本，可以学习到现代软件工程的方方面面，结合自己的实际工作，查缺补漏，为成长成一位职业的、合格的开发者做好准备。如果你已经在软件领域从业多年，可以看看这些知识你是否大部分已经掌握并实践，对于软件开发和团队提升是否有帮助。</p>
+<h2 id="第1章_概论">第1章 概论</h2><p>提出了软件=程序+软件工程的概念；<br>普及软件开发涉及的子课题，如源代码管理、配置管理、质量保障、软件测试、需求分析、程序理解、软件维护、服务运营、软件生命周期、软件项目管理、用户体验、职业道德规范等等。<br>给出了软件工程的定义：</p>
+<blockquote>
+<p>软件工程是把系统的、有序的、可量化的方法应用到软件的开发、运营和维护上的过程。<br>软件工程包括下列领域：软件需求分析、软件设计、软件构建、软件测试和软件维护。</p>
+</blockquote>
+<p>软件的特殊性：复杂性、不可见性、易变性、服从性、非连续性。<br>软件工程与计算机科学的关系，其中有一副对比图比较有用。<br>软件工程的知识领域：15个知识领域，参见SWEBOK 3.0 — 下载了这本书，可以浏览一下。<br>软件工程的目标：创造“足够好”的软件。</p>
+<h2 id="第2章_个人技术和流程">第2章 个人技术和流程</h2><h3 id="单元测试">单元测试</h3><p>好的单元测试的标准：在最低的功能/参数上验证程序的正确性、必须由最熟悉代码的人来写、单元测试后机器状态不变、要快、应该产生可重复、一致的结果、独立性、应该覆盖所有的代码路径、应该继承到自动测试的框架中、必须和产品代码一起保存维护。</p>
+<h3 id="效能分析工具">效能分析工具</h3><p>抽样和代码注入</p>
+<h3 id="个人开发流程">个人开发流程</h3><p>PSP以及书中没有提到的TSP（团队开发流程）</p>
+<h2 id="第3章_软件工程师的成长">第3章 软件工程师的成长</h2><h3 id="个人能力的衡量和发展">个人能力的衡量和发展</h3><p>其中讲了具体的衡量和发展的方法。</p>
+<p>软件领域可以分为两个方面：一方面是技艺创新的大爆发，另一方面是坚持不懈的工程工作。包括软件的改善、维护和测试等，这一方面占了90-95%的比例。</p>
+<h3 id="软件工程的职业发展">软件工程的职业发展</h3><p>职业发展-考级之路，职业成长-Steve McConnell版本（我个人比较喜欢的实践方法），职业成长-大公司版本，职业成长-自我评估（举例：即使是做CRUD需要的核心技能和扩展知识也不少，赞/P51）</p>
+<h3 id="技能的反面">技能的反面</h3><blockquote>
+<p>那怎么提高技能呢？答案很简单，通过不断的联系，把哪些低层次的问题都解决了，变成不经过大脑的自动操作，然后才有时间和脑力来解决较高层次的问题。</p>
+</blockquote>
+<h2 id="第4章_两人合作">第4章 两人合作</h2><p>代码规范、代码复审、结对编程。有参考价值，后面部分涉及到软件工程师合作的一些技巧，不仅仅是技术问题。参见P79，如何正确地给予反馈。</p>
+<h2 id="第5章_团队和流程">第5章 团队和流程</h2><p>非团队和团队。团队的特点：有一致的目标，一起完成；有各自的分工，互相依赖合作。</p>
+<h3 id="软件团队的模式">软件团队的模式</h3><p>一窝蜂模式（呵呵），主治医师模式（IBM System 360），明星模式（不咋样），社区模式（Linux，OSS），业余剧团模式（培训项目），秘密团队模式（Macintosh，比较特殊），特工团队模式（网络安全服务），交响乐团模式（大公司普遍），爵士乐模式（即兴演出？），功能团队模式（Feature Team，应用广泛），官僚模式</p>
+<h3 id="开发流程">开发流程</h3><p>Code-and-Fix，瀑布开发（被误解的瀑布，参见P91；P94瀑布的适用范围），RUP，老板驱动的流程，渐进交付的流程</p>
+<h2 id="第6章_敏捷流程">第6章 敏捷流程</h2><p>这一章我觉得很有价值，篇幅不长，但是针对敏捷流程提出了一些问题，进行了一些讨论，但是对一些问题，作者也没有给出特别明确的答案。无论如何，敏捷不是银弹，在实施过程中存在的问题值得反思。可以再次阅读。</p>
+<h2 id="第7章_MSF">第7章 MSF</h2><p>略。</p>
+<h2 id="第8章_软件需求">第8章 软件需求</h2><p>P158 NABC分析法不错，竞争性需求分析框架，更适合产品经理和创新。</p>
+<h2 id="第9章_项目经理">第9章 项目经理</h2><p>P183 PM的具体任务</p>
+<h2 id="第10章_典型用户和场景">第10章 典型用户和场景</h2><p>Persona技术啊</p>
+<h2 id="第11章_~_第14章_过于基础，新观点不多_略">第11章 ~ 第14章 过于基础，新观点不多 略</h2><h2 id="第15章_稳定和发布阶段">第15章 稳定和发布阶段</h2><p>P295 事后诸葛亮会议（邹老师这个模板不错哦~） - 敏捷中的回顾 - Project中的Lesson&amp;Learn</p>
+<h2 id="第16章_IT行业的创新">第16章 IT行业的创新</h2><p>恩，创新是永恒的话题，不过不是软件工程的核心话题</p>
+<h2 id="第17章_人，绩效和职业道德">第17章 人，绩效和职业道德</h2><p>这章很重要，尤其对于管理者。需要再看一下最新版的《人件》。</p>
+<p>—- OVER —-</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="我读《构建之法》">我读《构建之法》</h1><p>以前读过邹欣老师的几篇博客，觉得还是有些受用。这次看到邹欣老师出书，就赶热闹买了一本，看看软件从业者眼中的现代软件工程是什么样子。这本书我看的比较快，也没做笔记，今天有点时间，就把我认为比较有意思的一些点总结一下，对自己算是个交代。</p>]]>
+    
+    </summary>
+    
+      <category term="SE" scheme="http://hongbinzuo.github.io/tags/SE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hexo 3.0 on Mac]]></title>
+    <link href="http://hongbinzuo.github.io/2015/06/20/Hexo-3-0-on-Mac/"/>
+    <id>http://hongbinzuo.github.io/2015/06/20/Hexo-3-0-on-Mac/</id>
+    <published>2015-06-20T04:44:39.000Z</published>
+    <updated>2015-06-20T04:51:45.000Z</updated>
+    <content type="html"><![CDATA[<p>爱折腾就得花时间，Hexo是个好东西，但一到环境切换上就不让人省心了。花了多半天，总算切到MBP上了，不算顺利，有些小坑，记录一下。</p>
+<a id="more"></a>
+<p>这次的移植的环境是：OS X系统，Hexo版本如下（没显示出主版本，实际是3.0+）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#10140;  blog  hexo --version&#10;hexo-cli: 0.1.7&#10;os: Darwin 14.3.0 darwin x64&#10;http_parser: 1.0&#10;node: 0.10.35&#10;v8: 3.14.5.9&#10;ares: 1.9.0-DEV&#10;uv: 0.10.30&#10;zlib: 1.2.8&#10;modules: 11&#10;openssl: 1.0.1j</span><br></pre></td></tr></table></figure>
+<p>对于全新安装Hexo 3.0+的同学，可以直接参考一位同学的<a href="http://akarin.xyz/build-your-hexo-blog-3/" target="_blank" rel="external">Hexo 3.0安装博客</a>。</p>
+<h3 id="DTraceProviderBindings">DTraceProviderBindings</h3><p>首先出现莫名其妙的<code>MODULE_NOT_FOUND</code>，<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123; [Error: Cannot find module &#39;./build/default/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; &#125;&#10;&#123; [Error: Cannot find module &#39;./build/Debug/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>参见<a href="https://github.com/hexojs/hexo-cli/issues/1" target="_blank" rel="external">Github上的问题1</a>。作者对此也没有权威解释，只是告诉加一个参数就可以了：</p>
+<p><code>$ npm install -g hexo-cli --no-optional</code></p>
+<h3 id="The_Wall">The Wall</h3><p>因为国内的网络情况，很多时候Ruby啊，Node的包管理器都会出现连接失效，这种情况下，或者使用代理（BTW：GoAgent已经不大好用了），或者使用国内的包镜像站，用代理的话，可以这么设置：</p>
+<p><code>npm config set proxy=http://127.0.0.1:8087</code></p>
+<p>不过用国内的镜像站应该是最省心的，改一下registry就好了：</p>
+<p><code>npm config set registry=&quot;http://r.cnpmjs.org&quot;</code></p>
+<p>如果你还遇到别的情况，参考这个链接吧，写的比较细：<a href="http://www.cnblogs.com/hustskyking/p/npm-cross-wall.html" target="_blank" rel="external">npm_cross_wall</a></p>
+<h3 id="hexo_server">hexo server</h3><p>Hexo 3.0以后还有一个变化，就是server模块需要单独安装，在博客目录内执行如下命令即可：</p>
+<p><code>npm install hexo-server --save</code></p>
+<h3 id="hexo_generate">hexo generate</h3><p>运行<code>hexo g</code>时发现，所有的markdown没有生成，发现和之前hexo版本不一样，需要来这么一下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init&#10;npm install</span><br></pre></td></tr></table></figure>
+<h3 id="github_or_git">github or git</h3><p>Hexo 3.0后，需要把deployer的类型从github改成git，另外需要加入相应的包：</p>
+<p><code>npm install hexo-deployer-git --save</code></p>
+<p>最后，坑踩完了。需要提醒的是，遇到问题，主要参考hexo的github主页上的问题列表，作者tommy的主页，或者最后找不到只能谷而歌之。Happy blogging with Hexo 3.0!</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>爱折腾就得花时间，Hexo是个好东西，但一到环境切换上就不让人省心了。花了多半天，总算切到MBP上了，不算顺利，有些小坑，记录一下。</p>]]>
+    
+    </summary>
+    
+      <category term="blog" scheme="http://hongbinzuo.github.io/tags/blog/"/>
+    
+      <category term="hexo" scheme="http://hongbinzuo.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[HTTP Status 406]]></title>
+    <link href="http://hongbinzuo.github.io/2015/01/22/HTTP-Status-406/"/>
+    <id>http://hongbinzuo.github.io/2015/01/22/HTTP-Status-406/</id>
+    <published>2015-01-21T18:02:45.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>用Spring MVC 4.0写一个REST服务，实验的过程中碰到了406错误，具体错误消息如下，</p>
+<blockquote>
+<p>The resource identified by this request is only capable of generating responses with characteristics not acceptable according to the request “accept” headers.</p>
+</blockquote>
+<a id="more"></a>
+<p>略查了一下，CSDN上有几篇博客谈到这个问题，有的说是因为在返回的对象中没有定义getter方法，NO，我定义了。有的说是缺少依赖的jar包，也就是Jackson的jar包，我把相关的依赖加上之后，并没有解决问题，当时加的版本比较低（1.9.13），后来想加上更高版本（codehaus）发现maven不能下载jar包，于是放弃，追查其他可能性（此处开始走弯路）。</p>
+<p>Stackoverflow上也有不少帖子是关于这个问题的，有的说1天都没解决，有的说7天还没解决，我的感觉是“huh？”。按照Stackoverflow提到的一些方法，如把返回对象类型改成Object（有的人成功了，什么原理？），不成；在RequestMapping里面加入headers或produces的类型约束（如application/json等），不成；加入ContentNegotiationManagerFactoryBean的配置，不成。</p>
+<p>我想Spring 4.0这种高级版本应该是有一招制敌的方法，所以非常肯定的是有一个配置是必须的，即：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#60;mvc:annotation-driven/&#62;</span><br></pre></td></tr></table></figure>
+<p>不可思议的是，IntelliJ生成的Spring MVC项目中，mvc的命名空间引用错误，修正这个问题还花了点时间。怎么会出现这种问题？</p>
+<p>修复mvc之后，我又开始看了一下<a href="http://spring.io/guides/gs/rest-service/" target="_blank" rel="external">官方指南</a>，这个指南的例子写的不错，可惜它用的不是配置文件的方式，而是使用程序做配置，这环境就不一样了。但其实，如果仔细研读，还是能发现其中暗藏的线索，比如下面这句话：</p>
+<blockquote>
+<p>As you see in steps below, Spring uses the Jackson JSON library to automatically marshal instances of type Greeting into JSON.</p>
+</blockquote>
+<p>这句话的内涵是Spring在把对象转换成JSON的时候用到了Jackson，所以只要在你的项目引入Jackson让Spring能找到可以了，哈，绕了一圈，还是Jackson。这块比较Tricky的是，如果你不仔细看链接，你发现不了，Jackson这个库从2.0开始前面缀了一个fasterxml，这就是坑。如果你还在用老的codehaus就傻了，于是，加入新的三个依赖包如下，问题最终得到解决。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#60;dependency&#62;&#10;    &#60;groupId&#62;com.fasterxml.jackson.core&#60;/groupId&#62;&#10;    &#60;artifactId&#62;jackson-core&#60;/artifactId&#62;&#10;    &#60;version&#62;2.4.1&#60;/version&#62;&#10;&#60;/dependency&#62;&#10;&#10;&#60;dependency&#62;&#10;    &#60;groupId&#62;com.fasterxml.jackson.core&#60;/groupId&#62;&#10;    &#60;artifactId&#62;jackson-databind&#60;/artifactId&#62;&#10;    &#60;version&#62;2.4.1&#60;/version&#62;&#10;&#60;/dependency&#62;&#10;&#10;&#60;dependency&#62;&#10;    &#60;groupId&#62;com.fasterxml.jackson.core&#60;/groupId&#62;&#10;    &#60;artifactId&#62;jackson-annotations&#60;/artifactId&#62;&#10;    &#60;version&#62;2.4.1&#60;/version&#62;&#10;&#60;/dependency&#62;</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>用Spring MVC 4.0写一个REST服务，实验的过程中碰到了406错误，具体错误消息如下，</p>
+<blockquote>
+<p>The resource identified by this request is only capable of generating responses with characteristics not acceptable according to the request “accept” headers.</p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+      <category term="REST" scheme="http://hongbinzuo.github.io/tags/REST/"/>
+    
+      <category term="Spring" scheme="http://hongbinzuo.github.io/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Vagrant Tips]]></title>
+    <link href="http://hongbinzuo.github.io/2015/01/20/VagrantTips/"/>
+    <id>http://hongbinzuo.github.io/2015/01/20/VagrantTips/</id>
+    <published>2015-01-19T16:45:18.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>听说Vagrant管理虚拟机不错，研究了一下Vagrant和Docker的区别，决定安装Vagrant，中间遇到了两个问题，分享如下。</p>
+<a id="more"></a>
+<p>首先，直接在官网上下载特别慢，VirtulBox下载倒是比较快，但是Vagrant本身70多兆的文件直接下载估计得1个多小时，下了一会儿实在没耐心，谷歌之，最后采用了这个方法：</p>
+<ol>
+<li>先通过<code>wget</code>下载到我的DigitalOcean VPS（欠费了，哭）</li>
+<li>通过Mac <code>sftp</code>到DO，把文件down下来，总体上比较快</li>
+</ol>
+<p>其次，执行<code>vagrant up</code>的时候发现速度更慢，几乎到不了10K，估计用时12个小时左右，网上也有类似的问题，如<a href="http://forums.udacity.com/questions/100250311/vagrant-cloud-is-too-slow-taking-lot-of-time-to-download-more-than-10hours" target="_blank" rel="external">这个帖子</a>，这几乎没法容忍，于是继续谷歌，找到了一个方法，即：<a href="https://github.com/mitchellh/vagrant/issues/1807" target="_blank" rel="external">https://github.com/mitchellh/vagrant/issues/1807</a>，看上去这个应该是vagrant的patch，不知道为什么最新版的Vagrant中不包含这个fix。具体来说，就是把下面的代码加到Vagrantfile最后一个end之前，然后再执行<code>vagrant up</code>就一切OK啦！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">config.vm.provider :virtualbox do |vb|&#10;  vb.customize [&#34;modifyvm&#34;, :id, &#34;--natdnshostresolver1&#34;, &#34;on&#34;]&#10;  vb.customize [&#34;modifyvm&#34;, :id, &#34;--natdnsproxy1&#34;, &#34;on&#34;]&#10;end</span><br></pre></td></tr></table></figure>
+<p>下面SHOW一下修改过配置之后的速度（虽然不知道为什么），速度超赞。当然，必须强调一下，我是翻过GFW之后的效果，在墙内可能就没那么快了。</p>
+<p><img src="/img/vagrant_download.png" width="750px"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>听说Vagrant管理虚拟机不错，研究了一下Vagrant和Docker的区别，决定安装Vagrant，中间遇到了两个问题，分享如下。</p>]]>
+    
+    </summary>
+    
+      <category term="Vagrant" scheme="http://hongbinzuo.github.io/tags/Vagrant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Architecture in brief for Cassandra 2.0]]></title>
+    <link href="http://hongbinzuo.github.io/2014/12/19/Architecture-in-brief-for-Cassandra-20/"/>
+    <id>http://hongbinzuo.github.io/2014/12/19/Architecture-in-brief-for-Cassandra-20/</id>
+    <published>2014-12-18T16:09:48.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>翻译</strong>：<a href="http://weibo.com/openworld/" target="_blank" rel="external">自由的柠檬</a><br><strong>原文链接</strong>：<a href="http://www.datastax.com/documentation/cassandra/2.0/cassandra/architecture/architectureIntro_c.html" target="_blank" rel="external">http://www.datastax.com/documentation/cassandra/2.0/cassandra/architecture/architectureIntro_c.html</a><br><strong>版本</strong>：0.1(2014-12-19 00:09)</p>
+<a id="more"></a>
+<h2 id="Cassandra_2-0架构简介（译文）">Cassandra 2.0架构简介（译文）</h2><p>Cassandra设计的目的是为了处理多节点上的大数据工作负载，同时不产生单点故障。它的架构基于一个重要的认识，那就是系统和硬件的故障会发生而且确实会发生。Cassandra通过使用异构节点的对等分布式系统来解决这个问题，其中数据分布在集群的所有节点之上。在集群里，每个节点每一秒钟都会交换信息。每个节点上顺序写入的提交日志记录下写操作以保证数据持久性。然后，数据会被索引并写入到一个叫做内存表（memtable）的内存结构，内存表很像一个回写缓存。一旦这个内存结构填满，数据就会以一种SSTable形式的数据文件写到磁盘上。所有的写操作在集群里都是自动分区和复制的。Cassandra使用一种叫做压缩（compaction）的过程定期整理SSTable，丢弃不用的数据和tombstones（数据已被删除的标志）。</p>
+<p>Cassandra是面向行的数据库。Cassandra的架构允许任意授权用户通过CQL语言连接到任何数据中心的任一节点。为了使用方便，CQL使用了和SQL相似的语法。从CQL的角度看，数据库是由表组成的。通常，集群为每个应用分配了一个键空间（keyspace）。开发者可以通过cqlsh或应用程序语言驱动访问CQL。</p>
+<p>客户端的读写请求可以发送到集群中的任何一个节点。当客户端发起一个请求连接到一个节点，那么这个节点就会作为这个客户端操作的协调者。协调者作为客户端应用和持有请求数据的节点之间的代理。协调者基于集群的配置情况来决定环上的哪个节点应该接收请求。更多细节参见<a href="http://www.datastax.com/documentation/cassandra/2.0/cassandra/architecture/architectureClientRequestsAbout_c.html" target="_blank" rel="external">客户端请求</a>。</p>
+<h3 id="关键结构">关键结构</h3><ul>
+<li><p>节点<br>存储数据的地方。节点是Cassandra的基础组件。</p>
+</li>
+<li><p>数据中心<br>相关节点的集合。一个数据中心既可以是物理的，也可以是虚拟的。不同的工作负载应该使用独立的数据中心，或是物理的或是虚拟的。复制是由数据中心设置的。使用独立的数据中心可以防止Cassandra的事务被其他的工作负载影响，并且可以使请求尽量相互靠近，从而达到更低的延迟。根据复制因子的设定，数据可以被写到多个数据中心。然而，数据中心永远也不应该在物理上跨越多个地点。</p>
+</li>
+<li><p>集群<br>一个集群包含一个或多个数据中心。集群可以跨越物理上的多个地点。</p>
+</li>
+<li><p>提交日志<br>为了达到持久性，所有的数据都会先写到提交日志。在所有的数据都转存到SSTable之后，日志数据就可以归档、删除或者回收。</p>
+</li>
+<li><p>表<br>有序的列集合，通过行的形式获取数据。一个行包含多个列并有一个主键。键的第一部分是列名。</p>
+</li>
+<li><p>SSTable<br>排序的字符串表（SSTable）是一个不可变的数据文件，Cassandra把内存表定期地写到这个文件中。SSTable是只能追加的，并且顺序地存储在磁盘上，SSTable中维持着所有Cassandra表。</p>
+</li>
+</ul>
+<h3 id="配置Cassandra的关键组件">配置Cassandra的关键组件</h3><ul>
+<li><p>Gossip<br>一种对等通信协议，用来在一个Cassandra集群中发现并共享其他节点位置和状态信息。为了在重启之后能立即使用，每个节点也会在本地持久化Gossip信息。</p>
+</li>
+<li><p>分区程序<br>分区程序决定如何把数据分布到集群中的多个节点，以及把数据的第一份拷贝放到哪个节点上。分区程序基本上就是计算分区键标记（token）的一个哈希函数。每一行都通过一个分区键唯一标识，并通过标记的值分发到整个集群。Murmur3Partitioner是新Cassandra集群的默认分区策略，并且对于大多数情况来说都是正确的选择。</p>
+<p>你必须为每个节点设置一个分区程序并且分配一个num_tokens的值。你设置的标记的数量取决于系统的硬件容量。如果没有使用虚拟节点（vnodes），那么可以使用initial_token的设置。</p>
+</li>
+<li><p>复制因子<br>集群内部复制节点的总数。复制因子为1意味着一个节点上的每一行只有一个拷贝。复制因子为2的意思是每行都有两个拷贝，而每个拷贝存在不同的节点上。所有的复制品都一样重要；没有首要的或主要的复制品。你可以为每个数据中心定义复制因子。通常情况下你应该设置大于1的复制策略，但是不能大于集群中节点的数量。</p>
+</li>
+<li><p>复制品存放策略<br>Cassandra在多个节点上存储数据的拷贝（复制品），以确保可靠性和容错性。复制策略决定把复制品存放在哪些节点上。数据的第一个复制品就是第一个拷贝；无论从哪个意义上说，它都不是唯一的。对于大多数部署来说，强烈推荐使用NetworkTopologyStrategy，因为如果将来需要扩展到多个数据中心的话就容易多了。</p>
+<p>当创建一个键空间时，你必须要定义复制品存放策略和你想要的复制品数量。</p>
+</li>
+<li><p>告密者（snitch）<br>告密者定义了复制策略用来在数据中心或机架（拓扑）存放复制品的一组机器。</p>
+<p>在创建集群时，你必须要配置一个告密者。所有的告密者都使用一个动态告密者层，它们会进行监控并选择对读操作性能最好的复制品。在缺省情况下，这个告密者是激活的，并且在大多数情况下推荐使用。在cassandra.yaml中可以为每个节点配置动态告密者的阈值。</p>
+<p>缺省的SimpleSnitch并不知道数据中心或机架信息。它可以用在单数据中心部署或公有云中的单区域（single-zone）部署。推荐在生产环境下使用GossipingPropertyFileSnitch。它定义了一个节点的数据中心和机架并使用gossip向其他节点传播信息。</p>
+</li>
+<li><p>cassandra.yaml配置文件<br>设置集群初始化属性、表的缓存参数、调优和资源使用的属性、超时设置、客户端连接、备份和安全的主要配置文件。</p>
+<p>缺省情况下，可以在cassandra.yaml文件中配置一个节点管理的数据所存放的目录。</p>
+<ul>
+<li>安装包安装：/var/lib/cassandra</li>
+<li>Tarball安装：<em>install_location/data/data</em></li>
+</ul>
+<p>在一个生产环境的集群部署中，你可以把commitlog-directory改到和data_file_directories不同的磁盘驱动器上。</p>
+</li>
+<li><p>系统键空间表属性<br>你可以通过写程序来配置基于键空间或基于表的存储配置属性，或者使用一个客户端程序来做，例如CQL。</p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>翻译</strong>：<a href="http://weibo.com/openworld/">自由的柠檬</a><br><strong>原文链接</strong>：<a href="http://www.datastax.com/documentation/cassandra/2.0/cassandra/architecture/architectureIntro_c.html">http://www.datastax.com/documentation/cassandra/2.0/cassandra/architecture/architectureIntro_c.html</a><br><strong>版本</strong>：0.1(2014-12-19 00:09)</p>]]>
+    
+    </summary>
+    
+      <category term="Cassandra" scheme="http://hongbinzuo.github.io/tags/Cassandra/"/>
+    
+      <category term="NoSQL" scheme="http://hongbinzuo.github.io/tags/NoSQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Akka Tutorial with Code: Concurrency and Fault Tolerance]]></title>
+    <link href="http://hongbinzuo.github.io/2014/12/16/Akka-Tutorial-with-Code-Conncurrency-and-Fault-Tolerance/"/>
+    <id>http://hongbinzuo.github.io/2014/12/16/Akka-Tutorial-with-Code-Conncurrency-and-Fault-Tolerance/</id>
+    <published>2014-12-16T14:19:51.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="让并发和容错更容易：Akka示例教程（译文）">让并发和容错更容易：Akka示例教程（译文）</h2><p>BY DIAGO CASTORINA</p>
+<p><strong>翻译</strong>：<a href="http://weibo.com/openworld" target="_blank" rel="external">自由的柠檬</a><br><strong>原文链接</strong>：<a href="http://www.toptal.com/scala/concurrency-and-fault-tolerance-made-easy-an-intro-to-akka" target="_blank" rel="external">http://www.toptal.com/scala/concurrency-and-fault-tolerance-made-easy-an-intro-to-akka</a></p>
+<a id="more"></a>
+<h3 id="挑战">挑战</h3><p>写并发程序很难。程序员不得不处理线程、锁和竞态条件等等，这个过程很容易出错，而且会导致程序代码难以阅读、测试和维护。</p>
+<p>所以，很多人不倾向于使用多线程编程。取而代之的是，他们使用单线程进程（译者注：只含有一个线程的进程），依赖外部服务（如数据库、队列等）处理所需的并发或异步操作。虽然这种方法在有些情况下是可行的，但还有很多其他情况不能奏效。很多实时系统——例如交易或银行业务应用，或实时游戏——等待一个单线程进程完成就太奢侈了（他们需要立即应答！）。其他的一些对于计算或资源要求非常高的系统，如果在程序中不引入并行机制就会耗时很久（有些情况下可以达到几个小时或数天）。</p>
+<p>常用的一种单线程方法（例如，在<a href="http://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js" target="_blank" rel="external">Node.js</a>里广泛应用）是使用基于事件的、非阻塞模式（event-based, non-blocking paradigm，其中paragidigm也有译作成例）。虽然这种方法可以避免上下文切换、锁和阻塞，的确能提高性能，但还是不能解决并发使用多个处理器（需要启动和协调多个独立的处理器）的问题。</p>
+<p>那么，这是不是意味着为了构建一个并发程序，除了深入到线程、锁和竞态条件之外没有别的选择呢？</p>
+<p>感谢Akka框架，它为我们提供了一种选择。本教程介绍了Akka的示例，并仔细研究它如何帮助并简化分布式并发应用的实现。</p>
+<h3 id="Akka框架是什么">Akka框架是什么</h3><p><em>这篇文章介绍了Akka并仔细研究它如何帮助并简化分布式并发应用的实现。</em></p>
+<p><a href="http://akka.io/" target="_blank" rel="external">Akka</a>是JVM（Java虚拟机，下同）平台上构建高并发、分布式和容错应用的工具包和运行时。Akka用<a href="http://www.scala-lang.org/" target="_blank" rel="external">Scala语言</a>写成，同时提供了Scala和Java的开发接口。</p>
+<p>Akka处理并发的方法基于<a href="http://en.wikipedia.org/wiki/Actor_model" target="_blank" rel="external">Actor（没有惯用译法，文中使用原词）模型</a>。在基于Actor的系统里，所有的事物都是actor，就好像在面向对象设计里面所有的事物都是对象一样。但是有一个重要区别——特别是和我们的讨论相关的——那就是Actor模型是作为一个并发模型设计和架构的，而面向对象模式则不是。更具体一点，在Scala的actor系统里，actor互相交互并共享信息但并不对交互顺序作出预设。Actor之间共享信息和发起任务的机制是消息传递。</p>
+<p><em>创建和调度线程、接收和分发消息以及处理竞态条件和同步的所有复杂性，都委托给框架，框架的处理对应用来说是透明的。</em></p>
+<p>Akka在多个actor和下面的系统之间建立了一个层次（layer），这样一来，actor只需要处理消息就可以了。创建和调度线程、接收和分发消息以及处理竞态条件和同步的所有复杂性，都委托给框架，框架的处理对应用来说是透明的。</p>
+<p>Actor严格遵守<a href="http://www.reactivemanifesto.org/" target="_blank" rel="external">响应式声明</a>。响应式应用的目标是通过满足以下一个或多个条件来代替传统的多线程应用：</p>
+<ul>
+<li>事件驱动。使用Actor，代码可以异步处理请求并用独占的方式执行非阻塞操作。</li>
+<li>可伸缩性。在Akka里，不修改代码就增加节点是可能的，感谢消息传递和本地透明性（location transparency）。</li>
+<li>高弹性。任何应用都会碰到错误并在某个时间点失败。Akka的“监管”（容错）策略为实现自愈系统提供了便利。</li>
+<li>响应式。今天的高性能和快速响应应用需要对用户快速反馈，因此对于事件的响应需要非常及时。Akka的非阻塞、基于消息的策略可以帮助达成这个目标。</li>
+</ul>
+<h3 id="Akka中的Actor是什么">Akka中的Actor是什么</h3><p>Actor本质上就是接收消息并采取行动处理消息的对象。它从消息源中解耦出来，只负责正确识别接收到的消息类型，并采取相应的行动。</p>
+<p>收到一条消息之后，一个actor可能会采取以下一个或多个行动：</p>
+<ul>
+<li>执行一些本身的操作（例如进行计算、持久化数据、调用外部的Web服务等）</li>
+<li>把消息或衍生消息转发给另外一个actor</li>
+<li>实例化一个新的actor并把消息转发给它</li>
+</ul>
+<p>或者，如果这个actor认为合适的话，可能会完全忽略这条消息（也就是说，它可能选择不响应）。</p>
+<p>为了实现一个actor，需要继承akka.actor.Actor这个trait（一般译为“特征”，译法有一定争议，文中保留原词）并实现receive方法。当一个消息发送给Actor时，它的receive方法会被（Akka）调用。典型的实现包括使用模式匹配（pattern matching）来识别消息类型并作出响应，参见下面的Akka示例：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import akka.actor.Actor&#10;import akka.actor.Props&#10;import akka.event.Logging&#10;&#10;class MyActor extends Actor &#123;&#10;  def receive = &#123;&#10;    case value: String =&#62; doSomething(value)&#10;    case _ =&#62; println(&#34;received unknown message&#34;)&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>模式匹配是一种相对优雅的处理消息的技术，相比基于回调的实现，更倾向于产生“更整洁”以及更容易浏览的代码。例如，考虑一个简化版的HTTP请求/响应实现。</p>
+<p>首先，我们使用JavaScript中基于回调的方式实现：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">route(url, function(request)&#123;&#10;  var query = buildQuery(request);&#10;  dbCall(query, function(dbResponse)&#123;&#10;    var wsRequest = buildWebServiceRequest(dbResponse);&#10;    wsCall(wsRequest, function(wsResponse) &#123;&#10;      sendReply(wsResponse);&#10;    &#125;);&#10;  &#125;);&#10;&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>现在，我们把它和基于模式匹配的实现做个比较：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">msg match &#123;&#10;  case HttpRequest(request) =&#62; &#123;&#10;    val query = buildQuery(request)&#10;    dbCall(query)&#10;  &#125;&#10;  case DbResponse(dbResponse) =&#62; &#123;&#10;    var wsRequest = buildWebServiceRequest(dbResponse);&#10;    wsCall(dbResponse)&#10;  &#125;&#10;  case WsResponse(wsResponse) =&#62; sendReply(wsResponse)&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>虽然基于回调的JavaScript代码更紧凑，但确实更难以阅读和浏览。相比而言，基于模式匹配的代码对于需要考虑哪些情况、每种情况都是怎么处理的写法更加清晰。</p>
+<h3 id="Actor系统">Actor系统</h3><p>把一个复杂的问题不断分解成更小规模的子问题通常是一种可靠的解决问题的技术。这个方法对于计算机科学特别有效（和<a href="http://programmer.97things.oreilly.com/wiki/index.php/The_Single_Responsibility_Principle" target="_blank" rel="external">单一职责原则</a>一致），因为这样容易产生整洁的、模块化的代码，产生的冗余很少甚至没有，而且维护起来相对容易。</p>
+<p>在基于actor的设计里，使用这种技术有助于把actor的逻辑组织变成一个层级结构，也就是所谓的<a href="http://doc.akka.io/docs/akka/2.0/general/actor-systems.html" target="_blank" rel="external">Actor系统</a>。Actor系统提供了一个基础框架，通过这个系统actor之间可以进行交互。</p>
+<p><img alt="Actor系统" src="http://www.toptal.com/uploads/blog/image/321/toptal-blog-image-1395105846790.png" style="width: 600px;"></p>
+<p>在Akka里面，和actor通信的唯一方式就是通过<code>ActorRef</code>。<code>ActorRef</code>代表actor的一个引用，可以阻止其他对象直接访问或操作这个actor的内部信息和状态。消息可以通过一个<code>ActorRef</code>以下面的语法协议中的一种发送到一个actor：<br> -<code>!</code>(“告知”) —— 发送消息并立即返回<br> -<code>?</code>(“请求”) —— 发送消息并返回一个Future对象，代表一个可能的应答</p>
+<p>每个actor都有一个收件箱，用来接收发送过来的消息。收件箱有多种实现方式可以选择，缺省的实现是先进先出（FIFO）队列。</p>
+<p>在处理多条消息时，一个actor包含多个实例变量来保持状态。Akka确保actor的每个实例都运行在自己的轻量级线程里，并保证每次只处理一条消息。这样一来，开发者不必担心同步或竞态条件，而每个actor的状态都可以被可靠地保持。</p>
+<p>Akka的Actor API中提供了每个actor执行任务所需要的有用信息：</p>
+<ul>
+<li><code>sender</code>:当前处理消息的发送者的一个<code>ActorRef</code>引用</li>
+<li><code>context</code>：actor运行上下文相关的信息和方法（例如，包括实例化一个新actor的方法<code>actorOf</code>）</li>
+<li><code>supervisionStrategy</code>：定义用来从错误中恢复的策略</li>
+<li><code>self</code>：actor本身的<code>ActorRef</code>引用</li>
+</ul>
+<p><em>Akka确保actor的每个实例都运行在自己的轻量级线程里，并保证每次只处理一条消息。这样一来，开发者不必担心同步或竞态条件，而每个actor的状态都可以被可靠地保持。</em></p>
+<p>为了把这些教程组织起来，让我们来考虑一个简单的例子：统计一个文本文件中单词的数量。</p>
+<p>为了达到演示Akka示例的目的，我们把这个问题分解为两个子任务；即，（1）统计每行单词数量的“孩子”任务和（2）汇总这些单行单词数量、得到文件里单词总数的“父亲”任务。</p>
+<p>父actor会从文件中装载每一行，然后委托一个子actor来计算某一行的单词数量。当子actor完成之后，它会把结果用消息发回给父actor。父actor会收到（每一行的）单词数量的消息并维持一个整个文件单词总数的计数器，这个计数器会在完成后返回给调用者。</p>
+<p><em>（注意以下提供的Akka教程的例子只是为了教学目的，所以没有顾及所有的边界条件、性能优化等。同时，完整可编译版本的代码示例可以在这个<a href="https://gist.github.com/Diego81/9887105" target="_blank" rel="external">gist</a>中找到）</em></p>
+<p>让我们首先看一个子类<code>StringCounterActor</code>的示例实现：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">case class ProcessStringMsg(string: String)&#10;case class StringProcessedMsg(words: Integer)&#10;&#10;class StringCounterActor extends Actor &#123;&#10;  def receive = &#123;&#10;    case ProcessStringMsg(string) =&#62; &#123;&#10;      val wordsInLine = string.split(&#34; &#34;).length&#10;      sender ! StringProcessedMsg(wordsInLine)&#10;    &#125;&#10;    case _ =&#62; println(&#34;Error: message not recognized&#34;)&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个actor有一个非常简单的任务：接收<code>ProcessStringMsg</code>消息（包含一行文本），计算这行文本中单词的数量，并把结果通过一个<code>StringProcessedMsg</code>消息返回给发送者。请注意我们已经实现了我们的类，使用<code>！</code>（“告知”）方法发出<code>StringProcessedMsg</code>消息（发出消息并立即返回）。</p>
+<p>好了，现在我们来关注父<code>WordCounterActor</code>类：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.  case class StartProcessFileMsg()&#10;2.&#10;3.  class WordCounterActor(filename: String) extends Actor &#123;&#10;4.&#10;5.    private var running = false&#10;6.    private var totalLines = 0&#10;7.    private var linesProcessed = 0&#10;8.    private var result = 0&#10;9.    private var fileSender: Option[ActorRef] = None&#10;10.&#10;11.   def receive = &#123;&#10;12.     case StartProcessFileMsg() =&#62; &#123;&#10;13.       if (running) &#123;&#10;14.         // println just used for example purposes;&#10;15.         // Akka logger should be used instead&#10;16.         println(&#34;Warning: duplicate start message received&#34;)&#10;17.       &#125; else &#123;&#10;18.         running = true&#10;19.         fileSender = Some(sender) // save reference to process invoker&#10;20.         import scala.io.Source._&#10;21.         fromFile(filename).getLines.foreach &#123; line =&#62;&#10;22.           context.actorOf(Props[StringCounterActor]) ! ProcessStringMsg(line)&#10;23.           totalLines += 1&#10;24.         &#125;&#10;25.       &#125;&#10;26.     &#125;&#10;27.     case StringProcessedMsg(words) =&#62; &#123;&#10;28.       result += words&#10;29.       linesProcessed += 1&#10;30.       if (linesProcessed == totalLines) &#123;&#10;31.         fileSender.map(_ ! result)  // provide result to process invoker&#10;32.       &#125;&#10;33.     &#125;&#10;34.     case _ =&#62; println(&#34;message not recognized!&#34;)&#10;35.   &#125;&#10;36. &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里面有很多细节，我们来逐一考察（<em>注意讨论中所引用的行号基于以上代码示例</em>）。</p>
+<p>首先，请注意要处理的文件名被传给了<code>WordCounterActor</code>的构造方法（第3行）。这意味着这个actor只会用来处理一个单独的文件。这样通过避免重置状态变量（<code>running</code>，<code>totalLines</code>，<code>linesProcessed</code>和<code>result</code>）也简化了开发者的编码工作，因为这个实例只使用一次（也就是说处理一个单独的文件），然后就丢弃了。</p>
+<p>接下来，我们看到<code>WordCounterActor</code>处理了两种类型的消息：</p>
+<ul>
+<li><code>StartProcessFileMsg</code>（第12行）<ul>
+<li>从最初启动<code>WordCounterActor</code>的外部actor接收到的消息</li>
+<li>收到这个消息之后，<code>WordCounterActor</code>首先检查它收到的是不是一个重复的请求</li>
+<li>如果这个请求是重复的，那么<code>WordCounterActor</code>生成一个警告，然后就不做别的事了（第16行）</li>
+<li>如果这不是一个重复的请求：<ul>
+<li><code>WordCounterActor</code>在<code>fileSender</code>实例变量（注意这是一个<code>Option[ActorRef]</code>而不是一个<code>Option[Actor]</code>）中保存发送者的一个引用。当处理最终的<code>StringProcessedMsg</code>（从一个<code>StringCounterActor</code>子类中接收，如下文所述）时，为了以后的访问和响应，这个<code>ActorRef</code>是必需的。</li>
+<li>然后<code>WordCounterActor</code>读取文件，当文件中每行都装载之后，就会创建一个<code>StringCounterActor</code>，需要处理的包含行文本的消息就会传递给它（第21-24行）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>StringProcessedMsg</code>（第27行）<ul>
+<li>当处理完成分配给它的行之后，从<code>StringCounterActor</code>处接收到的消息</li>
+<li>收到此消息之后，<code>WordCounterActor</code>会把文件的行计数器增加，如果所有的行都处理完毕（也就是说，当<code>totalLines</code>和<code>linesProcessed</code>相等），它会把最终结果发给原来的<code>fileSender</code>（第28-31行）。</li>
+</ul>
+</li>
+</ul>
+<p>再次需要注意的是，在Akka里，actor之间通信的唯一机制就是消息传递。消息是actor之间唯一共享的东西，而且因为多个actor可能会并发访问同样的消息，所以为了避免竞态条件和不可预期的行为，消息的不可变性非常重要。</p>
+<p>因为Case class默认是不可变的并且可以和模式匹配无缝集成，所以用case class的形式来传递消息是很常见的。（Scala中的Case class就是正常的类，唯一不同的是通过模式匹配提供了可以递归分解的机制）。</p>
+<p>让我们通过运行整个应用的示例代码来结束这个例子。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">object Sample extends App &#123;&#10;&#10;  import akka.util.Timeout&#10;  import scala.concurrent.duration._&#10;  import akka.pattern.ask&#10;  import akka.dispatch.ExecutionContexts._&#10;&#10;  implicit val ec = global&#10;&#10;  override def main(args: Array[String]) &#123;&#10;    val system = ActorSystem(&#34;System&#34;)&#10;    val actor = system.actorOf(Props(new WordCounterActor(args(0))))&#10;    implicit val timeout = Timeout(25 seconds)&#10;    val future = actor ? StartProcessFileMsg()&#10;    future.map &#123; result =&#62;&#10;      println(&#34;Total number of words &#34; + result)&#10;      system.shutdown&#10;    &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意这里的<code>?</code>方法是怎样发送一条消息的。用这种方法，调用者可以使用返回的<a href="http://docs.scala-lang.org/overviews/core/futures.html" target="_blank" rel="external">Future</a>对象，当完成之后可以打印出最后结果并最终通过停掉Actor系统退出程序。</p>
+<h3 id="Akka的容错和监管者策略">Akka的容错和监管者策略</h3><p>在actor系统里，每个actor都是其子孙的监管者。如果actor处理消息时失败，它就会暂停自己及其子孙并发送一个消息给它的监管者，通常是以异常的形式。</p>
+<p><em>在Akka里面，监管者策略是定义你的系统容错行为的主要并且直接的机制。</em></p>
+<p>在Akka里面，一个监管者对于从子孙传递上来的异常的响应和处理方式称作监管者策略。<a href="http://doc.akka.io/api/akka/2.3.0/#akka.actor.SupervisorStrategy" target="_blank" rel="external">监管者策略</a>是定义你的系统容错行为的主要并且直接的机制。</p>
+<p>当一条消息指示有一个错误到达了一个监管者，它会采取如下行动之一：</p>
+<ul>
+<li><strong>恢复孩子（及其子孙），保持内部状态。</strong> 当孩子的状态没有被错误破坏，还可以继续正常工作的时候，可以使用这种策略。</li>
+<li><strong>重启孩子（及其子孙），清除内部状态。</strong> 这种策略应用的场景和第一种正好相反。如果孩子的状态已经被错误破坏，在它可以被用到Future之前有必须要重置其内部状态。</li>
+<li><strong>永久地停掉孩子（及其子孙）。</strong> 这种策略可以用在下面的场景中：错误条件不能被修正，但是并不影响后面执行的操作，这些操作可以在失败的孩子不存在的情况下完成。</li>
+<li><strong>停掉自己并向上传播错误。</strong> 适用场景：当监管者不知道如何处理错误，就把错误传递给自己的监管者。</li>
+</ul>
+<p>而且，一个Actor可以决定是否把行动应用在失败的子孙上抑或是应用到它的兄弟上。有两种预定义的策略：</p>
+<ul>
+<li><code>OneForOneStrategy</code>：只把指定行动应用到失败的孩子上</li>
+<li><code>AllForOneStrategy</code>：把指定行动应用到所有子孙上</li>
+</ul>
+<p>下面是一个使用<code>OneForOneStrategy</code>的简单例子：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import akka.actor.OneForOneStrategy&#10;import akka.actor.SupervisorStrategy._&#10;import scala.concurrent.duration._&#10;&#10;override val supervisorStrategy =&#10; OneForOneStrategy() &#123;&#10;   case _: ArithmeticException      =&#62; Resume&#10;   case _: NullPointerException     =&#62; Restart&#10;   case _: IllegalArgumentException =&#62; Stop&#10;   case _: Exception                =&#62; Escalate&#10; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果没有指定策略，那么就使用如下默认的策略：</p>
+<ul>
+<li>如果在初始化actor时出错，或者actor被结束（killed），那么actor就会停止(stopped)</li>
+<li>如果有任何类型的异常出现，actor就会重启</li>
+</ul>
+<p>Akka提供的默认策略的实现如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">final val defaultStrategy: SupervisorStrategy = &#123;&#10;  def defaultDecider: Decider = &#123;&#10;    case _: ActorInitializationException &#8658; Stop&#10;    case _: ActorKilledException         &#8658; Stop&#10;    case _: Exception                    &#8658; Restart&#10;  &#125;&#10;  OneForOneStrategy()(defaultDecider)&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Akka也考虑到对<a href="http://doc.akka.io/api/akka/2.3.0/#akka.actor.SupervisorStrategy" target="_blank" rel="external">定制化监管者策略</a>的实现，但正如Akka文档也提出了警告，这么做要小心，因为错误的实现会产生诸如actor系统被阻塞的问题（也就是说，其中的多个actor被永久挂起了）。</p>
+<h3 id="本地透明性">本地透明性</h3><p>Akka架构支持<a href="http://doc.akka.io/docs/akka/snapshot/general/remoting.html" target="_blank" rel="external">本地透明性</a>，使得actor完全不知道他们接受的消息是从哪里发出来的。消息的发送者可能驻留在同一个JVM，也有可能是存在于其他的JVM（或者运行在同一个节点，或者运行在不同的节点）。Akka处理这些情况对于actor（也即对于开发者）来说是完全透明的。唯一需要说明的是跨越节点的消息必须要被序列化。</p>
+<p><em>Akka架构支持本地透明性，使得actor完全不知道他们接受的消息是从哪里发出来的。
+</em></p>
+<p>Actor系统设计的初衷，就是不需要任何专门的代码就可以运行在分布式环境中。Akka只需要一个配置文件（application.conf），用以说明发送消息到哪些节点。下面是配置文件的一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">akka &#123;&#10;  actor &#123;&#10;    provider = &#34;akka.remote.RemoteActorRefProvider&#34;&#10;  &#125;&#10;  remote &#123;&#10;    transport = &#34;akka.remote.netty.NettyRemoteTransport&#34;&#10;    netty &#123;&#10;      hostname = &#34;127.0.0.1&#34;&#10;      port = 2552&#10;    &#125;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最后的一些提示">最后的一些提示</h3><p>我们已经了解了Akka框架帮助完成并发和高性能的方法。然而，正如这篇教程指出的，为了充分发挥Akka的能力，在设计和实现系统时，有些要点值得考虑：</p>
+<ul>
+<li>我们应尽最大可能为每个actor都分配最小的任务（如上面讨论的，遵守单一职责原则）</li>
+<li><p>Actor应该异步处理事件（也就是处理消息），不应该阻塞，否则就会发生上下文切换，影响性能。具体来说，最好是在一个Future对象里执行阻塞操作（例如IO），这样就不会阻塞actor，如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">case evt =&#62; blockingCall() // BAD&#10;case evt =&#62; Future &#123;&#10;    blockingCall()           // GOOD&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要确认你的消息都是不可变的，因为互相传递消息的actor都在它们自己的线程里并发运行。可变的消息很有可能导致不可预期的行为。</p>
+</li>
+<li>由于在节点之间发送的消息必须是可序列化的，所以必须要记住消息体越大，序列化、发送和反序列化所花费的时间就越多，这也会降低性能。</li>
+</ul>
+<h3 id="结论">结论</h3><p>Akka用Scala语言写成，简化并为开发高并发、分布式和容错式应用提供了便利，对开发者隐藏了很大程度的复杂性。把Akka用好肯定需要了解比这个教程更多的内容，但是希望这里的介绍和示例能够引起你的注意并继续了解Akka。</p>
+<p>Amazon、VMWare和CSC只是现在积极使用Akka的一部分领军企业。可以访问<a href="http://akka.io/" target="_blank" rel="external">Akka的官方网站</a>学到更多的知识，并多花点时间研究Akka是否适合你的项目。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="让并发和容错更容易：Akka示例教程（译文）">让并发和容错更容易：Akka示例教程（译文）</h2><p>BY DIAGO CASTORINA</p>
+<p><strong>翻译</strong>：<a href="http://weibo.com/openworld">自由的柠檬</a><br><strong>原文链接</strong>：<a href="http://www.toptal.com/scala/concurrency-and-fault-tolerance-made-easy-an-intro-to-akka">http://www.toptal.com/scala/concurrency-and-fault-tolerance-made-easy-an-intro-to-akka</a></p>]]>
+    
+    </summary>
+    
+      <category term="Akka" scheme="http://hongbinzuo.github.io/tags/Akka/"/>
+    
+      <category term="Scala" scheme="http://hongbinzuo.github.io/tags/Scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Java performance tips]]></title>
+    <link href="http://hongbinzuo.github.io/2014/12/09/Java-performance-tips/"/>
+    <id>http://hongbinzuo.github.io/2014/12/09/Java-performance-tips/</id>
+    <published>2014-12-09T06:51:26.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>一些有助于改善性能的小技巧</p>
+<ol>
+<li>慎用异常</li>
+<li>使用局部变量</li>
+<li>位运算代替乘除法</li>
+<li>替换switch</li>
+<li>一维数组代替二维数组</li>
+<li>提取表达式</li>
+<li>展开循环</li>
+<li>布尔运算代替位运算</li>
+<li>使用arrayCopy()</li>
+<li>使用Buffer进行I/O操作</li>
+<li>使用clone()代替new</li>
+<li>静态方法替代实例方法</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>一些有助于改善性能的小技巧</p>
+<ol>
+<li>慎用异常</li>
+<li>使用局部变量</li>
+<li>位运算代替乘除法</li>
+<li>替换switch</li>
+<li>一维数组代替二维数组</li>
+<li>提取表达式</li>
+<li>展开循环</li>]]>
+    </summary>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[NIO Buffer]]></title>
+    <link href="http://hongbinzuo.github.io/2014/12/09/NIO-Buffer/"/>
+    <id>http://hongbinzuo.github.io/2014/12/09/NIO-Buffer/</id>
+    <published>2014-12-09T04:02:25.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>简要记录一下Buffer对象的基本原理和操作。</p>
+<h3 id="重要参数">重要参数</h3><p>Buffer中有三个重要的参数，下面的表格描述了它们的作用和区别：</p>
+<p><img alt="Buffer的参数表" src="/img/buffer.png" style="width: 800px;"></p>
+<a id="more"></a>
+<p>下面的实例可以更好地帮助理解：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class TestBuffer &#123;&#10;    public static void main(String[] args) &#123;&#10;        ByteBuffer b = ByteBuffer.allocate(15);&#10;&#10;        System.out.print(&#34;After allocation done: \t&#34;);&#10;        System.out.printf(&#34;limit=%s, capacity=%d, position=%d\n&#34;, b.limit(), b.capacity(), b.position());&#10;&#10;        for (int i = 0; i &#60; 10 ; i++) &#123;&#10;            b.put((byte)i);&#10;        &#125;&#10;&#10;        System.out.print(&#34;After saving 10 bytes: \t&#34;);&#10;        System.out.printf(&#34;limit=%s, capacity=%d, position=%d\n&#34;, b.limit(), b.capacity(), b.position());&#10;&#10;        b.flip();&#10;&#10;        System.out.print(&#34;After flip():\t\t\t&#34;);&#10;        System.out.printf(&#34;limit=%s, capacity=%d, position=%d\n&#34;, b.limit(), b.capacity(), b.position());&#10;&#10;&#10;        System.out.print(&#34;Reading buffer: \t\t&#34;);&#10;        for (int i = 0; i &#60; 5; i++) &#123;&#10;            System.out.print(b.get());&#10;        &#125;&#10;&#10;        System.out.print(&#34;\nAfter reading 5 bytes: \t&#34;);&#10;        System.out.printf(&#34;limit=%s, capacity=%d, position=%d\n&#34;, b.limit(), b.capacity(), b.position());&#10;&#10;&#10;        b.flip();&#10;&#10;        System.out.print(&#34;After flip(): \t\t\t&#34;);&#10;        System.out.printf(&#34;limit=%2s, capacity=%d, position=%d\n&#34;, b.limit(), b.capacity(), b.position());&#10;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">After allocation done:  limit=15, capacity=15, position=0&#10;After saving 10 bytes:  limit=15, capacity=15, position=10&#10;After flip():           limit=10, capacity=15, position=0&#10;Reading buffer:         01234&#10;After reading 5 bytes:  limit=10, capacity=15, position=5&#10;After flip():           limit= 5, capacity=15, position=0</span><br></pre></td></tr></table></figure></p>
+<h3 id="基本操作">基本操作</h3><p>Buffer相关的操作有：</p>
+<ol>
+<li>Buffer创建<ul>
+<li>allocate</li>
+<li>wrap</li>
+</ul>
+</li>
+<li>重置和清空缓冲区<ul>
+<li>rewind</li>
+<li>clear</li>
+<li>flip</li>
+</ul>
+</li>
+<li>读写缓冲区<ul>
+<li>get</li>
+<li>put</li>
+</ul>
+</li>
+<li>标志缓冲区<ul>
+<li>mark</li>
+<li>reset</li>
+</ul>
+</li>
+<li>复制缓冲区<ul>
+<li>duplicate</li>
+</ul>
+</li>
+<li>缓冲区分片<ul>
+<li>slice</li>
+</ul>
+</li>
+<li>只读缓冲区<ul>
+<li>asReadOnlyBuffer</li>
+</ul>
+</li>
+<li>文件映射到内存<ul>
+<li>MappedByteBuffer</li>
+</ul>
+</li>
+<li>处理结构化数据<ul>
+<li>ScatteringByteChannel</li>
+<li>GatheringByteChannel</li>
+</ul>
+</li>
+</ol>
+<p>因为内容较多，这里只记录一个大纲，以后需要的时候方便检索。</p>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://ifeve.com/buffers/" target="_blank" rel="external">并发编程网Java NIO教程Buffer部分</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>简要记录一下Buffer对象的基本原理和操作。</p>
+<h3 id="重要参数">重要参数</h3><p>Buffer中有三个重要的参数，下面的表格描述了它们的作用和区别：</p>
+<p><img alt="Buffer的参数表" src="/img/buffer.png" style="width: 800px;"/></p>]]>
+    
+    </summary>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+      <category term="NIO" scheme="http://hongbinzuo.github.io/tags/NIO/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[NIO basics]]></title>
+    <link href="http://hongbinzuo.github.io/2014/12/09/NIO-basics/"/>
+    <id>http://hongbinzuo.github.io/2014/12/09/NIO-basics/</id>
+    <published>2014-12-09T02:44:02.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>NIO是在JDK1.4引入的，代表New IO，具有以下特性：</p>
+<ul>
+<li>为所有的原始类型提供缓冲（Buffer）支持</li>
+<li>使用Java.nio.charset.Charset作为字符集编解码解决方案</li>
+<li>增加通道（Channel）对象，作为新的原始I/O抽象</li>
+<li>支持锁和内存映射文件的文件访问接口</li>
+<li>提供了基于Selector的异步网络IO</li>
+</ul>
+<a id="more"></a>
+<p>与流式的IO不同，NIO是基于块（Block）的，它以块为基本单位处理数据。在NIO中，最为重要的两个组件是缓冲Buffer和通道Channel。缓冲是一块连续的内存块，是NIO读写数据的中转地。通道表示缓冲数据的源头或目的地，它用于向缓冲读取或者写入数据，是访问缓冲的接口。</p>
+<p>下面用一个简单的实例来看一下NIO的基本用法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class FileCopy &#123;&#10;    public static void main(String[] args) &#123;&#10;        try &#123;&#10;            FileCopy.nioCopyFile(&#34;test.txt&#34;, &#34;testcp.txt&#34;);&#10;        &#125; catch (IOException e) &#123;&#10;            e.printStackTrace();            &#125;&#10;    &#125;&#10;&#10;    public static void nioCopyFile(String resource, String destination) throws IOException &#123;&#10;        FileInputStream fis = new FileInputStream(resource);&#10;        FileOutputStream fos = new FileOutputStream(destination);&#10;        FileChannel readChannel = fis.getChannel();&#10;        FileChannel writeChannel = fos.getChannel();&#10;        ByteBuffer buffer = ByteBuffer.allocate(1024);&#10;&#10;        while (true)&#123;&#10;            buffer.clear();&#10;            int len = readChannel.read(buffer);&#10;            if ( len == -1 )&#10;                break;&#10;&#10;            buffer.flip();&#10;            writeChannel.write(buffer);&#10;        &#125;&#10;&#10;        readChannel.close();&#10;        writeChannel.close();&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实例中需要理解的几个点：</p>
+<ul>
+<li>本例实现了文件拷贝功能</li>
+<li>本例中使用了文件通道FileChannel，是Channel的一种</li>
+<li>FileChannel中的read和write方法通过操作Buffer达到读写文件的目的</li>
+<li>Buffer的常用方法<ul>
+<li>allocate：创建Buffer</li>
+<li>clear：position置0，mark清空，limit设置为capacity，为重新写入Buffer做准备</li>
+<li>flip：position置0，mark清空，limit设置为position，在读写切换时调用</li>
+</ul>
+</li>
+</ul>
+<p>Buffer是NIO中非常重要的一个类，我们会在后续的文章里说明它的基本原理和常用操作。</p>
+<p><em>注：本文大部分内容摘自《Java程序性能优化》（清华大学出版社 葛一鸣 等编著）</em></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>NIO是在JDK1.4引入的，代表New IO，具有以下特性：</p>
+<ul>
+<li>为所有的原始类型提供缓冲（Buffer）支持</li>
+<li>使用Java.nio.charset.Charset作为字符集编解码解决方案</li>
+<li>增加通道（Channel）对象，作为新的原始I/O抽象</li>
+<li>支持锁和内存映射文件的文件访问接口</li>
+<li>提供了基于Selector的异步网络IO</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+      <category term="NIO" scheme="http://hongbinzuo.github.io/tags/NIO/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Enter i3]]></title>
+    <link href="http://hongbinzuo.github.io/2014/12/08/Enter-i3/"/>
+    <id>http://hongbinzuo.github.io/2014/12/08/Enter-i3/</id>
+    <published>2014-12-08T11:51:26.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>这几天Ubuntu系统特别慢，鉴于我之前Chrome浏览器经常干到50多个Tab，没事儿就开着IntelliJ和Eclipse的不良记录，我必须寻找更加节省内存、提高效率的方法。首先得反省自己，Chrome不能再开那么多Tab页面了，太吃内存了，最多开15个（^_^）。陈皓（@左耳朵耗子）前几天发了条微博说这事儿，但是Chrome还是得用，一是习惯了，二是还得用红杏插件。所以，我就想能不能让Ubuntu省点内存，于是，开始折腾。</p>
+<a id="more"></a>
+<p>查看任务管理器，发现Ubuntu自己的桌面管理器确实占用不少内存，于是到网上找解决方案，找来找去找到了<a href="http://xmonad.org/" target="_blank" rel="external">XMonad</a>，看起来很酷的感觉，赶紧装上重启，结果Bang！悲剧了～中间可能是我错误地执行了一条<code>startx</code>的命令，导致登录失败，于是网上搜索解决方案，坑吃坑吃总算解决了，结果XMonad不能用，瞬间脸都绿了，可能两三个小时过去了，我的人生啊～～piu！</p>
+<p>今天早上醒来想想，难道XMonad这么麻烦吗？找了一会儿，发现了这篇神文：<a href="http://www.draconianoverlord.com/2014/05/26/from-xmonad-to-i3.html" target="_blank" rel="external">From XMonad to i3</a>。其中提到了XMonad在Ubuntu14.04中不能正常工作（正是我的场景啊），同时提到了另一个窗口布局解决方案：<a href="http://i3wm.org/" target="_blank" rel="external">i3</a>。比起XMonad，我更喜欢这个名字，i3，简约、不装，再看主页，不错，比XMonad那种纯Geek范儿更对我的胃口！搞起～</p>
+<p>根据官方下载安装说明，一会儿就下载安装完成。重启，不用自己写配置文件，i3提示进行简略配置，大部分使用默认配置即可，这体验就一个字儿：舒服。找到常用的呼叫方法，比如<code>Mod</code>键（可以用<code>ALT</code>或<code>WIN</code>键，或加上<code>Shift</code>键）组合其他字母键呼叫操作系统功能，比如<code>Mod+D</code>呼叫系统命令，<code>Mod+Enter</code>呼叫终端，<code>Mod+Shift+Q</code>退出当前窗口等等。可以查看.i3/config文件查看KeyBindings，也可以打开i3的<a href="http://i3wm.org/docs/userguide.html#_default_keybindings" target="_blank" rel="external">UserGuide</a>边用边学，缺省的配置还配了一幅图，贴心。在Linux的世界里，能把极简主义和用户体验结合的这么好的工具，真不多见！</p>
+<p>现在我可以用Emacs写博客，IntelliJ写程序，Chrome上网，这不算什么，关键是每个都可以放大到全屏，这种专注的感觉是传统的拖拉拽、窗口覆盖不能比的，所以你还不赶紧试试？XMonad不错，但是我现在更喜欢i3！继续体验中。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>这几天Ubuntu系统特别慢，鉴于我之前Chrome浏览器经常干到50多个Tab，没事儿就开着IntelliJ和Eclipse的不良记录，我必须寻找更加节省内存、提高效率的方法。首先得反省自己，Chrome不能再开那么多Tab页面了，太吃内存了，最多开15个（^_^）。陈皓（@左耳朵耗子）前几天发了条微博说这事儿，但是Chrome还是得用，一是习惯了，二是还得用红杏插件。所以，我就想能不能让Ubuntu省点内存，于是，开始折腾。</p>]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://hongbinzuo.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[WordCounter]]></title>
+    <link href="http://hongbinzuo.github.io/2014/12/08/WordCounter/"/>
+    <id>http://hongbinzuo.github.io/2014/12/08/WordCounter/</id>
+    <published>2014-12-08T11:28:05.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>题目：给出一个含有英文小说的文本文件，统计英文单词出现的频率并按照逆序打印。</p>
+<p>完整实现如下：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class WordCounter &#123;&#10;    public static void main(String[] args) &#123;&#10;        try &#123;&#10;            List&#60;WordOccurrence&#62; list = WordCounter.doCount(&#34;test.txt&#34;);&#10;&#10;            for(WordOccurrence e:list)&#10;                System.out.println(e.word + &#34;:&#34;+ e.count);&#10;&#10;        &#125; catch (IOException e) &#123;&#10;            e.printStackTrace();&#10;        &#125;&#10;    &#125;&#10;&#10;    /**&#10;     * The word count container.&#10;     */&#10;    static class WordOccurrence implements Comparable&#60;WordOccurrence&#62;&#123;&#10;        String word;&#10;        int count;&#10;&#10;        public WordOccurrence(String word, int count)&#123;&#10;            this.word = word;&#10;            this.count = count;&#10;        &#125;&#10;&#10;        /**&#10;         * sort in reverse order.&#10;         * @param o&#10;         * @return&#10;         */&#10;        @Override&#10;        public int compareTo(WordOccurrence o) &#123;&#10;            if ( this.count &#60; o.count )&#10;                return 1;&#10;            if ( this.count &#62; o.count )&#10;                return  -1;&#10;            return 0;&#10;        &#125;&#10;    &#125;&#10;&#10;    /**&#10;     * Count the occurrences of each word, and sort them in descending order.&#10;     * @param fileName the name of the file to be parsed&#10;     * @return the word list in descending order of occurrence&#10;     * @throws IOException&#10;     */&#10;    private static List&#60;WordOccurrence&#62; doCount(String fileName) throws IOException &#123;&#10;        File file = new File(fileName);&#10;&#10;        Reader fileReader = new FileReader(file);&#10;        BufferedReader bufferedReader = new BufferedReader(fileReader);&#10;&#10;        String line = null;&#10;        Map&#60;String, Integer&#62; wordMap = new HashMap&#60;String, Integer&#62;();&#10;&#10;        // read into a hashmap first&#10;        while( (line=bufferedReader.readLine())!= null)&#123;&#10;            String[] words = line.split(Pattern.compile(&#34;[ |,|.|!]&#34;).pattern());&#10;&#10;            for (int i = 0; i &#60; words.length ; i++) &#123;&#10;                if ( wordMap.containsKey(words[i])) &#123;&#10;                    wordMap.put(words[i], wordMap.get(words[i]).intValue()+1);&#10;                &#125; else &#123;&#10;                    wordMap.put(words[i], 1);&#10;                &#125;&#10;            &#125;&#10;        &#125;&#10;&#10;        // read into a list that can be sorted because element class(WordOccurrence) implements Comparable interface&#10;        List&#60;WordOccurrence&#62; wordList = new ArrayList();&#10;        for( Iterator iterator= wordMap.keySet().iterator();iterator.hasNext();)&#123;&#10;            String key = (String)iterator.next();&#10;&#10;            WordOccurrence wordOccurrence = new WordOccurrence(key, wordMap.get(key).intValue());&#10;            wordList.add(wordOccurrence);&#10;        &#125;&#10;&#10;        Collections.sort(wordList);&#10;&#10;        return wordList;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>题目：给出一个含有英文小说的文本文件，统计英文单词出现的频率并按照逆序打印。</p>
+<p>完整实现如下：</p>]]>
+    
+    </summary>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Performance difference for splitting strings]]></title>
+    <link href="http://hongbinzuo.github.io/2014/12/07/Performance-difference-for-splitting-strings/"/>
+    <id>http://hongbinzuo.github.io/2014/12/07/Performance-difference-for-splitting-strings/</id>
+    <published>2014-12-07T13:26:38.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>《Java程序性能优化》的3.1.3小节阐述了字符串分割的三种方法，并且用程序示例和图形说明了三种方法的性能差异。这三种方法分别是：split方法；使用StringTokenizer类；使用最原始的indexOf和substring方法。这三种方法的性能是依次增强的。但首先一个问题是：使用最后一种方法（本来应该是效率最高的）的例子试验时发现，这种方法却是最慢的，这是为什么呢？</p>
+<a id="more"></a>
+<p>书中的例子是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (int i = 0; i &#60; 10000; i++) &#123;&#10;    while(true)&#123;&#10;        String splitStr = null;&#10;        int j = tmp.indexOf(DELIMETER);&#10;&#10;        if (j&#60;0) break;&#10;        splitStr = tmp.substring(0,j);&#10;&#10;        tmp = tmp.substring(j+1);&#10;    &#125;&#10;&#10;    tmp = myStr;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>很遗憾，上面的代码运行速度非常慢，最后只能修改循环次数为100才能勉强测试，最后运行时间是17632 ms。但是，indexOf和substring的方法真的这么慢吗？并非如此，书上的结论是正确的，只是给的例子不好，不能真正反映这个方法的性能。我们采用网上的另一个代码段来实现，结果截然不同：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int pos = 0, end;&#10;while ((end = tmp.indexOf(DELIMETER, pos)) &#62;= 0) &#123;&#10;    String splitStr = null;&#10;    splitStr = tmp.substring(pos, end);&#10;    pos = end + 1;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>同样循环100次，运行时间是119 ms，这个结果真的是让人惊呆了。仔细对比这两段代码，似乎只是多一个substring的调用而已，性能差距能有这么大吗？运行性能分析工具（如VisualVM），发现substring方法中的数组拷贝确实占用相当多的时间，<code>tmp = tmp.substring(j+1)</code>所产生的拷贝耗时在大字符串的情况下相当明显。</p>
+<p>第二个问题，书中关于前两种方法的性能比较一定是正确的吗？按照SO上的例子（见参考资料），在我机器上的运行结果，并不是那么绝对：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">StringTokenizer took an average of 9.6 us&#10;Pattern.split took an average of 7.0 us&#10;indexOf loop took an average of 4.1 us&#10;StringTokenizer took an average of 4.5 us&#10;Pattern.split took an average of 4.3 us&#10;indexOf loop took an average of 2.4 us&#10;StringTokenizer took an average of 4.5 us&#10;Pattern.split took an average of 4.4 us&#10;indexOf loop took an average of 2.3 us&#10;StringTokenizer took an average of 4.5 us&#10;Pattern.split took an average of 4.4 us&#10;indexOf loop took an average of 2.4 us&#10;StringTokenizer took an average of 4.6 us&#10;Pattern.split took an average of 4.5 us&#10;indexOf loop took an average of 2.4 us</span><br></pre></td></tr></table></figure></p>
+<p>所以，你看到了，大部分情况下不是split慢，而是StringTokenizer慢，所以和书中描述的不符。不过另一个方面更有力的证据是在StringTokenizer类中官方的声明：不建议使用这个类，因为其中使用了老的Enumeration接口，建议使用split方法。所以结论是在性能要求不是特别高的情况下，我们使用split就好了。</p>
+<p>最后，其实还有另一种方法性能比JDK的split更好，即Apache Commons的StringUtil的split方法，我没有做测试，感兴趣的同学可以自己试验一下。</p>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://stackoverflow.com/questions/5965767/performance-of-stringtokenizer-class-vs-split-method-in-java" target="_blank" rel="external">StackOverflow上非常好的示例</a></li>
+<li><a href="http://docs.oracle.com/javase/6/docs/api/java/util/StringTokenizer.html" target="_blank" rel="external">StringTokenizer类的Javadoc</a></li>
+<li><a href="http://ben-sin.iteye.com/blog/659611" target="_blank" rel="external">关于split和indexOf的一个讨论</a></li>
+<li><a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.6/org/apache/commons/lang/StringUtils.html" target="_blank" rel="external">Apache Commons的StringUtils类</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>《Java程序性能优化》的3.1.3小节阐述了字符串分割的三种方法，并且用程序示例和图形说明了三种方法的性能差异。这三种方法分别是：split方法；使用StringTokenizer类；使用最原始的indexOf和substring方法。这三种方法的性能是依次增强的。但首先一个问题是：使用最后一种方法（本来应该是效率最高的）的例子试验时发现，这种方法却是最慢的，这是为什么呢？</p>]]>
+    
+    </summary>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[subString() no memory leak any more]]></title>
+    <link href="http://hongbinzuo.github.io/2014/12/07/subString()-no-memory-leak-any-more/"/>
+    <id>http://hongbinzuo.github.io/2014/12/07/subString()-no-memory-leak-any-more/</id>
+    <published>2014-12-07T07:51:49.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>《Java程序性能优化》第三章Java程序优化首先讲的是字符串的特性及其相应的优化方法。3.1.2小节subString()方法的内存泄漏深入JDK的subString方法实现，并指出了大字符串对象可能存在的内存泄漏。我尝试把书中的程序段输入并运行，但结果并没有产生内存泄漏，原来情况有变。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class TestSubString &#123;&#10;    public static void main(String[] args) &#123;&#10;        List&#60;String&#62; handler = new ArrayList&#60;String&#62;();&#10;&#10;        for (int i = 0; i &#60; 10000 ; i++) &#123;&#10;            HugeStr h = new HugeStr();&#10;            // ImprovedHugeStr h = new ImprovedHugeStr();&#10;            handler.add(h.getSubString(1, 5));&#10;        &#125;&#10;    &#125;&#10;&#10;&#10;    static class HugeStr &#123;&#10;        private String str = new String(new char[100000]);&#10;&#10;        public String getSubString(int begin, int end)&#123;&#10;            return str.substring(begin, end);&#10;        &#125;&#10;    &#125;&#10;&#10;    static class ImprovedHugeStr&#123;&#10;        private String str = new String(new char[100000]);&#10;        public String getSubString(int begin, int end)&#123;&#10;            return new String(str.substring(begin, end));&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>参考网上的几个回答之后，原来在JDK7u6之后，这个问题已经解掉了，所以在新的JDK版本中就不用担心subString的内存泄漏了。</p>
+<p>附JDK7(build 1.7.0_72-b14)中String类subString方法的实现：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public String substring(int beginIndex, int endIndex) &#123;&#10;        if (beginIndex &#60; 0) &#123;&#10;            throw new StringIndexOutOfBoundsException(beginIndex);&#10;        &#125;&#10;        if (endIndex &#62; value.length) &#123;&#10;            throw new StringIndexOutOfBoundsException(endIndex);&#10;        &#125;&#10;        int subLen = endIndex - beginIndex;&#10;        if (subLen &#60; 0) &#123;&#10;            throw new StringIndexOutOfBoundsException(subLen);&#10;        &#125;&#10;        return ((beginIndex == 0) &#38;&#38; (endIndex == value.length)) ? this&#10;                : new String(value, beginIndex, subLen);&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://stackoverflow.com/questions/15612157/substring-method-in-string-class-causes-memory-leak" target="_blank" rel="external">StackOverflow 问答1</a></li>
+<li><a href="http://stackoverflow.com/questions/10951812/java-not-garbage-collecting-memory" target="_blank" rel="external">StackOverflow 问答2</a></li>
+<li><a href="http://www.programcreek.com/2013/09/the-substring-method-in-jdk-6-and-jdk-7/" target="_blank" rel="external">带有插图的在JDK6和JDK7中subString不同实现的说明（推荐阅读）</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>《Java程序性能优化》第三章Java程序优化首先讲的是字符串的特性及其相应的优化方法。3.1.2小节subString()方法的内存泄漏深入JDK的subString方法实现，并指出了大字符串对象可能存在的内存泄漏。我尝试把书中的程序段输入并运行，但结果并没有产生内存泄漏，原来情况有变。</p>]]>
+    
+    </summary>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[IoC/DI summary]]></title>
+    <link href="http://hongbinzuo.github.io/2014/11/18/IoCDI-summary/"/>
+    <id>http://hongbinzuo.github.io/2014/11/18/IoCDI-summary/</id>
+    <published>2014-11-17T16:15:35.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>下面的笔记根据Java私塾Spring公开视频教程整理并简化（你没看错，已经简化过了，^_^）。</p>
+<h3 id="IoC/DI的基本思想">IoC/DI的基本思想</h3><ul>
+<li>把程序之间的依赖关系去掉</li>
+<li>把程序对象设置到IoC/DI容器的配置中，作为Bean</li>
+<li>由IoC/DI容器（下面简称容器）来管理Bean的创建、实例化</li>
+<li>由容器把Bean之间的关系注入到需要这些关系的对象里面</li>
+</ul>
+<a id="more"></a>
+<p>简而言之，就是把对象之间的依赖关系全部去掉，然后由容器来管理对象之间的依赖关系。</p>
+<h3 id="谁控制谁？">谁控制谁？</h3><ul>
+<li>容器控制应用程序。</li>
+</ul>
+<h3 id="控制什么？">控制什么？</h3><ul>
+<li>容器控制对象本身的创建、实例化。</li>
+<li>容器控制对象之间的依赖关系。</li>
+</ul>
+<h3 id="为何叫反转？">为何叫反转？</h3><ul>
+<li>因为应用程序不能主动获取外部资源了，而是被动等待容器注入它所需要的资源，所以称为反转。</li>
+</ul>
+<h3 id="哪些方面反转了？">哪些方面反转了？</h3><ul>
+<li>创建对象</li>
+<li>程序获得资源的方式</li>
+</ul>
+<h3 id="为何需要反转？">为何需要反转？</h3><ul>
+<li>引入容器之后，体系更为松散，而且管理更加有序</li>
+<li>类之间真正实现了松散耦合，使得开发、测试、维护、升级都变得容易了</li>
+</ul>
+<p>IoC/DI并没有帮助我们实现任何业务功能，原本该由应用实现的功能，还是应用自身完成。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>下面的笔记根据Java私塾Spring公开视频教程整理并简化（你没看错，已经简化过了，^_^）。</p>
+<h3 id="IoC/DI的基本思想">IoC/DI的基本思想</h3><ul>
+<li>把程序之间的依赖关系去掉</li>
+<li>把程序对象设置到IoC/DI容器的配置中，作为Bean</li>
+<li>由IoC/DI容器（下面简称容器）来管理Bean的创建、实例化</li>
+<li>由容器把Bean之间的关系注入到需要这些关系的对象里面</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="Architecture" scheme="http://hongbinzuo.github.io/tags/Architecture/"/>
+    
+      <category term="DI" scheme="http://hongbinzuo.github.io/tags/DI/"/>
+    
+      <category term="IoC" scheme="http://hongbinzuo.github.io/tags/IoC/"/>
+    
+      <category term="Spring" scheme="http://hongbinzuo.github.io/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Two ways of Sequence Printer implementation]]></title>
+    <link href="http://hongbinzuo.github.io/2014/11/17/Two-ways-of-Sequence-Printer-implementation/"/>
+    <id>http://hongbinzuo.github.io/2014/11/17/Two-ways-of-Sequence-Printer-implementation/</id>
+    <published>2014-11-17T15:29:36.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>题目：两个线程，分别打印[1,3,5]和[2,4,6]，写一个程序，打印[1,2,3,4,5,6]。<br>下面列出两种解法，分别用同步代码块和锁，具体参见程序。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.freelemon.concurrency.threads;&#10;&#10;public class SeqPrinter1 &#123;&#10;    private Object obj = new Object();&#10;    private boolean isThread1 = true;&#10;&#10;    public static void main(String[] args)&#123;&#10;        SeqPrinter1 printer1 = new SeqPrinter1();&#10;        printer1.printSequence();&#10;    &#125;&#10;&#10;    public void printSequence() &#123;&#10;&#10;        new Thread(new Runnable() &#123;&#10;            @Override&#10;            public void run() &#123;&#10;                synchronized (obj)&#123;&#10;                    System.out.println(1);&#10;                    isThread1 = false;&#10;                    obj.notify();&#10;&#10;                    while (!isThread1)&#123;&#10;                        try &#123;&#10;                            obj.wait();&#10;                        &#125; catch (InterruptedException e) &#123;&#10;                            e.printStackTrace();&#10;                        &#125;&#10;                    &#125;&#10;&#10;                    System.out.println(3);&#10;                    isThread1 = false;&#10;                    obj.notify();&#10;&#10;                    while (!isThread1)&#123;&#10;                        try &#123;&#10;                            obj.wait();&#10;                        &#125; catch (InterruptedException e) &#123;&#10;                            e.printStackTrace();&#10;                        &#125;&#10;                    &#125;&#10;&#10;                    System.out.println(5);&#10;                    isThread1 = false;&#10;                    obj.notify();&#10;&#10;                &#125;&#10;            &#125;&#10;        &#125;, &#34;Thread-1&#34;).start();&#10;&#10;        new Thread(new Runnable() &#123;&#10;            @Override&#10;            public void run() &#123;&#10;                synchronized (obj)&#123;&#10;                    while (isThread1)&#123;&#10;                        try &#123;&#10;                            obj.wait();&#10;                        &#125; catch (InterruptedException e) &#123;&#10;                            e.printStackTrace();&#10;                        &#125;&#10;                    &#125;&#10;&#10;                    System.out.println(2);&#10;                    isThread1 = true;&#10;                    obj.notify();&#10;&#10;                    while (isThread1)&#123;&#10;                        try &#123;&#10;                            obj.wait();&#10;                        &#125; catch (InterruptedException e) &#123;&#10;                            e.printStackTrace();&#10;                        &#125;&#10;                    &#125;&#10;&#10;                    System.out.println(4);&#10;                    isThread1 = true;&#10;                    obj.notify();&#10;&#10;                    while (isThread1)&#123;&#10;                        try &#123;&#10;                            obj.wait();&#10;                        &#125; catch (InterruptedException e) &#123;&#10;                            e.printStackTrace();&#10;                        &#125;&#10;                    &#125;&#10;&#10;                    System.out.println(6);&#10;                    isThread1 = true;&#10;                    obj.notify();&#10;&#10;                &#125;&#10;            &#125;&#10;        &#125;, &#34;Thread-2&#34;).start();&#10;&#10;    &#125;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.freelemon.concurrency.threads;&#10;&#10;import java.util.concurrent.locks.Condition;&#10;import java.util.concurrent.locks.Lock;&#10;import java.util.concurrent.locks.ReentrantLock;&#10;&#10;public class SeqPrinter2 &#123;&#10;    private Lock lock = new ReentrantLock();&#10;    private Condition thread1Ready = lock.newCondition();&#10;    private Condition thread2Ready = lock.newCondition();&#10;&#10;    public static void main(String[] args)&#123;&#10;        SeqPrinter2 printer2 = new SeqPrinter2();&#10;        printer2.printSequence();&#10;    &#125;&#10;&#10;    public void printSequence()&#123;&#10;        new Thread(new Runnable() &#123;&#10;            @Override&#10;            public void run() &#123;&#10;                try&#123;&#10;                    lock.lock();&#10;&#10;                    thread1Ready.await();&#10;&#10;                    System.out.println(1);&#10;&#10;                    thread2Ready.signal();&#10;                    thread1Ready.await();&#10;&#10;&#10;                    System.out.println(3);&#10;&#10;                    thread2Ready.signal();&#10;                    thread1Ready.await();&#10;&#10;&#10;                    System.out.println(5);&#10;&#10;                    thread2Ready.signal();&#10;                    thread1Ready.await();&#10;&#10;                &#125; catch (InterruptedException e) &#123;&#10;                    e.printStackTrace();&#10;                &#125; finally &#123;&#10;                    lock.unlock();&#10;                &#125;&#10;&#10;&#10;            &#125;&#10;        &#125;, &#34;Thread-1&#34;).start();&#10;&#10;        new Thread(new Runnable() &#123;&#10;            @Override&#10;            public void run() &#123;&#10;                try&#123;&#10;                    lock.lock();&#10;&#10;                    thread1Ready.signal();&#10;                    thread2Ready.await();&#10;&#10;                    System.out.println(2);&#10;&#10;                    thread1Ready.signal();&#10;                    thread2Ready.await();&#10;&#10;                    System.out.println(4);&#10;&#10;                    thread1Ready.signal();&#10;                    thread2Ready.await();&#10;&#10;                    System.out.println(6);&#10;&#10;                &#125; catch (InterruptedException e) &#123;&#10;                    e.printStackTrace();&#10;                &#125; finally &#123;&#10;                    lock.unlock();&#10;                &#125;&#10;&#10;&#10;            &#125;&#10;        &#125;, &#34;Thread-2&#34;).start();&#10;&#10;    &#125;&#10;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>题目：两个线程，分别打印[1,3,5]和[2,4,6]，写一个程序，打印[1,2,3,4,5,6]。<br>下面列出两种解法，分别用同步代码块和锁，具体参见程序。</p>]]>
+    
+    </summary>
+    
+      <category term="Concurrency" scheme="http://hongbinzuo.github.io/tags/Concurrency/"/>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[SOAP vs. REST]]></title>
+    <link href="http://hongbinzuo.github.io/2014/11/16/SOAP-vs-REST/"/>
+    <id>http://hongbinzuo.github.io/2014/11/16/SOAP-vs-REST/</id>
+    <published>2014-11-16T06:46:58.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p><em>译文，译自《软件构架实践（第3版 影印版）》。UPDATED: 2014-11-17</em></p>
+<p>如果想让基于Web的应用进行互操作，目前有两种现成的技术可以选择：（1）WS*和SOAP（曾经代表“简单对象访问协议”，但这个缩写现在已经不再适用了）以及（2）REST（代表“表述性状态转移”，有时也写做ReST）。我们怎么看待这两种技术？每种技术都擅长什么？在使用的过程中有什么需要注意的地方？比较这两种技术似乎有点风马牛不相及，但我还是尝试着勾勒一下概貌。</p>
+<a id="more"></a>
+<p>SOAP是基于XML信息的一种协议规范，分布式应用可以通过它交换信息从而进行互操作。通常，SOAP有一组相对应的SOAP中间件互操作标准，以及兼容实现，（合在一起）叫做WS*。SOAP和WS*共同定义了许多标准，如下所示：</p>
+<ul>
+<li>服务组成的基础架构。开发者在SOAP中可以使用业务流程执行语言（BPEL）表示业务流程，这些都可以通过WS*服务来实现。</li>
+<li>事务。为了确保正确地管理事务，定义了几种Web服务的标准：WS-AT，WS-BA，WS-CAF和WS-Transaction。</li>
+<li>服务发现。通用服务发现和集成协议（UDDI）可以让企业发布服务列表并互相发现。</li>
+<li>可靠性。SOAP本身并不保证消息的可靠送达。需要可靠性保证的应用必须使用符合SOAP可靠性标准即WS-Reliability的服务。</li>
+</ul>
+<p>SOAP非常通用，在远程过程调用（RPC）模型中应用很广，当然在其他模型中也可以使用。SOAP和主流编程语言相比，本身是一个简单类型系统。SOAP使用HTTP和RPC做消息传输，但其实从理论上来说，它可以在任何通信协议上实现。SOAP并不要求服务的方法命名、寻址模型或者过程规范。因此，选择SOAP并没有给应用之间的互操作带来太多的实际帮助——它只是一种信息交换标准。交互的双方要对如何解析负荷（payload）达成共识，只有这样才能获得语义互操作性。</p>
+<p>另一方面，REST是基于客户端-服务器的架构风格，它是由一组CRUD（创建、读取、更新、删除）的操作（在REST的世界里，分别是POST，GET，PUT和DELETE）构成，并且只使用一种寻址方式（基于URI，或统一资源标识符）。REST在架构上加入了一些限制：SOAP提供了完整性；REST则提供了简单性。</p>
+<p>REST是有关状态和状态转移的，它把Web（以及面向服务的系统能够组合在一起的服务）看作是一个巨大的信息网络，这些信息通过URI寻址的方式进行访问。所以，REST里没有类型的概念，当然也没有类型检查——完全取决于应用来确保交互语义的正确性。</p>
+<p>因为REST接口如此简单并且具有一般性，任何HTTP客户端不需要额外的配置，都可以使用REST操作（POST, GET, PUT, DELETE）和任何HTTP服务器通信。这样你就获得了语法上的互操作能力，但是，这些程序实际上做什么以及交换什么信息都需要在组织层面上达成共识。也就是说，服务之间的语义互操作性只有REST接口是保证不了的。</p>
+<p>REST基于HTTP，本身设计成自描述形式，在最好的情况下是无状态协议。下面考虑REST的一个例子，一个电话本服务，给定一个唯一标识符，可以查阅某个人：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://www.XYZdirectory.com/phonebook/UserInfo/99999</span><br></pre></td></tr></table></figure>
+<p>同样的一个查询，如果用SOAP来实现，可能会是这样：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#60;?xml version=&#34;1.0&#34;?&#62;&#10;&#60;soap:Envelope xmlns:soap=http://www.w3.org/2001/12/soap-envelope&#10; soap:encodingStyle=&#34;http://www.w3.org/2001/12/soap-encoding&#34;&#62;&#10;  &#60;soap:Body pb=&#34;http:///www.XYZdirectory.com/phonebook&#34;&#62;&#10;    &#60;pb:GetUserInfo&#62;&#10;      &#60;pb:UserIdentifier&#62;99999&#60;/pb:UserIdentifier&#62;&#10;    &#60;/pb:GetUserInfo&#62;&#10;  &#60;/soap:Body&#62;&#10;&#60;soap:Envelope&#62;</span><br></pre></td></tr></table></figure>
+<p>选择SOAP还是REST的一个方面是你是否能接受SOAP+WSDL（Web服务描述语言）的复杂性和限制，从而得到更多的标准化互操作，或者使用REST从而避免额外的成本，标准更少但是也能获益。还有什么其他点需要考虑呢？</p>
+<p>REST中的消息交换比SOAP中的消息交换携带更少的特征。所以在REST和SOAP之间的权衡之一便是各自的消息大小。对于需要交换大量消息的系统，另一个权衡点是性能（倾向于REST）还是结构化信息（倾向于SOAP）。</p>
+<p>实现WS*或REST的决定取决于诸如需要的服务质量——WS*的实现对于安全、可用性等有更好的支持——以及功能类型等很多方面。RESTful的实现，由于其简单性，更加适合只读操作，典型是混搭（mashups）型的应用，而这些情境对于服务质量有最小的需求和担心。</p>
+<p>好了，如果现在构建一个基于服务的系统，你会怎么选择？真实情况是，在整个过程中你不必只做一个选择；每种技术都相对易用，至少对于简单的应用来说。每种技术都有优势和弱势。就像在架构中的任何其他技术一样，最终都是权衡；你的决定很大程度上取决于在你的环境中那些权衡点如何影响你的系统。</p>
+<p>——Rick Kazman</p>
+<h3 id="学习REST的参考资料">学习REST的参考资料</h3><ul>
+<li><a href="http://www.infoq.com/cn/articles/rest-introduction" target="_blank" rel="external">InfoQ上REST的介绍</a></li>
+<li><a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank" rel="external">Roy Fielding博士关于REST的原始论文</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><em>译文，译自《软件构架实践（第3版 影印版）》。UPDATED: 2014-11-17</em></p>
+<p>如果想让基于Web的应用进行互操作，目前有两种现成的技术可以选择：（1）WS*和SOAP（曾经代表“简单对象访问协议”，但这个缩写现在已经不再适用了）以及（2）REST（代表“表述性状态转移”，有时也写做ReST）。我们怎么看待这两种技术？每种技术都擅长什么？在使用的过程中有什么需要注意的地方？比较这两种技术似乎有点风马牛不相及，但我还是尝试着勾勒一下概貌。</p>]]>
+    
+    </summary>
+    
+      <category term="Architecture" scheme="http://hongbinzuo.github.io/tags/Architecture/"/>
+    
+      <category term="REST" scheme="http://hongbinzuo.github.io/tags/REST/"/>
+    
+      <category term="SOA" scheme="http://hongbinzuo.github.io/tags/SOA/"/>
+    
+      <category term="SOAP" scheme="http://hongbinzuo.github.io/tags/SOAP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[synchronized and ReentrantLock]]></title>
+    <link href="http://hongbinzuo.github.io/2014/11/15/synchronized-and-ReentrantLock/"/>
+    <id>http://hongbinzuo.github.io/2014/11/15/synchronized-and-ReentrantLock/</id>
+    <published>2014-11-15T06:57:23.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>ReentrantLock在加锁和内存上提供的语义与内置锁相同，此外它还提供了一些其他功能，包括定时的锁等待、可中断的锁等待、公平性，以及实现非块结构的加锁。ReentrantLock在性能上似乎优于内置锁，其中在Java 6中略有胜出，而在Java 5.0中则是远远胜出。那么为什么不放弃synchronized，并在所有新的并发代码中都使用ReentrantLock？事实上有些作者已经建议这么做，将synchronized作为一种“遗留”的结构，但这会将好事情变坏。</p>
+<a id="more"></a>
+<p>与显式锁相比，内置锁仍然具有很大的优势。内置锁为许多开发人员所熟悉，并且简洁紧凑，而且在许多现有的程序中都已经使用了内置锁——如果将这两种机制混合使用，那么不仅令人困惑，也容易发生错误。ReentrantLock的危险性比同步机制要高，如果忘记在finally块中调用unlock，那么虽然代码表面上能正常运行，但实际上已经埋下了一颗定时炸弹，并很有可能伤及其他代码。仅当内置锁不能满足需求时，才可以考虑使用ReentrantLock。</p>
+<p>…</p>
+<p>未来更有可能提升synchronized而不是ReentrantLock的性能。因为synchronized是JVM的内置属性，它更会执行一些优化，例如对线程封闭的锁对象的锁消除优化，通过增加锁的粒度来消除内置锁的同步，而如果通过基于类库的锁来实现这些功能，则可能性不大。除非将来需要在Java 5.0上部署应用程序，并且在该平台上确实需要ReentrantLock包含的可伸缩性，否则就性能方面来说，应该选择synchronized而不是ReentrantLock。</p>
+<p>——《Java并发编程实战》</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>ReentrantLock在加锁和内存上提供的语义与内置锁相同，此外它还提供了一些其他功能，包括定时的锁等待、可中断的锁等待、公平性，以及实现非块结构的加锁。ReentrantLock在性能上似乎优于内置锁，其中在Java 6中略有胜出，而在Java 5.0中则是远远胜出。那么为什么不放弃synchronized，并在所有新的并发代码中都使用ReentrantLock？事实上有些作者已经建议这么做，将synchronized作为一种“遗留”的结构，但这会将好事情变坏。</p>]]>
+    
+    </summary>
+    
+      <category term="Concurrency" scheme="http://hongbinzuo.github.io/tags/Concurrency/"/>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[lock() and lockInterruptibly()]]></title>
+    <link href="http://hongbinzuo.github.io/2014/11/15/lock()-and-lockInterruptibly()/"/>
+    <id>http://hongbinzuo.github.io/2014/11/15/lock()-and-lockInterruptibly()/</id>
+    <published>2014-11-15T06:21:33.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>在Lock接口中有两个方法，一个是lock方法，一个是lockInterruptibly方法，它们之间具体有什么区别呢？</p>
+<blockquote>
+<p>lock()是拿不到lock就不罢休，不然线程就一直block。lockInterruptibly会优先响应线程中断，处理响应的方式是抛出InterruptedException。</p>
+</blockquote>
+<p>可以参考一下 <a href="http://huangyunbin.iteye.com/blog/2013543" target="_blank" rel="external">http://huangyunbin.iteye.com/blog/2013543</a> ，我也大概看了一下lock和lockInterruptibly的相关源码，但是感觉原博说的有点不太对，不过因为现在没有太多时间深究，可以现从应用的角度来理解即可。原博中举的例子不错，这里就不重复引用了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在Lock接口中有两个方法，一个是lock方法，一个是lockInterruptibly方法，它们之间具体有什么区别呢？</p>
+<blockquote>
+<p>lock()是拿不到lock就不罢休，不然线程就一直block。lockInterruptibly会优先响应线程]]>
+    </summary>
+    
+      <category term="Concurrency" scheme="http://hongbinzuo.github.io/tags/Concurrency/"/>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[TryLock]]></title>
+    <link href="http://hongbinzuo.github.io/2014/11/15/TryLock/"/>
+    <id>http://hongbinzuo.github.io/2014/11/15/TryLock/</id>
+    <published>2014-11-15T04:13:26.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>《Java并发编程实战》这本书的缺点是有些例子给的不完整，所以想直接复制代码、运行看结果还是比较费力的，第13章显示锁的一个例子就是这样。在这种情况下，只能自己写或求助于互联网。下面用网上的一个小例子演示带有超时功能的tryLock的基本用法。关于Lock和同步代码块的区别以及更深入的研究，后续博文会有所涉及。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.freelemon.concurrency.chp13;&#10;&#10;import java.util.concurrent.TimeUnit;&#10;import java.util.concurrent.locks.Lock;&#10;import java.util.concurrent.locks.ReentrantLock;&#10;&#10;/**&#10; * Created with IntelliJ IDEA.&#10; * User: hongbin&#10; * Date: 14-11-15&#10; * Time: &#19978;&#21320;11:41&#10; * To change this template use File | Settings | File Templates.&#10; */&#10;public class ReentrantLockingDemo &#123;&#10;    private final Lock lock = new ReentrantLock();&#10;&#10;    public static void main(final String... args)&#123;&#10;        new ReentrantLockingDemo().go();&#10;    &#125;&#10;&#10;    private void go()&#123;&#10;        new Thread(newRunnable(), &#34;Thread-1&#34;).start();&#10;        new Thread(newRunnable(), &#34;Thread-2&#34;).start();&#10;    &#125;&#10;&#10;    private Runnable newRunnable()&#123;&#10;        return new Runnable()&#123;&#10;&#10;            @Override&#10;            public void run() &#123;&#10;                do&#123;&#10;                    try&#123;&#10;                        if (lock.tryLock(500, TimeUnit.MILLISECONDS))&#123;&#10;                            try&#123;&#10;                                System.out.println(&#34;Locked thread &#34; + Thread.currentThread().getName());&#10;                                Thread.sleep(1000);&#10;                            &#125; finally &#123;&#10;                                lock.unlock();&#10;                                    System.out.println(&#34;unlocked locked thread &#34; + Thread.currentThread().getName());&#10;                            &#125;&#10;                            break;&#10;                        &#125; else &#123;&#10;                            System.out.println(&#34;unable to lock thread &#34; + Thread.currentThread().getName() + &#34;, will try again.&#34;);&#10;                        &#125;&#10;                    &#125; catch (InterruptedException e) &#123;&#10;                        e.printStackTrace();&#10;                    &#125;&#10;&#10;                &#125; while(true);&#10;            &#125;&#10;        &#125;;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Locked thread Thread-2&#10;unable to lock thread Thread-1, will try again.&#10;unlocked locked thread Thread-2&#10;Locked thread Thread-1&#10;unlocked locked thread Thread-1</span><br></pre></td></tr></table></figure>
+<h3 id="参考资料">参考资料</h3><ul>
+<li>Credit属于 <a href="http://robaustin.wikidot.com/reentrantlock" target="_blank" rel="external">http://robaustin.wikidot.com/reentrantlock</a></li>
+</ul>
+<h3 id="PS">PS</h3><ul>
+<li>上一篇谈到了CountDownLatch和CyclicBarrier，例子代码详见<a href="https://github.com/hongbinzuo/dojo/blob/master/src/com/freelemon/concurrency/countdownlatch/CountDownLatchTest.java" target="_blank" rel="external">https://github.com/hongbinzuo/dojo/blob/master/src/com/freelemon/concurrency/countdownlatch/CountDownLatchTest.java</a> 和 <a href="https://github.com/hongbinzuo/dojo/blob/master/src/com/freelemon/concurrency/cyclicbarrier/GameBarrier.java" target="_blank" rel="external">https://github.com/hongbinzuo/dojo/blob/master/src/com/freelemon/concurrency/cyclicbarrier/GameBarrier.java</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>《Java并发编程实战》这本书的缺点是有些例子给的不完整，所以想直接复制代码、运行看结果还是比较费力的，第13章显示锁的一个例子就是这样。在这种情况下，只能自己写或求助于互联网。下面用网上的一个小例子演示带有超时功能的tryLock的基本用法。关于Lock和同步代码块的区别以及更深入的研究，后续博文会有所涉及。</p>]]>
+    
+    </summary>
+    
+      <category term="Concurrency" scheme="http://hongbinzuo.github.io/tags/Concurrency/"/>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CountDownLatch and CyclicBarrier]]></title>
+    <link href="http://hongbinzuo.github.io/2014/11/09/CountDownLatch-and-CyclicBarrier/"/>
+    <id>http://hongbinzuo.github.io/2014/11/09/CountDownLatch-and-CyclicBarrier/</id>
+    <published>2014-11-09T15:38:59.000Z</published>
+    <updated>2015-06-20T03:25:03.000Z</updated>
+    <content type="html"><![CDATA[<p>CountDownLatch和CyclicBarrier从字面上理解是“向下数的门闩”和“循环的障碍”，觉得怪怪的，但是即便翻译成更加书面语的“闭锁”或“栅栏”也并不容易理解。《Java并发编程实战》中详细讲解了两者的作用，也举了例子，但理解起来印象不深。如果只是从异同的角度去比较两者，网上倒是有不少文章，但是对于编程实践往往不如通俗的例子来得实在。</p>
+<a id="more"></a>
+<p>经过一番比较，发现<a href="http://blog.csdn.net/kuyuyingzi/article/details/19155697" target="_blank" rel="external">CSDN博客酷鱼影子</a>写的不错，下面摘录原博客的一些内容来解释这两者的适用场景。摘录内容略有修改，如果有版权问题，请作者告知。</p>
+<p>— 摘录内容（例子参考原博文） —</p>
+<p>在多线程程序设计中，经常会遇到一个线程等待一个或多个线程的场景，遇到这样的场景应该如何解决？如果是一个线程等待另一个线程，可以通过<code>wait()</code>和<code>notify()</code>来实现；如果是一个线程等待多个线程，那么可以使用CountDownLatch和CyclicBarrier来实现比较好的控制。</p>
+<h3 id="CountDownLatch">CountDownLatch</h3><p>下面来详细描述CountDownLatch的应用场景：例如百米赛跑中8名运动员同时起跑，由于速度的快慢，肯定会出现先到终点和晚到终点的情况，而终点有个统计成绩的仪器，当所有选手到达终点时，它会统计所有人的成绩并进行排序，然后把结果发送到汇报成绩的系统。其实这就是一个CountDownLatch的应用场景：一个线程（终点统计成绩的仪器）或多个线程<strong>等待其他线程</strong>（8名运动员）运行达到某一目标后进行自己的下一步工作，而被等待的“其他线程”达到这个目标后继续自己下面的任务。</p>
+<p>那么，如何来通过CountDownLatch来实现上述场景的线程控制和调度呢？</p>
+<p>JDK中CountDownLatch类有一个常用的构造方法：<code>CountDownLatch(int count)</code>以及两个常用的方法：<code>await()</code>和<code>countdown()</code>。其中count是一个计数器中的初始化数字，比如初始化的数字是2，当一个线程里调用了<code>countdown()</code>，则这个计数器就减一，当线程调用了<code>await()</code>，则这个线程就等待这个计数器变为0，当这个计数器变为0时，这个线程就继续自己下面的工作。</p>
+<h3 id="CyclicBarrier">CyclicBarrier</h3><p>下面详细描述下CyclicBarrier的应用场景：有四个游戏玩家玩游戏，游戏有三个关卡，每个关卡必须要所有玩家都到达后才能允许通关。其实这个场景里的玩家中如果有玩家A先到了关卡1，他必须等待其他所有玩家都到达关卡1时才能通过，也就是说线程之间<strong>需要互相等待</strong>，这和CountDownLatch的应用场景有区别，CountDownLatch里的线程是到了运行的目标后继续干自己的其他事情，而这里的线程需要等待其他线程后才能继续完成下面的工作。</p>
+<p>JDK中CyclicBarrier类有两个常用的构造方法：</p>
+<p> 1.<code>CyclicBarrier(int parties)</code></p>
+<p>这里的parties也是一个计数器，例如，初始化时parties里的计数是3，于是拥有该CyclicBarrier对象的线程当parties的计数为3时就唤醒，注：这里parties里的计数在运行时当调用<code>CyclicBarrier:await()</code>时，计数就加1，一直加到初始的值。</p>
+<p> 2.<code>CyclicBarrier(int parties, Runnable barrierAction)</code></p>
+<p>这里的parties与上一个构造方法的解释是一样的，这里需要解释的是第二个参数（Runnable barrierAction）,这个参数是一个实现Runnable接口的类的对象，也就是说当parties加到初始值时就执行barrierAction的内容。</p>
+<p>— 摘录内容结束 —</p>
+<p>其实细读一下Javadoc也是可以的，讲得也比较清楚：</p>
+<ul>
+<li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/CountDownLatch.html" target="_blank" rel="external">CountDownLatch的Javadoc</a></li>
+<li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/CyclicBarrier.html" target="_blank" rel="external">CylicBarrier的Javadoc</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>CountDownLatch和CyclicBarrier从字面上理解是“向下数的门闩”和“循环的障碍”，觉得怪怪的，但是即便翻译成更加书面语的“闭锁”或“栅栏”也并不容易理解。《Java并发编程实战》中详细讲解了两者的作用，也举了例子，但理解起来印象不深。如果只是从异同的角度去比较两者，网上倒是有不少文章，但是对于编程实践往往不如通俗的例子来得实在。</p>]]>
+    
+    </summary>
+    
+      <category term="Concurrency" scheme="http://hongbinzuo.github.io/tags/Concurrency/"/>
+    
+      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
+    
+  </entry>
+  
+</feed>
