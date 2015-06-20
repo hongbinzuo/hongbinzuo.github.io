@@ -112,7 +112,7 @@
 <p>想一想，这还真是一个不错的特性，作者也提到，这就是Java里常写的DTO，使用Scala就不用那么麻烦啦！</p>
 <p><strong>具名参数</strong>就是在创建对象时指定参数的名字，作用是能避免传参错误，个人认为在IDE功能这么强大的情况下，这个特性有点多余。<strong>缺省参数</strong>就是在定义参数时赋初值，这个还比较有用。<strong>拷贝构造方法</strong>这个概念，我们只要了解拷贝过程可以自己定义就行了。</p>
 <p>另外，Scala在修饰符上也更加灵活一些。例如private修饰符可以加入修饰范围，参见下面的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">package outerpkg.innerpkg&#10;class Outer &#123;&#10;  class Inner &#123;&#10;    private[Outer] def f()  = &#34;This is f&#34;&#10;    private[innerpkg] def g() = &#34;This is g&#34;&#10;    private[outerpkg] def h() = &#34;This is h&#34;&#10;&#125; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package outerpkg.innerpkg&#10;class Outer &#123;&#10;  class Inner &#123;&#10;    private[Outer] def f()  = &#34;This is f&#34;&#10;    private[innerpkg] def g() = &#34;This is g&#34;&#10;    private[outerpkg] def h() = &#34;This is h&#34;&#10;&#125; &#125;</span><br></pre></td></tr></table></figure>
 <p>在Scala中，标准的访问修饰符有<code>private</code>和<code>protected</code>，为什么没有<code>public</code>呢？因为Scala中不加任何修饰符的成员就是public成员。除了标准的修饰符之外，Scala还引入了<code>sealed</code>修饰符，只对类定义有用，意为只在当前源文件中可见。</p>
 <p>最后两个新特性是<strong>值类</strong>（values classes，在版本2.10中引入）和<strong>隐式转换</strong>（implicit conversions）。第一个特性没理解到底有什么用，第二个倒是觉得有点价值，只是用多了就会降低代码的可读性。</p>
 <p>总体来看，Scala在面向对象的基本架构上和Java相比并没有本质的变化，类和对象为基础的封装、继承和多态是很相似的，只是Scala在Java的基础上有所改进，有些细节需要在使用中多加注意。</p>

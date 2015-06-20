@@ -95,7 +95,7 @@
 <li>通过Mac <code>sftp</code>到DO，把文件down下来，总体上比较快</li>
 </ol>
 <p>其次，执行<code>vagrant up</code>的时候发现速度更慢，几乎到不了10K，估计用时12个小时左右，网上也有类似的问题，如<a href="http://forums.udacity.com/questions/100250311/vagrant-cloud-is-too-slow-taking-lot-of-time-to-download-more-than-10hours" target="_blank" rel="external">这个帖子</a>，这几乎没法容忍，于是继续谷歌，找到了一个方法，即：<a href="https://github.com/mitchellh/vagrant/issues/1807" target="_blank" rel="external">https://github.com/mitchellh/vagrant/issues/1807</a>，看上去这个应该是vagrant的patch，不知道为什么最新版的Vagrant中不包含这个fix。具体来说，就是把下面的代码加到Vagrantfile最后一个end之前，然后再执行<code>vagrant up</code>就一切OK啦！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.vm.provider :virtualbox do |vb|&#10;  vb.customize [&#34;modifyvm&#34;, :id, &#34;--natdnshostresolver1&#34;, &#34;on&#34;]&#10;  vb.customize [&#34;modifyvm&#34;, :id, &#34;--natdnsproxy1&#34;, &#34;on&#34;]&#10;end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">config.vm.provider :virtualbox do |vb|&#10;  vb.customize [&#34;modifyvm&#34;, :id, &#34;--natdnshostresolver1&#34;, &#34;on&#34;]&#10;  vb.customize [&#34;modifyvm&#34;, :id, &#34;--natdnsproxy1&#34;, &#34;on&#34;]&#10;end</span><br></pre></td></tr></table></figure>
 <p>下面SHOW一下修改过配置之后的速度（虽然不知道为什么），速度超赞。当然，必须强调一下，我是翻过GFW之后的效果，在墙内可能就没那么快了。</p>
 <p><img src="/img/vagrant_download.png" width="750px"></p>
 

@@ -98,7 +98,7 @@
 <h3 id="简化特性">简化特性</h3><ul>
 <li>默认导入：不需要显示import的包，包括<code>groovy.lang.\*</code>, <code>groovy.util.\*</code>, <code>java.lang.\*</code>, <code>java.io.\*</code>, <code>java.math.BigDecimal</code>, <code>java.math.BigInteger</code>, <code>java.net.\*</code>, <code>java.util.\*</code>；使用和Java相同的语法导入更多的类</li>
 <li><p>数字处理：采用了最小意外原则，底层使用<code>BigDecimal</code>表示浮点数。解决Java中<code>BigDecimal</code>的问题：采用字符串初始化<code>BigDecimal</code>，并正确支持BEDMAS（括号、次方、除法、乘法、加法和减法）。Java中BigDecimal问题的例子如下（猜猜结果是什么）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal x = new BigDecimal(3);&#10;BigDecimal x = new BigDecimal(0.2);&#10;System.out.println(x.add(y));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BigDecimal x = new BigDecimal(3);&#10;BigDecimal x = new BigDecimal(0.2);&#10;System.out.println(x.add(y));</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Groovy是动态类型语言，同时支持静态类型用法</p>
 </li>
@@ -117,7 +117,7 @@
 <li>GroovyBean：详细了解的话可以参考<a href="http://groovy.codehaus.org/Groovy+Beans" target="_blank" rel="external">官方网站</a>，第一是简化，第二是加入属性规则例如只读属性设定，通过这个例子可以知道，Groovy会比Java省很多代码</li>
 <li>安全解引用操作符：就是使用神奇的?.省去很多判断<code>null</code>的代码！更详细参考<a href="http://groovy.codehaus.org/Null+Object+Pattern" target="_blank" rel="external">NullObjectPattern</a> </li>
 <li><p>猫王操作符：<code>?:</code>的作用，例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String agentStatus = &#34;Active&#34;&#10;String status = agentStatus ?: &#34;Inactive&#34;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String agentStatus = &#34;Active&#34;&#10;String status = agentStatus ?: &#34;Inactive&#34;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>增强型字符串：更多详情参见 <a href="http://groovy.codehaus.org/Strings+and+GString" target="_blank" rel="external">GString</a></p>
 </li>

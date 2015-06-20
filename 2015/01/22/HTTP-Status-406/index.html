@@ -95,14 +95,14 @@
 <p>略查了一下，CSDN上有几篇博客谈到这个问题，有的说是因为在返回的对象中没有定义getter方法，NO，我定义了。有的说是缺少依赖的jar包，也就是Jackson的jar包，我把相关的依赖加上之后，并没有解决问题，当时加的版本比较低（1.9.13），后来想加上更高版本（codehaus）发现maven不能下载jar包，于是放弃，追查其他可能性（此处开始走弯路）。</p>
 <p>Stackoverflow上也有不少帖子是关于这个问题的，有的说1天都没解决，有的说7天还没解决，我的感觉是“huh？”。按照Stackoverflow提到的一些方法，如把返回对象类型改成Object（有的人成功了，什么原理？），不成；在RequestMapping里面加入headers或produces的类型约束（如application/json等），不成；加入ContentNegotiationManagerFactoryBean的配置，不成。</p>
 <p>我想Spring 4.0这种高级版本应该是有一招制敌的方法，所以非常肯定的是有一个配置是必须的，即：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;mvc:annotation-driven/&#62;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#60;mvc:annotation-driven/&#62;</span><br></pre></td></tr></table></figure>
 <p>不可思议的是，IntelliJ生成的Spring MVC项目中，mvc的命名空间引用错误，修正这个问题还花了点时间。怎么会出现这种问题？</p>
 <p>修复mvc之后，我又开始看了一下<a href="http://spring.io/guides/gs/rest-service/" target="_blank" rel="external">官方指南</a>，这个指南的例子写的不错，可惜它用的不是配置文件的方式，而是使用程序做配置，这环境就不一样了。但其实，如果仔细研读，还是能发现其中暗藏的线索，比如下面这句话：</p>
 <blockquote>
 <p>As you see in steps below, Spring uses the Jackson JSON library to automatically marshal instances of type Greeting into JSON.</p>
 </blockquote>
 <p>这句话的内涵是Spring在把对象转换成JSON的时候用到了Jackson，所以只要在你的项目引入Jackson让Spring能找到可以了，哈，绕了一圈，还是Jackson。这块比较Tricky的是，如果你不仔细看链接，你发现不了，Jackson这个库从2.0开始前面缀了一个fasterxml，这就是坑。如果你还在用老的codehaus就傻了，于是，加入新的三个依赖包如下，问题最终得到解决。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;dependency&#62;&#10;    &#60;groupId&#62;com.fasterxml.jackson.core&#60;/groupId&#62;&#10;    &#60;artifactId&#62;jackson-core&#60;/artifactId&#62;&#10;    &#60;version&#62;2.4.1&#60;/version&#62;&#10;&#60;/dependency&#62;&#10;&#10;&#60;dependency&#62;&#10;    &#60;groupId&#62;com.fasterxml.jackson.core&#60;/groupId&#62;&#10;    &#60;artifactId&#62;jackson-databind&#60;/artifactId&#62;&#10;    &#60;version&#62;2.4.1&#60;/version&#62;&#10;&#60;/dependency&#62;&#10;&#10;&#60;dependency&#62;&#10;    &#60;groupId&#62;com.fasterxml.jackson.core&#60;/groupId&#62;&#10;    &#60;artifactId&#62;jackson-annotations&#60;/artifactId&#62;&#10;    &#60;version&#62;2.4.1&#60;/version&#62;&#10;&#60;/dependency&#62;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#60;dependency&#62;&#10;    &#60;groupId&#62;com.fasterxml.jackson.core&#60;/groupId&#62;&#10;    &#60;artifactId&#62;jackson-core&#60;/artifactId&#62;&#10;    &#60;version&#62;2.4.1&#60;/version&#62;&#10;&#60;/dependency&#62;&#10;&#10;&#60;dependency&#62;&#10;    &#60;groupId&#62;com.fasterxml.jackson.core&#60;/groupId&#62;&#10;    &#60;artifactId&#62;jackson-databind&#60;/artifactId&#62;&#10;    &#60;version&#62;2.4.1&#60;/version&#62;&#10;&#60;/dependency&#62;&#10;&#10;&#60;dependency&#62;&#10;    &#60;groupId&#62;com.fasterxml.jackson.core&#60;/groupId&#62;&#10;    &#60;artifactId&#62;jackson-annotations&#60;/artifactId&#62;&#10;    &#60;version&#62;2.4.1&#60;/version&#62;&#10;&#60;/dependency&#62;</span><br></pre></td></tr></table></figure>
 
       
     </div>

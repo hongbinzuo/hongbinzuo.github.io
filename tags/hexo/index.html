@@ -209,7 +209,7 @@
 <li>安装Hexo的方法主要参考Hexo的官方主页 <a href="http://zespia.tw/hexo">http://zespia.tw/hexo</a></li>
 <li>如果npm需要代理访问，直接修改Linux环境的代理http(s)_proxy或者设置npm的代理都不能奏效，最后求助于Github的问题列表，指到SO的一则回答，依法照搬，OK！（注意加sudo）<a href="http://stackoverflow.com/questions/7559648/is-there-a-way-to-make-npm-install-the-command-to-work-behind-proxy">http://stackoverflow.com/questions/7559648/is-there-a-way-to-make-npm-install-the-command-to-work-behind-proxy</a></li>
 <li><p>运行命令hexo init之后出错的解决方法：将hexo(/usr/local/bin/hexo)中的node改为nodejs即可</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init         &#10;/usr/bin/env: node: No such file or directory</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo init         &#10;/usr/bin/env: node: No such file or directory</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>  这个问题已经提交到hexo的Github主页：<a href="https://github.com/tommy351/hexo/issues/355">https://github.com/tommy351/hexo/issues/355</a><br>  [Update] Zippera回答了这个问题，建议是使用npm安装nodejs，而不是先安装nodejs </p>

@@ -107,7 +107,7 @@
 </ul>
 <p>Don’t use a <strong>return</strong> statement.</p>
 <p>我的实现如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def power(x: Int, n: Int): Double = n match &#123;&#10;  case 0 =&#62; 1&#10;  case a: Int if 0 &#62; a =&#62; 1 / power(x, -n)&#10;  case a: Int if a % 2 == 0 =&#62; power(x, n/2) * power(x, n/2)&#10;  case a: Int if a % 2 != 0 =&#62; x * power(x, n-1)&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def power(x: Int, n: Int): Double = n match &#123;&#10;  case 0 =&#62; 1&#10;  case a: Int if 0 &#62; a =&#62; 1 / power(x, -n)&#10;  case a: Int if a % 2 == 0 =&#62; power(x, n/2) * power(x, n/2)&#10;  case a: Int if a % 2 != 0 =&#62; x * power(x, n-1)&#10;&#125;</span><br></pre></td></tr></table></figure>
 <p>回顾这几天的学习路径：先是看《Java程序员修炼之道》中关于Scala的概览，然后学习了Coursera的课程，现在在看<em>Scala for the impatient</em>这本书。通过这次学习，基本上想达到几个目的：</p>
 <ul>
 <li>了解并掌握Scala的基本特性和编程范式</li>

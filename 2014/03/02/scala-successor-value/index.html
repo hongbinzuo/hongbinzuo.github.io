@@ -91,10 +91,10 @@
 <a id="more"></a>
 <p>非常遗憾的是，作者引用Object Mentor的一篇关于Successor Value的原始博文已经失效（<a href="mng.bz/b27e">地址</a>），所以我们不知道原来Michael Feathers是怎么详细定义这个模式的。但是从书中的例子可以基本了解这个模式的思路，和Java中的String可以类比，主要达到的目的是不改变原有对象的状态而是通过某种方式创建一个新的对象。下面把书中的例子摘录如下：</p>
 <p><strong>可变的Square对象定义</strong>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Square(var side: Int) &#123;&#10;  def area = side * side&#10;&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>不可变的Square定义</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class PureSquare(val side: Int) &#123;&#10;  def newSide(s: Int): PureSquare = new PureSquare(s)&#10;  def area = side * side&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Square(var side: Int) &#123;&#10;  def area = side * side&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>不可变的Square定义</strong>：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class PureSquare(val side: Int) &#123;&#10;  def newSide(s: Int): PureSquare = new PureSquare(s)&#10;  def area = side * side&#10;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在PureSquare类的定义中，side是val参数，所以新创建的对象是不可变的，通过新定义的newSide方法，如果想调用已有对象改变side的话，那就返回一个新建的PureSquare对象。我们借用<a href="http://stackoverflow.com/questions/18999709/what-is-successor-value-pattern" target="_blank" rel="external">Stackoverflow问答中的例子</a>来进一步理解一下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val square1 = new PureSquare(1)&#10;assert(square1.area == 1)&#10;&#10;//this is similar to changing the side of square1&#10;val square2 = square1.newSide(2)&#10;&#10;//and the area changes consequently&#10;assert(square2.area == 4)&#10;//while the original call is still referentially transparent [*]&#10;assert(square1.area == 1)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">val square1 = new PureSquare(1)&#10;assert(square1.area == 1)&#10;&#10;//this is similar to changing the side of square1&#10;val square2 = square1.newSide(2)&#10;&#10;//and the area changes consequently&#10;assert(square2.area == 4)&#10;//while the original call is still referentially transparent [*]&#10;assert(square1.area == 1)</span><br></pre></td></tr></table></figure>
 <p>这应该不是面向对象编程中常用的一个模式，但是可能在Scala编程中会用的到。</p>
 
       

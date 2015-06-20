@@ -91,11 +91,11 @@
 <p>下面的正文部分译自<em>Scala in action</em>的一段解释，算是对这两个概念的初步澄清。在译文后面的参考链接中，我也列举了一些资源，从而帮助理解lambda和闭包的概念以及在不同语言中的应用。</p>
 <p><img alt="lambda算子" src="http://upload.wikimedia.org/wikipedia/commons/e/ee/Lambda_uc_lc.svg" style="width: 450px;"></p>
 <h3 id="lambda和闭包（closure）的区别是什么">lambda和闭包（closure）的区别是什么</h3><p>lambda就是匿名函数——即没有名字的函数。前面你已经看到过一些例子了。闭包就是封闭在其定义所处环境的任意函数。让我们用一个例子来解释一下，比如，将一个百分比应用到一个列表上：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala&#62; List(100, 200, 300) map &#123; _ * 10/100 &#125;&#10;res34: List[Int] = List(10, 20, 30)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scala&#62; List(100, 200, 300) map &#123; _ * 10/100 &#125;&#10;res34: List[Int] = List(10, 20, 30)</span><br></pre></td></tr></table></figure>
 <p>在这个例子中，传递给map的函数就是一个lambda表达式（译者注：其中 <code>_ * 10/100</code>也可以写成<code>(x:Int) =&gt; x * 10/100</code>）或<code>x =&gt; x * 10/100</code>）。现在假设这个百分比数值会随着时间变化，所以要把当前的百分比数值存在一个变量里。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala&#62; var percentage = 10&#10;percentage: Int = 10&#10;scala&#62; val applyPercentage = (amount: Int) =&#62;&#10;amount * percentage/100&#10;applyPercentage: (Int) =&#62; Int = &#60;function1&#62;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scala&#62; var percentage = 10&#10;percentage: Int = 10&#10;scala&#62; val applyPercentage = (amount: Int) =&#62;&#10;amount * percentage/100&#10;applyPercentage: (Int) =&#62; Int = &#60;function1&#62;</span><br></pre></td></tr></table></figure>
 <p>在这种情况下，<code>applyPercentage</code>就是一个闭包，因为它保持了它被创建时的环境，此处主要是<code>percentage</code>变量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala&#62; percentage = 20&#10;percentage: Int = 20&#10;scala&#62; List(100, 200, 300) map applyPercentage&#10;res33: List[Int] = List(20, 40, 60)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scala&#62; percentage = 20&#10;percentage: Int = 20&#10;scala&#62; List(100, 200, 300) map applyPercentage&#10;res33: List[Int] = List(20, 40, 60)</span><br></pre></td></tr></table></figure>
 <p>lambda和闭包是不同的概念，但却紧密相关。</p>
 <h3 id="参考资源">参考资源</h3><ol>
 <li>中文维基百科：<a href="http://zh.wikipedia.org/wiki/%CE%9B%E6%BC%94%E7%AE%97" target="_blank" rel="external">λ演算的定义</a></li>

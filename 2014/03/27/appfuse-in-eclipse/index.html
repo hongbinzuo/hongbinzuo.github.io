@@ -91,12 +91,12 @@
 <p><a href="http://appfuse.org/display/APF/Home" target="_blank" rel="external">Appfuse</a>是一个很有意思的项目，可以把它看成是Java企业应用开发的一个最佳实践集合。在Maven的帮助下，可以生成基于Struts，Spring MVC或者Wicket等一些框架的组合，这样就免去了最初搭建脚手架（Scaffolding）的过程。这在Play Framework和Grails出现之前应该算是比较方便的，再加上作者Matt Raible（他的<a href="http://raibledesigns.com/" target="_blank" rel="external">博客地址</a>）本身在Java圈子里也有小有名气，所以这个项目还是有一定人气的。今天看了一下，最新版的Appfuse 3.0已经支持Spring 4和Java 7/Maven 3（最低要求）了，可见人家也是与时俱进的，我们就来尝试一把。</p>
 <a id="more"></a>
 <p>根据<a href="http://appfuse.org/display/APF/AppFuse+QuickStart" target="_blank" rel="external">快速开始文档</a>，可以很快地下载项目。我选择使用Spring MVC，具体命令如下，其中的groupId和artifactId要换成自己项目的组织和名称：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mvn archetype:generate -B -DarchetypeGroupId=&#10;org.appfuse.archetypes -DarchetypeArtifactId=appfuse-modular-spring-archetype -D&#10;archetypeVersion=3.0.0 -DgroupId=com.mydemo -DartifactId=demo -DarchetypeR&#10;epository=http://oss.sonatype.org/content/repositories/appfuse</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mvn archetype:generate -B -DarchetypeGroupId=&#10;org.appfuse.archetypes -DarchetypeArtifactId=appfuse-modular-spring-archetype -D&#10;archetypeVersion=3.0.0 -DgroupId=com.mydemo -DartifactId=demo -DarchetypeR&#10;epository=http://oss.sonatype.org/content/repositories/appfuse</span><br></pre></td></tr></table></figure>
 <p>执行这条命令的条件是下载了Maven 3，并配置了Maven的执行路径，可以通过如下命令检查：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mvn -version</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mvn -version</span><br></pre></td></tr></table></figure>
 <p>下载完成之后，我选择先在Eclipse中编译，使用导入Maven项目的方式将源码导入，此时遇到了三个错误。</p>
 <p>第一个错误的具体信息如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Plugin execution not covered by lifecycle configuration: org.codehaus.mojo:hibernate3-maven-plugin:2.2:hbm2ddl (execution: default, phase: process-test-resources)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Plugin execution not covered by lifecycle configuration: org.codehaus.mojo:hibernate3-maven-plugin:2.2:hbm2ddl (execution: default, phase: process-test-resources)</span><br></pre></td></tr></table></figure>
 <p>谷歌搜索错误的解决方法, 可以参考下面两个帖子：</p>
 <ul>
 <li><a href="http://appfuse.547863.n4.nabble.com/POM-td4655717.html" target="_blank" rel="external">http://appfuse.547863.n4.nabble.com/POM-td4655717.html</a></li>

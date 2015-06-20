@@ -92,8 +92,8 @@
 <a id="more"></a>
 <p>在网上找找，翻到Play 2.2.x<a href="http://www.playframework.com/documentation/2.2.x/Build" target="_blank" rel="external">关于构建的文档</a>，没有提到<code>Build.scala</code>这个文件，所以问题的根源可能是在Play 2.0（或SBT的早期版本）的时候曾经支持过<code>Build.scala</code>，而现在最新的不支持了，当然这只是个猜想。</p>
 <h3 id="解决方法">解决方法</h3><p>把下面这段配置（清单1）放到<code>project/build.sbt</code>中去（清单2）：</p>
-<h5 id="清单-1">清单-1</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val appDependencies = Seq(&#10;&#34;net.sf.barcode4j&#34; % &#34;barcode4j&#34; % &#34;2.0&#34;&#10;)</span><br></pre></td></tr></table></figure>
-<h5 id="清单-2">清单-2</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libraryDependencies += &#34;net.sf.barcode4j&#34; % &#34;barcode4j&#34; % &#34;2.0&#34;</span><br></pre></td></tr></table></figure>
+<h5 id="清单-1">清单-1</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">val appDependencies = Seq(&#10;&#34;net.sf.barcode4j&#34; % &#34;barcode4j&#34; % &#34;2.0&#34;&#10;)</span><br></pre></td></tr></table></figure>
+<h5 id="清单-2">清单-2</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">libraryDependencies += &#34;net.sf.barcode4j&#34; % &#34;barcode4j&#34; % &#34;2.0&#34;</span><br></pre></td></tr></table></figure>
 <p>当然，翻墙还是不可避免的，要不然下载不了Maven的库。</p>
 
       
