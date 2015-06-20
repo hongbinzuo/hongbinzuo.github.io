@@ -96,11 +96,16 @@
 <p>参见<a href="https://github.com/hexojs/hexo-cli/issues/1" target="_blank" rel="external">Github上的问题1</a>。作者对此也没有权威解释，只是告诉加一个参数就可以了：</p>
 <p><code>$ npm install -g hexo-cli --no-optional</code></p>
 <h3 id="The_Wall">The Wall</h3><p>因为国内的网络情况，很多时候Ruby啊，Node的包管理器都会出现连接失效，这种情况下，或者使用代理（BTW：GoAgent已经不大好用了），或者使用国内的包镜像站，用代理的话，可以这么设置：</p>
-<figure class="highlight"><figcaption><span>config set proxy=http://127.0.0.1:8087```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#19981;&#36807;&#29992;&#22269;&#20869;&#30340;&#38236;&#20687;&#31449;&#24212;&#35813;&#26159;&#26368;&#30465;&#24515;&#30340;&#65292;&#25913;&#19968;&#19979;registry&#23601;&#22909;&#20102;&#65306;&#10;&#10;```npm config set registry=&#34;http://r.cnpmjs.org&#34;</span><br></pre></td></tr></table></figure>
+<p><code>npm config set proxy=http://127.0.0.1:8087</code></p>
+<p>不过用国内的镜像站应该是最省心的，改一下registry就好了：</p>
+<p><code>npm config set registry=&quot;http://r.cnpmjs.org&quot;</code></p>
 <p>如果你还遇到别的情况，参考这个链接吧，写的比较细：<a href="http://www.cnblogs.com/hustskyking/p/npm-cross-wall.html" target="_blank" rel="external">npm_cross_wall</a></p>
 <h3 id="hexo_server">hexo server</h3><p>Hexo 3.0以后还有一个变化，就是server模块需要单独安装，在博客目录内执行如下命令即可：</p>
-<figure class="highlight"><figcaption><span>install hexo-server --save```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;###hexo generate&#10;&#36816;&#34892;`hexo g`&#26102;&#21457;&#29616;&#65292;&#25152;&#26377;&#30340;markdown&#27809;&#26377;&#29983;&#25104;&#65292;&#21457;&#29616;&#21644;&#20043;&#21069;hexo&#29256;&#26412;&#19981;&#19968;&#26679;&#65292;&#38656;&#35201;&#26469;&#36825;&#20040;&#19968;&#19979;&#65306;</span><br></pre></td></tr></table></figure>
-<p>hexo init<br>npm install<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;###github or git&#10;Hexo 3.0&#21518;&#65292;&#38656;&#35201;&#25226;deployer&#30340;&#31867;&#22411;&#20174;github&#25913;&#25104;git&#65292;&#21478;&#22806;&#38656;&#35201;&#21152;&#20837;&#30456;&#24212;&#30340;&#21253;&#65306;&#10;&#10;```npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
+<p><code>npm install hexo-server --save</code></p>
+<h3 id="hexo_generate">hexo generate</h3><p>运行<code>hexo g</code>时发现，所有的markdown没有生成，发现和之前hexo版本不一样，需要来这么一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init&#10;npm install</span><br></pre></td></tr></table></figure>
+<h3 id="github_or_git">github or git</h3><p>Hexo 3.0后，需要把deployer的类型从github改成git，另外需要加入相应的包：</p>
+<p><code>npm install hexo-deployer-git --save</code></p>
 <p>最后，坑踩完了。需要提醒的是，遇到问题，主要参考hexo的github主页上的问题列表，作者tommy的主页，或者最后找不到只能谷而歌之。</p>
 <p>Happy blogging with Hexo 3.0!</p>
 
