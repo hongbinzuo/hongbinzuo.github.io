@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Write, Code, Share, Learn]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hongbinzuo.github.io//"/>
-  <updated>2015-06-20T05:45:37.000Z</updated>
+  <updated>2015-11-28T12:20:09.000Z</updated>
   <id>http://hongbinzuo.github.io//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://hongbinzuo.github.io/2015/06/20/Construction-Method-Reading-Notes/"/>
     <id>http://hongbinzuo.github.io/2015/06/20/Construction-Method-Reading-Notes/</id>
     <published>2015-06-20T05:34:12.000Z</published>
-    <updated>2015-06-20T05:45:37.000Z</updated>
+    <updated>2015-11-28T12:20:09.000Z</updated>
     <content type="html"><![CDATA[<h1 id="我读《构建之法》">我读《构建之法》</h1><p>以前读过邹欣老师的几篇博客，觉得还是有些受用。这次看到邹欣老师出书，就赶热闹买了一本，看看软件从业者眼中的现代软件工程是什么样子。这本书我看的比较快，也没做笔记，今天有点时间，就把我认为比较有意思的一些点总结一下，对自己算是个交代。</p>
 <a id="more"></a>
 <p>这本书对于软件开发者的作用：不用读枯燥的课本，可以学习到现代软件工程的方方面面，结合自己的实际工作，查缺补漏，为成长成一位职业的、合格的开发者做好准备。如果你已经在软件领域从业多年，可以看看这些知识你是否大部分已经掌握并实践，对于软件开发和团队提升是否有帮助。</p>
@@ -50,6 +50,7 @@
 <h2 id="第11章_~_第14章_过于基础，新观点不多_略">第11章 ~ 第14章 过于基础，新观点不多 略</h2><h2 id="第15章_稳定和发布阶段">第15章 稳定和发布阶段</h2><p>P295 事后诸葛亮会议（邹老师这个模板不错哦~） - 敏捷中的回顾 - Project中的Lesson&amp;Learn</p>
 <h2 id="第16章_IT行业的创新">第16章 IT行业的创新</h2><p>恩，创新是永恒的话题，不过不是软件工程的核心话题</p>
 <h2 id="第17章_人，绩效和职业道德">第17章 人，绩效和职业道德</h2><p>这章很重要，尤其对于管理者。需要再看一下最新版的《人件》。</p>
+<hr>
 <p>—- OVER —-</p>
 ]]></content>
     <summary type="html">
