@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Write, Code, Share, Learn]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hongbinzuo.github.io//"/>
-  <updated>2016-03-29T15:16:41.000Z</updated>
+  <updated>2016-03-29T15:31:47.000Z</updated>
   <id>http://hongbinzuo.github.io//</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://hongbinzuo.github.io/2016/03/29/The-Way-of-Django/"/>
+    <id>http://hongbinzuo.github.io/2016/03/29/The-Way-of-Django/</id>
+    <published>2016-03-29T15:31:47.000Z</published>
+    <updated>2016-03-29T15:31:47.000Z</updated>
+    <content type="html"><![CDATA[<p>title: The Way of Django<br>date: 2016-03-29 23:27:28<br>tags:</p>
+<ul>
+<li>Django</li>
+<li>Python</li>
+<li>Architecture</li>
+</ul>
+<h1 id="The_Way_of_Django">The Way of Django</h1><p>As a software architect, compared to software developer, I face more choices and challenges every day when constructing software systems. There’s no silver bullet in software development as told by Fred Brooks, but there’s always a better way to build software considering cost and productivity, and the last but the most important factor for modern software development: being happy programmers.<br>&lt;! — more —&gt;</p>
+<p>“Rome is not built in one day”. I must accept the fact that which programming language community is stronger or even strongest for certain domain in the programming world for the time being. That means we may have strong reasons to choose that language, which are solid platform, more mature developers, more 3rd party framework or libraries. That said, for Web Development domain, Java and PHP are the top two choices. Why not them?</p>
+<p>Java is a good language and it’s been there for years. But I have read the rantings from Steve Yegge, and I agree with him that Java is clumsy and verbose. I have used Java for many years since 2001, that is quite a time, but the more I know the language, the more I feel I should switch to another one for a try. I said to myself, why not think dynamically, why not dynamic language?</p>
+<p>Well, for dynamic languages, I don’t know PHP, I know a bit of Ruby, but I heard a lot about Python. They say, “life is short, I use Python”. Although Steve also ranted on Python saying about the indent or exit(). But I am totally comfortable on these points.</p>
+<p>Back to Java, the most attractive to stay with Java is JVM platform. There are many excellent frameworks and libraries, besides, JVM platform is good at performance. As we talk about dynamic languages, they are not even comparable. So it’s hard, it’s hard about the hardest language choices. What is the solution? I searched around the performance optimization methods for Python and I am sure that for the early phase, we don’t have a ton of visits, so we can optimize the system as it grows along the way. It’s not that horrible! Remember twitter? They use Ruby on Rails at first and they changed it to Java back-end when the PV becomes huge. And I learned a lot of famous websites use Python, like Youtube, or Instagram. That improves my confidence.</p>
+<p>I love Scala for over 2 years, but I am afraid it’s not a good time to adopt it in a young team, which means we don’t have Scala developers or polylot programming fans in our team. That’s very hard to propagate it over and over again to just let others love Scala. It’s hard and not necessary at least for now. Clojure, oh, No.</p>
+<p>So actually at last I don’t have many choices, Python is the winner. Amongst Python web frameworks, Django is the best although it’s heavy(Really?). Tornado? or Flask? I compared all of the famous Python web frameworks through the articles and Q&amp;A on the web, and finally choose Django. I don’t need to repeat the arguments but I’d say it’s best suited for our team, young team with a strong leader. I explore and build the infrastructure and ask team to build applications.</p>
+<p>The facts, the rationales and the conclusion, all of them, they all come from what you have and what you want to achieve. Django - The web framework for perfectionists with deadlines. It’s suited for us and it may be suited for you.</p>
+<p>Enjoy the way of Django!</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>title: The Way of Django<br>date: 2016-03-29 23:27:28<br>tags:</p>
+<ul>
+<li>Django</li>
+<li>Python</li>
+<li>Architecture</li>
+</ul>
+<h1 i]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Docker installation on Mac]]></title>
@@ -833,35 +867,6 @@
     <![CDATA[<p>在Lock接口中有两个方法，一个是lock方法，一个是lockInterruptibly方法，它们之间具体有什么区别呢？</p>
 <blockquote>
 <p>lock()是拿不到lock就不罢休，不然线程就一直block。lockInterruptibly会优先响应线程]]>
-    </summary>
-    
-      <category term="Concurrency" scheme="http://hongbinzuo.github.io/tags/Concurrency/"/>
-    
-      <category term="Java" scheme="http://hongbinzuo.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[TryLock]]></title>
-    <link href="http://hongbinzuo.github.io/2014/11/15/TryLock/"/>
-    <id>http://hongbinzuo.github.io/2014/11/15/TryLock/</id>
-    <published>2014-11-15T04:13:26.000Z</published>
-    <updated>2015-06-20T03:25:03.000Z</updated>
-    <content type="html"><![CDATA[<p>《Java并发编程实战》这本书的缺点是有些例子给的不完整，所以想直接复制代码、运行看结果还是比较费力的，第13章显示锁的一个例子就是这样。在这种情况下，只能自己写或求助于互联网。下面用网上的一个小例子演示带有超时功能的tryLock的基本用法。关于Lock和同步代码块的区别以及更深入的研究，后续博文会有所涉及。</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.freelemon.concurrency.chp13;&#10;&#10;import java.util.concurrent.TimeUnit;&#10;import java.util.concurrent.locks.Lock;&#10;import java.util.concurrent.locks.ReentrantLock;&#10;&#10;/**&#10; * Created with IntelliJ IDEA.&#10; * User: hongbin&#10; * Date: 14-11-15&#10; * Time: &#19978;&#21320;11:41&#10; * To change this template use File | Settings | File Templates.&#10; */&#10;public class ReentrantLockingDemo &#123;&#10;    private final Lock lock = new ReentrantLock();&#10;&#10;    public static void main(final String... args)&#123;&#10;        new ReentrantLockingDemo().go();&#10;    &#125;&#10;&#10;    private void go()&#123;&#10;        new Thread(newRunnable(), &#34;Thread-1&#34;).start();&#10;        new Thread(newRunnable(), &#34;Thread-2&#34;).start();&#10;    &#125;&#10;&#10;    private Runnable newRunnable()&#123;&#10;        return new Runnable()&#123;&#10;&#10;            @Override&#10;            public void run() &#123;&#10;                do&#123;&#10;                    try&#123;&#10;                        if (lock.tryLock(500, TimeUnit.MILLISECONDS))&#123;&#10;                            try&#123;&#10;                                System.out.println(&#34;Locked thread &#34; + Thread.currentThread().getName());&#10;                                Thread.sleep(1000);&#10;                            &#125; finally &#123;&#10;                                lock.unlock();&#10;                                    System.out.println(&#34;unlocked locked thread &#34; + Thread.currentThread().getName());&#10;                            &#125;&#10;                            break;&#10;                        &#125; else &#123;&#10;                            System.out.println(&#34;unable to lock thread &#34; + Thread.currentThread().getName() + &#34;, will try again.&#34;);&#10;                        &#125;&#10;                    &#125; catch (InterruptedException e) &#123;&#10;                        e.printStackTrace();&#10;                    &#125;&#10;&#10;                &#125; while(true);&#10;            &#125;&#10;        &#125;;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Locked thread Thread-2&#10;unable to lock thread Thread-1, will try again.&#10;unlocked locked thread Thread-2&#10;Locked thread Thread-1&#10;unlocked locked thread Thread-1</span><br></pre></td></tr></table></figure>
-<h3 id="参考资料">参考资料</h3><ul>
-<li>Credit属于 <a href="http://robaustin.wikidot.com/reentrantlock" target="_blank" rel="external">http://robaustin.wikidot.com/reentrantlock</a></li>
-</ul>
-<h3 id="PS">PS</h3><ul>
-<li>上一篇谈到了CountDownLatch和CyclicBarrier，例子代码详见<a href="https://github.com/hongbinzuo/dojo/blob/master/src/com/freelemon/concurrency/countdownlatch/CountDownLatchTest.java" target="_blank" rel="external">https://github.com/hongbinzuo/dojo/blob/master/src/com/freelemon/concurrency/countdownlatch/CountDownLatchTest.java</a> 和 <a href="https://github.com/hongbinzuo/dojo/blob/master/src/com/freelemon/concurrency/cyclicbarrier/GameBarrier.java" target="_blank" rel="external">https://github.com/hongbinzuo/dojo/blob/master/src/com/freelemon/concurrency/cyclicbarrier/GameBarrier.java</a></li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>《Java并发编程实战》这本书的缺点是有些例子给的不完整，所以想直接复制代码、运行看结果还是比较费力的，第13章显示锁的一个例子就是这样。在这种情况下，只能自己写或求助于互联网。下面用网上的一个小例子演示带有超时功能的tryLock的基本用法。关于Lock和同步代码块的区别以及更深入的研究，后续博文会有所涉及。</p>]]>
-    
     </summary>
     
       <category term="Concurrency" scheme="http://hongbinzuo.github.io/tags/Concurrency/"/>
