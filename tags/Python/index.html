@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Scala patterns (#4) - Strategy | Freelemon&#39;s open world</title>
+  <title>Python | Freelemon&#39;s open world</title>
   <meta name="author" content="Hongbin Zuo">
   
   <meta name="description" content="Think before write.">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Scala patterns (#4) - Strategy"/>
+  
   <meta property="og:site_name" content="Freelemon&#39;s open world"/>
 
   
@@ -59,7 +59,12 @@
 <div class="clearfix"></div>
 </header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">Python</h2>
+
+
+  
+    <article class="post">
   
     <div class="gallery">
   <div class="photoset">
@@ -77,52 +82,27 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-03-02T07:38:41.000Z"><a href="/2014/03/02/scala-patterns---strategy/">Mar 2 2014</a></time>
+        <time datetime="2016-03-29T15:38:51.000Z"><a href="/2016/03/29/The-Way-of-Django/">Mar 29 2016</a></time>
       
       
   
-    <h1 class="title">Scala patterns (#4) - Strategy</h1>
+    <h1 class="title"><a href="/2016/03/29/The-Way-of-Django/">The Way of Django</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>策略模式是一种经典的设计模式，简而言之，就是做同一件事情，但在不同的场景中（或针对不同的对象）采用不同的算法。由于Scala简洁的语法和对高阶函数的支持，相比Java写出的代码会更加精简。</p>
-<p>下面给出几个例子来感受一下Scala中策略模式的写法，首先是<em>Scala in action</em>书中的例子。</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def calculatePrice(product: String, taxingStrategy: String =&#62; Double) = &#123;&#10;  ...  &#10;  val tax = taxingStrategy(product)&#10;  ...&#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>这个例子简直是简单地过分，只需要传入一个函数（参数是String类型，返回值是Double类型），借由传入函数来决定具体的计算方法（策略）就可以了。由于这个例子过分简单，我们再来看一个更具体的例子（来自<a href="http://memuser.blogspot.com/2008/03/design-patterns-in-scala.html#7399152332218666295" target="_blank" rel="external">Memetic Musings Blog</a>）：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">trait TaxPayer&#10;case class Employee(sal: Long) extends TaxPayer&#10;case class NonProfitOrg(funds: BigInt) extends TaxPayer&#10;&#10;//Consider a generic tax calculation function. (It can be in TaxPayer also).&#10;def calculateTax[T &#60;: TaxPayer](victim: T, taxingStrategy: (T =&#62; long)) = &#123;&#10;  taxingStrategy(victim)&#10;&#125;&#10;&#10;val employee = new Employee(1000)&#10;//A strategy to calculate tax for employees&#10;def empStrategy(e: Employee) = Math.ceil(e.sal * .3) toLong&#10;calculateTax(employee, empStrategy)&#10;&#10;val npo = new NonProfitOrg(100000000)&#10;//The tax calculation strategy for npo is trivial, so we can inline it&#10;calculateTax(nonProfit, ((t: TaxPayer) =&#62; 0)</span><br></pre></td></tr></table></figure>
-<p>这个例子更加Scala一些，其中用到了类型上限<code>T &lt;: TaxPayer</code>，意思是T为TaxPayer类型及其子类型。其实仔细一看核心部分和第一个例子是一样的，只不过多用了一些对象的继承关系，使得Strategy的声明和实现更加明确化。</p>
-<p>最后一个例子来自于之前提到过的<a href="http://pavelfatin.com/design-patterns-in-scala/#strategy" target="_blank" rel="external">Design Patterns in Scala</a>，这篇博客的好处是能看到Java实现和Scala实现的比较：</p>
-<p><strong>Java实现</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface Strategy &#123;&#10;    int compute(int a, int b);&#10;&#125;&#10;&#10;public class Add implements Strategy &#123;&#10;    public int compute(int a, int b) &#123; return a + b; &#125;&#10;&#125;&#10;&#10;public class Multiply implements Strategy &#123;&#10;    public int compute(int a, int b) &#123; return a * b; &#125;&#10;&#125;&#10;&#10;public class Context  &#123;&#10;    private final Strategy strategy;&#10;&#10;    public Context(Strategy strategy) &#123; this.strategy = strategy; &#125;&#10;&#10;    public void use(int a, int b) &#123; strategy.compute(a, b); &#125;&#10;&#125;&#10;&#10;new Context(new Multiply()).use(2, 3);</span><br></pre></td></tr></table></figure>
-<p><strong>Scala实现</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">type Strategy = (Int, Int) =&#62; Int &#10;&#10;class Context(computer: Strategy) &#123;&#10;  def use(a: Int, b: Int)  &#123; computer(a, b) &#125;&#10;&#125;&#10;&#10;val add: Strategy = _ + _&#10;val multiply: Strategy = _ * _&#10;&#10;new Context(multiply).use(2, 3)</span><br></pre></td></tr></table></figure>
-<p>是不是觉得尝到一点儿函数式编程的甜头儿了呢？:)</p>
-<p><strong>参考资源</strong></p>
-<ul>
-<li>维基百科对策略模式的定义：<a href="http://en.wikipedia.org/wiki/Strategy_pattern" target="_blank" rel="external">http://en.wikipedia.org/wiki/Strategy_pattern</a></li>
-<li>Stackoverflow中的问答：<a href="http://stackoverflow.com/questions/4950524/better-alternative-to-strategy-pattern-in-scala" target="_blank" rel="external">Better alternative to Strategy pattern in Scala?</a></li>
-<li>Design Patterns in Scala: <a href="http://memuser.blogspot.com/2008/03/design-patterns-in-scala.html" target="_blank" rel="external">http://memuser.blogspot.com/2008/03/design-patterns-in-scala.html</a> </li>
-<li>一个更加详细的策略模式实现：<a href="http://scalasim.blogspot.com/2010/09/strategy-pattern-and-traits.html" target="_blank" rel="external">http://scalasim.blogspot.com/2010/09/strategy-pattern-and-traits.html</a></li>
-<li>Design Patterns in Scala again: <a href="http://pavelfatin.com/design-patterns-in-scala" target="_blank" rel="external">http://pavelfatin.com/design-patterns-in-scala</a></li>
-<li>神奇的长文：<a href="http://alvinalexander.com/scala/how-scala-killed-oop-strategy-design-pattern" target="_blank" rel="external">How Scala killed the Strategy Pattern</a></li>
-</ul>
-
+        <p>As a software architect, compared to software developer, I face more choices and challenges every day when constructing software systems. There’s no silver bullet in software development as told by Fred Brooks, but there’s always a better way to build software considering cost and productivity, and the last but the most important factor for modern software development: being happy programmers.</p>
       
     </div>
     <footer>
       
         
+          <div class="alignleft">
+            <a href="/2016/03/29/The-Way-of-Django/#more" class="more-link">Read More</a>
+          </div>
         
-  
-  <div class="tags">
-    <a href="/tags/Design-Patterns/">Design Patterns</a>, <a href="/tags/Scala/">Scala</a>
-  </div>
-
-        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+        
       
       <div class="clearfix"></div>
     </footer>
@@ -131,28 +111,13 @@
 
 
 
-<section id="comment">
+  
 
-<!-- Duoshuo Comment BEGIN -->
-	<div class="ds-thread"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"freelemon"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = 'http://static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		|| document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- Duoshuo Comment END -->
-
-</section>
-
-
-
-
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
