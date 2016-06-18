@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>The pain of Jinja2 | Freelemon&#39;s open world</title>
+  <meta name="author" content="Hongbin Zuo">
+  
+  <meta name="description" content="Think before write.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="The pain of Jinja2"/>
+  <meta property="og:site_name" content="Freelemon&#39;s open world"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Freelemon&#39;s open world" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45802564-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Freelemon&#39;s open world</a></h1>
+  <h2><a href="/">Write, Code, Share, Learn</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-06-18T08:29:12.000Z"><a href="/2016/06/18/The-pain-of-Jinja2/">Jun 18 2016</a></time>
+      
+      
+  
+    <h1 class="title">The pain of Jinja2</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <blockquote>
+<p>There are many reasons to choose a generally better solution, but there is only one reason you don’t do that, which is it’s not suitable for your problem domain.<br>Who said that? Well, it’s me. LOL</p>
+</blockquote>
+<h2 id="The_origination">The origination</h2><p>In the past two weeks, we have been struggling with Jinja2 template. I have read the famous Two scoops of Django and Q&amp;A on StackOverflow with regard to choosing a template system for Django web project, Jinja2 is praised here and there, so it seems we cannot be wrong to replace native template system called DTL(Django Template Language) with it. </p>
+<p>When we first build the whole project, we use DTL. When the web project is open for test, it seems sort of slow when opening pages. After testing some environment changes, none of them can help. Considering the goodness of Jinja2, and we observe the template rendering time is long, so we decide to try Jinja2.</p>
+<h2 id="The_substitution_path">The substitution path</h2><h3 id="What_have_we_done_for_this_solution?">What have we done for this solution?</h3><p>First of all, I changed the configuration to make DTL and Jinja2 coexist. Following completely the user guide from Jinja2 official website does not work, so I have to search around to make it work finally. Of course, at first I think the best solution is only use Jinja2 because it’s simple. But it turned out that would not work, because the 3rd-party module allauth(We use it for user management) brings lots of HTML pages and we cannot pay the cost to replace them all in Jinja2 syntax. So they have to coexist, and there are three ways to achieve it:</p>
+<p>1.Place DTL template pages and Jinj2 pages in different directories<br>2.Use regex matching on URL pattern<br>3.Use template page extensions</p>
+<p>I tried the second method, it does not work fine. After comparing method 1 and method 3, I tried the third one cause it looks like an easy solution. BTW, since we have a common base template called base.html, by using this technology we have to copy it to two files: base.html and base.jinja2.html, and they have same content in different syntax.</p>
+<p>After the configuration is done, then the real trouble surfaces. It is context processor. We use context processor to hold system menus and other static or relatively static content, but Jinja2 does not have that mechanism, and some guy even said if you have heavy logic in context processor, don’t use Jinja2. Anyhow, there’s always a solution, we refactor the function in context processor by moving it into back-end views. At this point, we don’t clearly recognize the difference. But in the end, we analyze and conclude this is the performance bottleneck for “our” Jinja2 solution. Is there any alternative solution for this problem? Yes, use global variables, but we don’t have time to try it again.</p>
+<p>Back to our Jinja2 substitution path, after context processor is fixed, the last big thing is replace DTL syntax with Jinja2 syntax in HTML pages. Here first I want to write a progam, but the quickest way is to use regex replacement. The difficult point of regex replacement is writing correct regular expressions. We use an interesting open source tool called VerbalExpression(JSVerbalExpression) to achieve it. There are lots of examples in its test code. It’s fun and efficient.</p>
+<p>Is it done? No. Last thing at last: we have some custom filters in DTL syntax, it’s not a simple substitution work, we have to change it by using Jinja2 syntax. After this is finished, the whole Jinj2 substitution work is done.</p>
+<h2 id="The_result">The result</h2><p>We test the substitution result, and it is frustrating. We again studied the solution and the praising words about Jinja2. The big difference is when rendering strings in memory, Jinja2 is definitely faster, but for database queries, the answer is No. We feel the pain.</p>
+<p>Anyway, we need to fix this.</p>
+<h2 id="The_final_solution">The final solution</h2><p>Since database queries are the main cause of performance bottleneck, we can cache static content in cache system such as Redis. We have used Redis before, so we take couple hours to set it up. Redis is simple and helpful, the result is positive. 2 weeks vs. couple hours, what a pain. So the conclusion is whatever they say about it, you need to measure it and make it work in your scenario, whilst you need to pay attention to the cost.</p>
+<p>We finally decide not to use Jinja2, but stay with DTL. We keep the Jinja2 branch and we keep a close eye on both of them, maybe one day we still need it. And until then, the substitution experience can help a lot.</p>
+<p>No pains, no gains. Have a good day!</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Django/">Django</a>, <a href="/tags/Python/">Python</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<section id="comment">
+
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"freelemon"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+</section>
+
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:hongbinzuo.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Architecture/" style="font-size: 13.33px;">Architecture</a> <a href="/tags/Cassandra/" style="font-size: 10px;">Cassandra</a> <a href="/tags/Concurrency/" style="font-size: 15px;">Concurrency</a> <a href="/tags/DI/" style="font-size: 13.33px;">DI</a> <a href="/tags/Design-Patterns/" style="font-size: 15px;">Design Patterns</a> <a href="/tags/Django/" style="font-size: 11.67px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Emacs/" style="font-size: 10px;">Emacs</a> <a href="/tags/FP/" style="font-size: 10px;">FP</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/Hibernate/" style="font-size: 11.67px;">Hibernate</a> <a href="/tags/IoC/" style="font-size: 11.67px;">IoC</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 11.67px;">JavaEE</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Kubernetes/" style="font-size: 10px;">Kubernetes</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/NIO/" style="font-size: 11.67px;">NIO</a> <a href="/tags/NoSQL/" style="font-size: 10px;">NoSQL</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/REST/" style="font-size: 11.67px;">REST</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/SBT/" style="font-size: 11.67px;">SBT</a> <a href="/tags/SE/" style="font-size: 10px;">SE</a> <a href="/tags/SOA/" style="font-size: 10px;">SOA</a> <a href="/tags/SOAP/" style="font-size: 10px;">SOAP</a> <a href="/tags/Scala/" style="font-size: 18.33px;">Scala</a> <a href="/tags/Spark/" style="font-size: 10px;">Spark</a> <a href="/tags/Spring/" style="font-size: 13.33px;">Spring</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/appfuse/" style="font-size: 11.67px;">appfuse</a> <a href="/tags/blog/" style="font-size: 11.67px;">blog</a> <a href="/tags/email/" style="font-size: 10px;">email</a> <a href="/tags/favorites/" style="font-size: 10px;">favorites</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grails/" style="font-size: 13.33px;">grails</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/learning/" style="font-size: 10px;">learning</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/play/" style="font-size: 10px;">play!</a> <a href="/tags/reading/" style="font-size: 16.67px;">reading</a> <a href="/tags/test/" style="font-size: 11.67px;">test</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1734417403&verifier=faa09416&dpc=1"></iframe>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://zipperary.com/" title="Zippera's Blog">Hexo作者博客</a></li>
+<li><a href="http://blog.csdn.net/happydeer/" title="陆其明的博客">豆巴陆其明</a></li>
+<li><a href="http://zhengyaotian.com/" title="Yaotian的博客">Yaotian</a></li>
+<li><a href="http://bobjiang.com/" title="Bob Jiang's Blog">Bob Jiang</a></li>
+<li><a href="http://youfei.github.io/" title="You fei's Blog">快乐的小伙伴儿</a></li>
+<li><a href="http://moonshadow778.github.io/" title="moonshadow">moonshadow778</a></li>
+</ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">我的阅读列表</h3>
+   <div class="entry"><script type="text/javascript" src="http://www.douban.com/service/badge/openworld/?selection=latest&amp;picsize=medium&amp;show=collection&amp;n=8&amp;cat=book&amp;columns=2"></script></div>
+
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 Hongbin Zuo
+  
+  &nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000271202'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/z_stat.php%3Fid%3D1000271202%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<div class="clearfix"></div>
+
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F017d48b7d485850445707f9e552bfde4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>
