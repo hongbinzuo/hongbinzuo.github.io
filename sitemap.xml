@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://hongbinzuo.github.io/2016/07/05/Sort-Your-Brain-Out/</loc>
+    <lastmod>2016-07-05T14:10:50.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hongbinzuo.github.io/2016/06/18/The-pain-of-Jinja2/</loc>
     <lastmod>2016-06-18T08:36:35.000Z</lastmod>
   </url>
@@ -28,11 +33,6 @@
   
   <url>
     <loc>http://hongbinzuo.github.io/2014/02/28/functional-programming-at-first-glance/</loc>
-    <lastmod>2015-06-20T03:25:03.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hongbinzuo.github.io/2014/11/15/synchronized-and-ReentrantLock/</loc>
     <lastmod>2015-06-20T03:25:03.000Z</lastmod>
   </url>
   
@@ -267,6 +267,11 @@
   </url>
   
   <url>
+    <loc>http://hongbinzuo.github.io/2013/12/03/the-pragmatic-programmer---about-email/</loc>
+    <lastmod>2015-06-20T03:25:03.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hongbinzuo.github.io/2014/11/16/SOAP-vs-REST/</loc>
     <lastmod>2015-06-20T03:25:03.000Z</lastmod>
   </url>
@@ -327,7 +332,7 @@
   </url>
   
   <url>
-    <loc>http://hongbinzuo.github.io/2013/12/03/the-pragmatic-programmer---about-email/</loc>
+    <loc>http://hongbinzuo.github.io/2013/11/08/the-first-blog-with-hexo/</loc>
     <lastmod>2015-06-20T03:25:03.000Z</lastmod>
   </url>
   
@@ -347,7 +352,7 @@
   </url>
   
   <url>
-    <loc>http://hongbinzuo.github.io/2013/11/08/the-first-blog-with-hexo/</loc>
+    <loc>http://hongbinzuo.github.io/2013/11/26/talk-about-di-again/</loc>
     <lastmod>2015-06-20T03:25:03.000Z</lastmod>
   </url>
   
@@ -357,7 +362,7 @@
   </url>
   
   <url>
-    <loc>http://hongbinzuo.github.io/2013/11/26/talk-about-di-again/</loc>
+    <loc>http://hongbinzuo.github.io/2014/11/15/synchronized-and-ReentrantLock/</loc>
     <lastmod>2015-06-20T03:25:03.000Z</lastmod>
   </url>
   
@@ -382,12 +387,12 @@
   </url>
   
   <url>
-    <loc>http://hongbinzuo.github.io/README.html</loc>
+    <loc>http://hongbinzuo.github.io/about/index.html</loc>
     <lastmod>2015-06-20T03:25:03.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://hongbinzuo.github.io/about/index.html</loc>
+    <loc>http://hongbinzuo.github.io/README.html</loc>
     <lastmod>2015-06-20T03:25:03.000Z</lastmod>
   </url>
   
