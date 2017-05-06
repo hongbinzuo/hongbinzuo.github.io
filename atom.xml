@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Write, Code, Share, Learn]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hongbinzuo.github.io//"/>
-  <updated>2016-07-05T14:21:51.000Z</updated>
+  <updated>2017-05-06T06:24:52.000Z</updated>
   <id>http://hongbinzuo.github.io//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://hongbinzuo.github.io/2016/07/05/Sort-Your-Brain-Out/"/>
     <id>http://hongbinzuo.github.io/2016/07/05/Sort-Your-Brain-Out/</id>
     <published>2016-07-05T13:28:15.000Z</published>
-    <updated>2016-07-05T14:21:51.000Z</updated>
+    <updated>2017-05-06T06:24:52.000Z</updated>
     <content type="html"><![CDATA[<h1 id="大脑大搜查">大脑大搜查</h1><h2 id="大脑的优化技巧">大脑的优化技巧</h2><ol>
 <li>水——每天第一件事就是为你的大脑补充水分</li>
 <li>运动——大脑健康的关键（也是维持神智的关键）</li>
@@ -28,6 +28,7 @@
 <li>阳光——沐浴阳光，稳定情绪</li>
 <li>咖啡因——在很多方面都对大脑有益，但要适可而止</li>
 </ol>
+<a id="more"></a>
 <h2 id="廉颇老矣、尚能饭否">廉颇老矣、尚能饭否</h2><ol>
 <li>要经常地用学习向大脑发起挑战——它能重新进入“快速学习”的模式。一切就是这么简单</li>
 <li>工作能锐化大脑</li>
@@ -76,7 +77,11 @@
     <![CDATA[<h1 id="大脑大搜查">大脑大搜查</h1><h2 id="大脑的优化技巧">大脑的优化技巧</h2><ol>
 <li>水——每天第一件事就是为你的大脑补充水分</li>
 <li>运动——大脑健康的关键（也是维持神智的关键）</li>
-<li>压力——控制皮质醇来管理压力<]]>
+<li>压力——控制皮质醇来管理压力</li>
+<li>阳光——沐浴阳光，稳定情绪</li>
+<li>咖啡因——在很多方面都对大脑有益，但要适可而止</li>
+</ol>]]>
+    
     </summary>
     
       <category term="Reading" scheme="http://hongbinzuo.github.io/tags/Reading/"/>
@@ -88,10 +93,11 @@
     <link href="http://hongbinzuo.github.io/2016/06/18/The-pain-of-Jinja2/"/>
     <id>http://hongbinzuo.github.io/2016/06/18/The-pain-of-Jinja2/</id>
     <published>2016-06-18T08:29:12.000Z</published>
-    <updated>2016-06-18T08:36:35.000Z</updated>
+    <updated>2017-05-06T06:25:20.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>There are many reasons to choose a generally better solution, but there is only one reason you don’t do that, which is it’s not suitable for your problem domain.<br>Who said that? Well, it’s me. LOL</p>
 </blockquote>
+<a id="more"></a>
 <h2 id="The_origination">The origination</h2><p>In the past two weeks, we have been struggling with Jinja2 template. I have read the famous Two scoops of Django and Q&amp;A on StackOverflow with regard to choosing a template system for Django web project, Jinja2 is praised here and there, so it seems we cannot be wrong to replace native template system called DTL(Django Template Language) with it. </p>
 <p>When we first build the whole project, we use DTL. When the web project is open for test, it seems sort of slow when opening pages. After testing some environment changes, none of them can help. Considering the goodness of Jinja2, and we observe the template rendering time is long, so we decide to try Jinja2.</p>
 <h2 id="The_substitution_path">The substitution path</h2><h3 id="What_have_we_done_for_this_solution?">What have we done for this solution?</h3><p>First of all, I changed the configuration to make DTL and Jinja2 coexist. Following completely the user guide from Jinja2 official website does not work, so I have to search around to make it work finally. Of course, at first I think the best solution is only use Jinja2 because it’s simple. But it turned out that would not work, because the 3rd-party module allauth(We use it for user management) brings lots of HTML pages and we cannot pay the cost to replace them all in Jinja2 syntax. So they have to coexist, and there are three ways to achieve it:</p>
@@ -112,7 +118,9 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
-<p>There are many reasons to choose a generally better solution, but there is only one reason you don’t do that, which is it’s ]]>
+<p>There are many reasons to choose a generally better solution, but there is only one reason you don’t do that, which is it’s not suitable for your problem domain.<br>Who said that? Well, it’s me. LOL</p>
+</blockquote>]]>
+    
     </summary>
     
       <category term="Django" scheme="http://hongbinzuo.github.io/tags/Django/"/>

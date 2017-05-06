@@ -95,54 +95,14 @@
 <li>阳光——沐浴阳光，稳定情绪</li>
 <li>咖啡因——在很多方面都对大脑有益，但要适可而止</li>
 </ol>
-<h2 id="廉颇老矣、尚能饭否">廉颇老矣、尚能饭否</h2><ol>
-<li>要经常地用学习向大脑发起挑战——它能重新进入“快速学习”的模式。一切就是这么简单</li>
-<li>工作能锐化大脑</li>
-<li>了解神经可塑性，能激发出大脑为提高技能所必需的专注精神</li>
-<li>了解和利用想象的力量</li>
-<li>成年后随着不断学习，人类智商依然会增长</li>
-<li>心流——为自己设定不太难，也不太容易，而是恰到好处的目标！</li>
-</ol>
-<blockquote>
-<p>我们的年轻人喜欢奢侈品。他们态度恶劣，蔑视权威——他们不尊重长辈，喜欢在锻炼身体的地方叽叽喳喳。孩子们现在成了家庭里的暴君，而非家人的侍从。长辈走入房间，他们也不再起身致敬。他们顶撞父母，在公众场合喧嚣，不停吃零食，欺压师长。——苏格拉底</p>
-</blockquote>
-<h2 id="虚拟大脑">虚拟大脑</h2><ol>
-<li>大脑并不能“一心多用”，多任务切换时会付出认知成本。</li>
-<li>你是自己数码设备的主人还是奴隶？</li>
-<li>意外的干扰积少成多。多少醍醐灌顶的时刻因为沉思到一半就分心而错过了呢？</li>
-</ol>
-<h2 id="去钓鱼">去钓鱼</h2><ol>
-<li>爱迪生的“浸泡”法（“浸泡”这个翻译有待商榷），我想起了吴伯凡老师提到的“成功与不成功的最大区别是：你是否能够足够沉浸在自己所做的事情当中”。</li>
-<li>工作与玩耍的结合提升创新力</li>
-</ol>
-<h2 id="后见之明的冰山">后见之明的冰山</h2><ol>
-<li>大多数时候，你以为自己做的是合乎逻辑、深思熟虑的决定，其实只是为一个纯粹基于情绪做出的决定附加听起来说得过去的理由。所以，在现实中，你往往并不是彻底地把事情想透，而是不知不觉地以后见之明回顾大脑已经抛出来的决定。</li>
-<li>奥妙是稍微推迟一阵再最终作决定，揣摩着它过上几天，让潜意识有机会搅动起来——要让直觉有机会吸收、理解一切，它才能做决定。</li>
-</ol>
-<blockquote>
-<p>失败和不快乐的主要原因在于，你用自己最需要的东西，换回了现在想要的东西。——Zig Ziglar</p>
-</blockquote>
-<ol>
-<li>赠与本身就是奖励</li>
-<li>别在生气的时候回复消息：情绪化很危险。</li>
-</ol>
-<h2 id="三思而吃">三思而吃</h2><ol>
-<li>慢，用小碗，食物从胃反馈到大脑需要15-20分钟</li>
-<li>细菌的作用</li>
-<li>缓释碳水化合物</li>
-<li>零食慎吃，香蕉不错</li>
-</ol>
-<h2 id="冥想">冥想</h2><p>阿德里安的反思，三件事情非常重要：</p>
-<ul>
-<li>不断挑战我的大脑</li>
-<li>不断为它提供合适的燃料</li>
-<li>认真考虑直觉告诉自己的事情</li>
-</ul>
-
       
     </div>
     <footer>
       
+        
+          <div class="alignleft">
+            <a href="/2016/07/05/Sort-Your-Brain-Out/#more" class="more-link">Read More</a>
+          </div>
         
         
       
@@ -185,28 +145,14 @@
         <blockquote>
 <p>There are many reasons to choose a generally better solution, but there is only one reason you don’t do that, which is it’s not suitable for your problem domain.<br>Who said that? Well, it’s me. LOL</p>
 </blockquote>
-<h2 id="The_origination">The origination</h2><p>In the past two weeks, we have been struggling with Jinja2 template. I have read the famous Two scoops of Django and Q&amp;A on StackOverflow with regard to choosing a template system for Django web project, Jinja2 is praised here and there, so it seems we cannot be wrong to replace native template system called DTL(Django Template Language) with it. </p>
-<p>When we first build the whole project, we use DTL. When the web project is open for test, it seems sort of slow when opening pages. After testing some environment changes, none of them can help. Considering the goodness of Jinja2, and we observe the template rendering time is long, so we decide to try Jinja2.</p>
-<h2 id="The_substitution_path">The substitution path</h2><h3 id="What_have_we_done_for_this_solution?">What have we done for this solution?</h3><p>First of all, I changed the configuration to make DTL and Jinja2 coexist. Following completely the user guide from Jinja2 official website does not work, so I have to search around to make it work finally. Of course, at first I think the best solution is only use Jinja2 because it’s simple. But it turned out that would not work, because the 3rd-party module allauth(We use it for user management) brings lots of HTML pages and we cannot pay the cost to replace them all in Jinja2 syntax. So they have to coexist, and there are three ways to achieve it:</p>
-<ol>
-<li>Place DTL template pages and Jinj2 pages in different directories</li>
-<li>Use regex matching on URL pattern</li>
-<li>Use template page extensions</li>
-</ol>
-<p>I tried the second method, it does not work fine. After comparing method 1 and method 3, I tried the third one cause it looks like an easy solution. BTW, since we have a common base template called base.html, by using this technology we have to copy it to two files: base.html and base.jinja2.html, and they have same content in different syntax.</p>
-<p>After the configuration is done, then the real trouble surfaces. It is context processor. We use context processor to hold system menus and other static or relatively static content, but Jinja2 does not have that mechanism, and some guy even said if you have heavy logic in context processor, don’t use Jinja2. Anyhow, there’s always a solution, we refactor the function in context processor by moving it into back-end views. At this point, we don’t clearly recognize the difference. But in the end, we analyze and conclude this is the performance bottleneck for “our” Jinja2 solution. Is there any alternative solution for this problem? Yes, use global variables, but we don’t have time to try it again.</p>
-<p>Back to our Jinja2 substitution path, after context processor is fixed, the last big thing is replace DTL syntax with Jinja2 syntax in HTML pages. Here first I want to write a progam, but the quickest way is to use regex replacement. The difficult point of regex replacement is writing correct regular expressions. We use an interesting open source tool called VerbalExpression(JSVerbalExpression) to achieve it. There are lots of examples in its test code. It’s fun and efficient.</p>
-<p>Is it done? No. Last thing at last: we have some custom filters in DTL syntax, it’s not a simple substitution work, we have to change it by using Jinja2 syntax. After this is finished, the whole Jinj2 substitution work is done.</p>
-<h2 id="The_result">The result</h2><p>We test the substitution result, and it is frustrating. We again studied the solution and the praising words about Jinja2. The big difference is when rendering strings in memory, Jinja2 is definitely faster, but for database queries, the answer is No. We feel the pain.</p>
-<p>Anyway, we need to fix this.</p>
-<h2 id="The_final_solution">The final solution</h2><p>Since database queries are the main cause of performance bottleneck, we can cache static content in cache system such as Redis. We have used Redis before, so we take couple hours to set it up. Redis is simple and helpful, the result is positive. 2 weeks vs. couple hours, what a pain. So the conclusion is whatever they say about it, you need to measure it and make it work in your scenario, whilst you need to pay attention to the cost.</p>
-<p>We finally decide not to use Jinja2, but stay with DTL. We keep the Jinja2 branch and we keep a close eye on both of them, maybe one day we still need it. And until then, the substitution experience can help a lot.</p>
-<p>No pains, no gains. Have a good day!</p>
-
       
     </div>
     <footer>
       
+        
+          <div class="alignleft">
+            <a href="/2016/06/18/The-pain-of-Jinja2/#more" class="more-link">Read More</a>
+          </div>
         
         
       
